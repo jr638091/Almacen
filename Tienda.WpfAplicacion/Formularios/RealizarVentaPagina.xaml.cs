@@ -25,6 +25,9 @@ namespace WpfAplicacion
         private List<objeto_venta> productos_source;
         private List<objeto_venta> venta_source;
         private List<Trabajador> vendedores;
+
+       
+
         private string codigo_src;
         private string descrip_src;
 
