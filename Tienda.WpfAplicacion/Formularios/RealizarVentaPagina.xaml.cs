@@ -24,6 +24,7 @@ namespace WpfAplicacion
     {
         private List<objeto_venta> productos_source;
         private List<objeto_venta> venta_source;
+        private List<Trabajador> vendedores;
         private string codigo_src;
         private string descrip_src;
 
@@ -39,8 +40,11 @@ namespace WpfAplicacion
 
             venta_source = new List<objeto_venta>();
             productos_source = new List<objeto_venta>();
+            vendedores = new List<Trabajador>();
+
             using (var db = new TiendaDbContext())
             {
+                vendedores = db.Trabajadores.ToList();
                 var temp = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0);
                 foreach (var item in temp)
                 {
@@ -49,7 +53,8 @@ namespace WpfAplicacion
             }
 
             InitializeComponent();
-
+            cb_trabajadores.ItemsSource = vendedores;
+            cb_trabajadores.DisplayMemberPath = "Nombre";
             dgrid_productos.ItemsSource = productos_source;
             dgrid_venta.ItemsSource = venta_source;
         }

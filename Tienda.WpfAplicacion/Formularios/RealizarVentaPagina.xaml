@@ -67,8 +67,9 @@
             <Button Style="{StaticResource Cancel}" x:Name="btn_cancelar" Margin="115,90,0,0" Click="btn_cancelar_Click"/>
         </Grid>
         <Grid Background="LightGray" HorizontalAlignment="Left" Height="102" Margin="10,488,0,0" VerticalAlignment="Top" Width="249">
-            <ComboBox HorizontalAlignment="Left" Height="22" Margin="0,0,0,0" VerticalAlignment="Top" Width="178"/>
-            
+            <ComboBox Name="cb_trabajadores" HorizontalAlignment="Left" Height="22" Margin="37,62,0,0" VerticalAlignment="Top" Width="178"/>
+            <Label Content="Seleccione el vendedor" HorizontalAlignment="Left" Margin="54,24,0,0" VerticalAlignment="Top"/>
+
         </Grid>
     </Grid>
 </Page>
