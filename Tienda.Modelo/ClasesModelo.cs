@@ -57,6 +57,7 @@ namespace Tienda.Modelo
         public virtual Shop Tienda { get; set; }
         public virtual ICollection<ArticuloVenta> Articulos { get; set; }
         public virtual DateTime Fecha { get; set; }
+        public virtual int TrabajadorId { get; set; }
         public virtual Trabajador Trabajador { get; set; }
         public virtual double CostoTotal
         {
@@ -70,6 +71,7 @@ namespace Tienda.Modelo
                 return temp;
             }
         }
+        public virtual double Pagado { get; set; }
         public virtual int CantidadTotal
         {
             get
@@ -95,6 +97,11 @@ namespace Tienda.Modelo
             }
 
             return reporte;
+        }
+
+        public ReporteVenta()
+        {
+            this.Articulos = new List<ArticuloVenta>();
         }
     }
     public class ArticuloVenta

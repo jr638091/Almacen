@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +72,10 @@ namespace WpfAplicacion
             dgrid_venta.ItemsSource = null;
             dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
             dgrid_venta.ItemsSource = venta_source;
+
+            double costo_total = 0;
+            venta_source.ForEach(p => costo_total += p.PrecioTotal);
+            tbox_pagado.Text = costo_total.ToString();
         }
 
         private void btn_Eliminar_Click(object sender, RoutedEventArgs e)
@@ -89,6 +94,9 @@ namespace WpfAplicacion
             dgrid_venta.ItemsSource = null;
             dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
             dgrid_venta.ItemsSource = venta_source;
+            double costo_total = 0;
+            venta_source.ForEach(p => costo_total += p.PrecioTotal);
+            tbox_pagado.Text = costo_total.ToString();
         }
 
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
@@ -97,8 +105,6 @@ namespace WpfAplicacion
             descrip_src = tbox_descripcion.Text;
             dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
         }
-
-
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
@@ -132,6 +138,28 @@ namespace WpfAplicacion
 
             }
             is_editing = false;
+        }
+
+        private void btn_aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if(venta_source.Count() == 0)
+            {
+                MessageBox.Show("No puede realizar una venta de 0 articulos");
+                return;
+            }
+            int trabajador_id = 1;
+            var reporte = venta_source[0].generar_reporte(1, trabajador_id, venta_source);
+            double pagado;
+            if(double.TryParse(tbox_pagado.Text, out pagado))
+            {
+                reporte.Pagado = pagado;
+                using (var db = new TiendaDbContext())
+                {
+                    db.Entry(reporte).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            this.NavigationService.GoBack();
         }
     }
 }

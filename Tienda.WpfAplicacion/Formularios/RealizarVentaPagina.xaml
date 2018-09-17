@@ -61,9 +61,9 @@
         </Grid>
         <Grid HorizontalAlignment="Left" Height="119" Margin="590,488,0,-7" VerticalAlignment="Top" Width="200" Background="LightGray">
             <Label Content="Precio Final" HorizontalAlignment="Left" Height="26" Margin="58,15,0,0" VerticalAlignment="Top" Width="78"/>
-            <TextBox Style="{StaticResource placeHolder}" Tag="00.00" HorizontalAlignment="Left" Height="25" Margin="33,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" TextAlignment="Center"/>
+            <TextBox x:Name="tbox_pagado" Style="{StaticResource placeHolder}" Tag="00.00" HorizontalAlignment="Left" Height="25" Margin="33,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" TextAlignment="Center"/>
             <Label Content="CUC" HorizontalAlignment="Left" Height="25" Margin="129,46,0,0" VerticalAlignment="Top" Width="42"/>
-            <Button Style="{StaticResource Accept}" x:Name="btn_aceptar" Margin="10,90,0,0"/>
+            <Button Style="{StaticResource Accept}" x:Name="btn_aceptar" Margin="10,90,0,0" Click="btn_aceptar_Click"/>
             <Button Style="{StaticResource Cancel}" x:Name="btn_cancelar" Margin="115,90,0,0" Click="btn_cancelar_Click"/>
         </Grid>
         <Grid Background="LightGray" HorizontalAlignment="Left" Height="102" Margin="10,488,0,0" VerticalAlignment="Top" Width="249">

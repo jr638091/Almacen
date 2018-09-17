@@ -43,6 +43,7 @@ namespace WpfAplicacion
             {
                 reporte.Articulos.Add(art);
             }
+
             using (var db = new TiendaDbContext())
             {
                 db.ArticuloEntradas.AddRange(articulos);
@@ -101,6 +102,45 @@ namespace WpfAplicacion
             }
             this.CantidadBuenEstado = 0;
             this.CantidadDefectuoso = 0;
+        }
+
+        public ArticuloVenta genera_articulo(objeto_venta articulo, int reporte_id)
+        {
+            var art = new ArticuloVenta
+            {
+                Codigo = articulo.Codigo,
+                ReporteVentaId = reporte_id,
+                CantidadBuenEstado = articulo.CantidadBuenEstado,
+                CantidadDefectuoso = articulo.CantidadDefectuoso,
+                Precio = articulo.PrecioBuenEstado,
+                PrecioDefectuoso = articulo.PrecioDefectuoso,
+
+            };
+            using (var db = new TiendaDbContext())
+            {
+                db.ArticuloVentas.Add(art);
+                db.SaveChanges();
+            }
+            return art;
+        }
+
+        public ReporteVenta generar_reporte(int tienda_id, int trabajador_id, ICollection<objeto_venta> Articulos)
+        {
+            var reporte = new ReporteVenta { ShopId = tienda_id, TrabajadorId = trabajador_id, Fecha = DateTime.Now };
+
+            using (var db = new TiendaDbContext())
+            {
+                db.ReporteVentas.Add(reporte);
+                db.SaveChanges();
+                foreach (var art in Articulos)
+                {
+                    var art_venta = art.genera_articulo(art, reporte.ReporteVentaId);
+                    reporte.Articulos.Add(art_venta);
+                }
+                db.SaveChanges();
+            }
+
+            return reporte;
         }
     }
 

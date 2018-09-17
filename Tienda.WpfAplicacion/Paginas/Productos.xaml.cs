@@ -21,9 +21,15 @@ namespace WpfAplicacion
     /// </summary>
     public partial class Productos : Page
     {
+        private string codigo_src;
+        private string descrip_src;
+        private List<Producto> source_productos;
         public Productos()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            codigo_src = "";
+            descrip_src = "";
+            source_productos = new List<Producto>();
         }
 
         private void Entrada_Button_Click(object sender, RoutedEventArgs e)
@@ -42,19 +48,16 @@ namespace WpfAplicacion
         {
             using (var db = new TiendaDbContext())
             {
-                var productos = db.Productos.Where(p => p.Codigo.Contains(tbox_codigo.Text));
-                dgrid_productos.ItemsSource = productos.ToList();
+                source_productos = db.Productos.Where(p => p.Codigo.Contains(codigo_src) && p.Descripcion.Contains(descrip_src)).ToList();
+                dgrid_productos.ItemsSource = source_productos;
             }
         }
 
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new TiendaDbContext())
-            {
-                var productos = db.Productos.Where(p => p.Codigo.Contains(tbox_codigo.Text));
-                dgrid_productos.ItemsSource = productos.ToList();
-
-            }
+            codigo_src = tbox_codigo_src.Text;
+            descrip_src = tbox_descripcion_src.Text;
+            dgrid_productos.ItemsSource = source_productos.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
         }
 
         private void dgrid_productos_SelectionChanged(object sender, SelectionChangedEventArgs e)
