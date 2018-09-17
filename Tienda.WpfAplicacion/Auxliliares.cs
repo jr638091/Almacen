@@ -102,6 +102,7 @@ namespace WpfAplicacion
             this.CantidadBuenEstado = 0;
             this.CantidadDefectuoso = 0;
         }
+
     }
 
 }

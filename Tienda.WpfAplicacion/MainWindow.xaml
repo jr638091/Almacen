@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAplicacion"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="810"
-        Source="Paginas/Home.xaml" WindowStyle="None" ShowsNavigationUI="False"          
-        >
-</NavigationWindow>
+        Title="MainWindow"
+        Source="Paginas/Home.xaml" WindowStyle="None" ShowsNavigationUI="False" Width="810" MinWidth="810" MaxWidth="810" Height="613" MinHeight="613" MaxHeight="613"       
+        />
