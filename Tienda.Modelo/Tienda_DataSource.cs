@@ -8,14 +8,22 @@ namespace Tienda.Modelo
 {
     public interface Tienda_DataSource
     {
-        IQueryable<Almacen> Almacenes { get; }
-        IQueryable<Articulo> Articulos { get; }
-        IQueryable<Deuda> Deudas { get; }
-        IQueryable<Empleado> Empleados { get; }
-        IQueryable<Entrada> Entradas { get; }
-        IQueryable<Existencia> Existencias { get; }
         IQueryable<Producto> Productos { get; }
         IQueryable<Shop> Tiendas { get; }
-        IQueryable<Venta> Ventas { get; }
+        IQueryable<ReporteVenta> ReporteVentas { get; }
+        IQueryable<ArticuloVenta> ArticuloVentas { get; }
+        IQueryable<ReporteDeuda> ReporteDeudas { get; }
+        IQueryable<ArticuloDeuda> ArticuloDeudas { get; }
+        IQueryable<ReporteDevolucion> ReporteDevoluciones { get; }
+        IQueryable<ArticuloDevolucion> ArticuloDevoluciones { get; }
+        IQueryable<ReporteEntrada> ReporteEntradas { get; }
+        IQueryable<ArticuloEntrada> ArticuloEntradas { get; }
+        IQueryable<ReporteTransferencia> ReporteTransferencias { get; }
+        IQueryable<ArticuloTransferencia> ArticuloTransferencias { get; }
+        IQueryable<InformeLiquidacion> InformeLiquidaciones { get; }
+        IQueryable<Trabajador> Trabajadores { get; }
+        IQueryable<Existencia> Existencias { get; }
+
+
     }
 }

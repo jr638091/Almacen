@@ -12,14 +12,12 @@ namespace Tienda.Test
     {
         static void Main(string[] args)
         {
-            var db = new TiendaDbContext();
-            var Tienda = new Shop { Nombre = "Tienda de Liuda" };
-            db.Tiendas.Add(Tienda);
-            db.SaveChanges();
             
+
         }
 
+        
 
-       
+
     }
 }

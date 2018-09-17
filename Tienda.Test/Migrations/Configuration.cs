@@ -9,7 +9,7 @@ namespace Tienda.Test.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Tienda.Test.TiendaDbContext context)

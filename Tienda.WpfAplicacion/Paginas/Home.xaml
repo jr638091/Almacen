@@ -1,0 +1,18 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfAplicacion"
+      xmlns:UserControllers="clr-namespace:WpfAplicacion.UserControllers" x:Class="WpfAplicacion.Home"
+        xmlns:Contols ="clr-namespace:WpfAplicacion.UserControllers"
+      mc:Ignorable="d" 
+      Title="Home" Width="800" Height="600">
+
+    <Grid>
+        <local:MenuControl/>
+        <local:TopMenu Title="Home"/>
+        <TextBlock x:Name="tbock_reportes" Margin="206,48,10,363" Background="White" Loaded="tbock_reportes_Loaded"/>
+        <UserControllers:PointShapeLineExample HorizontalAlignment="Left" Height="166" Margin="299,275,0,0" VerticalAlignment="Top" Width="322"/>
+    </Grid>
+</Page>
