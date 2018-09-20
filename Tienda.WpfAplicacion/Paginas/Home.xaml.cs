@@ -72,7 +72,10 @@ namespace WpfAplicacion
             this.NavigationService.Navigate(page);
         }
 
-        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Paginas.Estadisticas());
+        }
     }
 
     

@@ -22,20 +22,27 @@ namespace WpfAplicacion.UserControllers
     /// </summary>
     public partial class PointShapeLineExample : UserControl
     {
+        TiendaDbContext db;
+        DateTime CurrentDate;
+        List<string> MonthAbrev = new List<string>() { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" };
+
+
         public PointShapeLineExample()
         {
             InitializeComponent();
 
+            db = new TiendaDbContext();
+            CurrentDate = DateTime.Now;
+
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
-                {
-                    Title = "Series 1",
+                {                   
                     Values = new ChartValues<double> { 4, 6, 5, 2 ,4 }
                 }
             };
 
-            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
+            Labels = GetLabels(5).ToArray<string>();
             YFormatter = value => value.ToString("C");
 
 
@@ -48,6 +55,55 @@ namespace WpfAplicacion.UserControllers
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
+
+
+        List<string> GetLabels(int n)
+        {
+            List<string> l = new List<string>();
+            int idx = CurrentDate.Month, cnt = 0;
+            while (cnt < n)
+            {
+                l.Add(MonthAbrev[idx - 1]);
+                idx--;
+                if (idx == 0)
+                {
+                    idx = 12;
+                }
+                cnt++;
+            }
+            return l.Reverse<string>().ToList<string>();
+        }
+
+        // Gets the sales on the n previous months
+        ChartValues<double> GetSales(int n)
+        {
+            if (n > 12 || n < 1)
+            {
+                throw new Exception("Months should be beteween 1 and 12");
+            }
+            ChartValues<double> val = new ChartValues<double>();
+            int idx = CurrentDate.Month, cnt = 0;
+            while (cnt < n)
+            {
+                var x = from t in db.ReporteVentas where t.Fecha.Month == idx select t.Pagado;
+                double total = 0;
+                foreach (var item in x)
+                {
+                    total += item;
+                }
+
+                val.Add(total);
+
+                idx--;
+                if (idx == 0)
+                {
+                    idx = 12;
+                }
+                cnt++;
+            }
+
+            return val;
+        }
 
     }
 }

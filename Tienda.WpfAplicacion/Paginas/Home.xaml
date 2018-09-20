@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
-      xmlns:UserControllers="clr-namespace:WpfAplicacion.UserControllers" x:Class="WpfAplicacion.Home"
+      xmlns:UserControllers="clr-namespace:WpfAplicacion.UserControllers"
         xmlns:Contols ="clr-namespace:WpfAplicacion.UserControllers"
+      xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" x:Class="WpfAplicacion.Home"
       mc:Ignorable="d" 
       Title="Home">
 
@@ -13,6 +14,9 @@
         <local:MenuControl/>
         <local:TopMenu Title="Home"/>
         <TextBlock x:Name="tbock_reportes" Text="{Binding Prueba}" Margin="206,48,10,363" Background="White"  ScrollViewer.HorizontalScrollBarVisibility="Visible"/>
-        <UserControllers:PointShapeLineExample HorizontalAlignment="Left" Height="166" Margin="299,275,0,0" VerticalAlignment="Top" Width="322"/>
+        <Contols:PointShapeLineExample HorizontalAlignment="Left" Height="203" Margin="236,238,0,0" VerticalAlignment="Top" Width="385"/>
+        <Button Content="View Statics" HorizontalAlignment="Left" Margin="354,158,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
+
     </Grid>
 </Page>

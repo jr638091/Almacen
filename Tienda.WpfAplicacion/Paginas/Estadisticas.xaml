@@ -1,0 +1,47 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfAplicacion"
+      xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+      x:Class="WpfAplicacion.Paginas.Estadisticas"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="Estadisticas">
+
+    <Grid>
+        <local:MenuControl/>
+        <local:TopMenu/>
+        <TabControl HorizontalAlignment="Left" Height="553" Margin="200,47,0,0" VerticalAlignment="Top" Width="600">
+            <TabItem Header="Ventas x meses" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Wpf:CartesianChart Series="{Binding Data}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Wpf:CartesianChart.AxisY>
+                            <Wpf:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"/>
+                        </Wpf:CartesianChart.AxisY >
+                        <Wpf:CartesianChart.AxisX>
+                            <Wpf:Axis  Title="month" Labels="{Binding XLabel}"/>
+                        </Wpf:CartesianChart.AxisX>
+                    </Wpf:CartesianChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tiendas + Ventas" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Wpf:CartesianChart Series="{Binding SeriesCollection}" >
+                        <Wpf:CartesianChart.AxisX>
+                            <Wpf:Axis Title="Salesman" Labels="{Binding Labels}"></Wpf:Axis>
+                        </Wpf:CartesianChart.AxisX>
+                        <Wpf:CartesianChart.AxisY>
+                            <Wpf:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></Wpf:Axis>
+                        </Wpf:CartesianChart.AxisY>
+                    </Wpf:CartesianChart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+
+    </Grid>
+
+</Page>
