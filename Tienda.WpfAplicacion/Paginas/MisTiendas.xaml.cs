@@ -57,10 +57,14 @@ namespace WpfAplicacion
 
         private void MenuControl_Loaded(object sender, RoutedEventArgs e)
         {
+            TiendaDireccion.Content = "";
+            TiendaNombre.Content = "";
+            TiendaRepresentante.Content = "";
+            TiendaTelfono.Content = "";
             DPTiendas.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                tiendas = db.Tiendas.Where(x => x.ShopId > 1).ToList();
+                tiendas = db.Tiendas.Where(x => x.ShopId > 1 && !x.eliminado).ToList();
             }
 
             foreach (var i in tiendas)

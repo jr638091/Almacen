@@ -16,7 +16,7 @@ namespace WpfAplicacion
         public string Descripcion { get; set; }
         public int CantidadBuenEstado { get; set; }
         public int CantidadDefectuoso { get; set; }
-        public int CantidadTotal { get { return CantidadDefectuoso + CantidadBuenEstado; } }
+        public int CantidadTotal { get { return this.CantidadDefectuoso + this.CantidadBuenEstado; } }
         public entrada(string Codigo, string Descripcion)
         {
             this.Codigo = Codigo;
@@ -82,13 +82,13 @@ namespace WpfAplicacion
         {
             get
             {
-                return PrecioBuenEstado * CantidadBuenEstado + PrecioDefectuoso * CantidadDefectuoso;
+                return this.PrecioBuenEstado * this.CantidadBuenEstado + this.PrecioDefectuoso * this.CantidadDefectuoso;
             }
         }
 
         public int CantidadExistenteBE { get; set; }
         public int CantidadExistenteDefec { get; set; }
-        public int CantidadTotalExistente { get { return CantidadExistenteBE + CantidadExistenteDefec; } }
+        public int CantidadTotalExistente { get { return this.CantidadExistenteBE + this.CantidadExistenteDefec; } }
 
         public objeto_venta(int ExistenciaId)
         {
@@ -305,6 +305,23 @@ namespace WpfAplicacion
 
     public class Metodos_Auxiliares
     {
+
+        public static DataGrid make_dg(IEnumerable<object> source, List<string> header, List<string> path)
+        {
+            DataGrid dg = new DataGrid();
+            dg.AutoGenerateColumns = false;
+            dg.ItemsSource = source;
+            for (int i = 0; i < path.Count; ++i)
+            {
+                DataGridTextColumn t = new DataGridTextColumn();
+                t.Binding = new Binding(path[i]);
+                t.Header = header[i];
+                t.IsReadOnly = true;
+                dg.Columns.Add(t);
+            }
+            return dg;
+        }
+
         public static InformeLiquidacion genera_informe(int tienda_id, ReporteDeuda deuda, ReporteDevolucion devolucion, ReporteVenta venta)
         {
             using (var db = new TiendaDbContext())
@@ -372,7 +389,7 @@ namespace WpfAplicacion
         {
             get
             {
-                return PrecioBuenEstado * CantidadBuenEstado + PrecioDefectuoso * CantidadDefectuoso;
+                return this.PrecioBuenEstado * this.CantidadBuenEstado + this.PrecioDefectuoso * this.CantidadDefectuoso;
             }
         }
 
@@ -393,18 +410,6 @@ namespace WpfAplicacion
     }
 
 
-    public class Width_converter : IValueConverter
-    {
-
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (double)value / 2;
-        }
-
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (double)value * 2;
-        }
-    }
+    
 
 }

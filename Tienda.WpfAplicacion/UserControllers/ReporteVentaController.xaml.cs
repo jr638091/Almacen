@@ -20,8 +20,7 @@ namespace WpfAplicacion.UserControllers
     /// </summary>
     public partial class ReporteVentaController : UserControl
     {
-
-        DataGrid dg = new DataGrid();
+        StackPanel dg = new StackPanel();
         public ReporteVentaController()
         {
             InitializeComponent();
@@ -30,23 +29,17 @@ namespace WpfAplicacion.UserControllers
             dg.Margin = new Thickness(0, 30, 0, 0);
         }
 
-        public ReporteVentaController(object obj, List<string> header, List<string> path)
+        public ReporteVentaController(params UIElement[] args)
         {
             InitializeComponent();
-            dg.Name = "dg_inform";
             dg.HorizontalAlignment = HorizontalAlignment.Stretch;
             dg.VerticalAlignment = VerticalAlignment.Top;
             dg.Margin = new Thickness(0, 30, 0, 0);
-            dg.AutoGenerateColumns = false;
-            dg.ItemsSource = (obj as IEnumerable<object>);
-            for(int i = 0;i < path.Count;++i)
+            foreach(var i in args)
             {
-                DataGridTextColumn t = new DataGridTextColumn();
-                t.Binding = new Binding(path[i]);
-                t.Header = header[i];
-                t.IsReadOnly = true;
-                dg.Columns.Add(t);
+                dg.Children.Add(i);
             }
+            
         }
 
         private void expand_btn_Click(object sender, RoutedEventArgs e)
