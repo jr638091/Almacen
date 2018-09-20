@@ -114,5 +114,54 @@ namespace WpfAplicacion
             gbox_modificarPrecio.Visibility = Visibility.Hidden;
             btn_cambiarPrecio.Visibility = Visibility.Visible;
         }
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            using(var db = new TiendaDbContext())
+            {
+                dg_trab.ItemsSource = db.Trabajadores.Where(x=>x.eliminado != true).ToList();
+            }
+        }
+
+        private void dg_trab_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if(dg_trab.SelectedIndex >= (new TiendaDbContext()).Trabajadores.Where(x => !x.eliminado).Count())
+            {
+                using( var db = new TiendaDbContext())
+                {
+                    db.Trabajadores.Add(new Trabajador { Nombre = (e.EditingElement as TextBox).Text });
+                    db.SaveChanges();
+                    dgrid_productos.ItemsSource = null;
+                    dg_trab.ItemsSource = db.Trabajadores.Where(x => !x.eliminado).ToList();
+                    dgrid_productos.ItemsSource = null;
+                    dgrid_productos.ItemsSource = data_source;
+                }
+            }
+            else
+                if(MessageBox.Show("Esta seguro","Cambio de Nombre", MessageBoxButton.YesNo) == MessageBoxResult.Yes){
+                    using (var db = new TiendaDbContext())
+                    {
+                        db.Trabajadores.Find((dg_trab.SelectedItem as Trabajador).TrabajadorId).Nombre = (e.EditingElement as TextBox).Text;
+                        db.SaveChanges();
+                    }
+                }
+        }
+
+        private void delete_empleado_Click(object sender, RoutedEventArgs e)
+        {
+            if (dg_trab.SelectedItem == null || !(dg_trab.SelectedItem is Trabajador))
+                MessageBox.Show("Debe escoger un trabajador");
+            else
+            {
+                if(MessageBox.Show("Esta seguro", "Eliminar Trabajador", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    using(var db = new TiendaDbContext())
+                    {
+                        db.Trabajadores.Find((dg_trab.SelectedItem as Trabajador).TrabajadorId).eliminado = true;
+                        db.SaveChanges();
+                        dg_trab.ItemsSource = null;
+                        dg_trab.ItemsSource = db.Trabajadores.Where(x => !x.eliminado).ToList();
+                    }
+            }
+        }
     }
 }

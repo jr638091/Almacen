@@ -41,7 +41,7 @@ namespace WpfAplicacion
 
             using (var db = new TiendaDbContext())
             {
-                vendedores = db.Trabajadores.OrderBy(i => i.Nombre).ToList();
+                vendedores = db.Trabajadores.OrderBy(i => i.Nombre).Where(x=>x.eliminado==false).ToList();
                 var temp = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0);
                 foreach (var item in temp)
                 {

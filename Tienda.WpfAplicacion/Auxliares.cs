@@ -305,6 +305,23 @@ namespace WpfAplicacion
 
     public class Metodos_Auxiliares
     {
+
+        public static DataGrid make_dg(IEnumerable<object> source, List<string> header, List<string> path)
+        {
+            DataGrid dg = new DataGrid();
+            dg.AutoGenerateColumns = false;
+            dg.ItemsSource = source;
+            for (int i = 0; i < path.Count; ++i)
+            {
+                DataGridTextColumn t = new DataGridTextColumn();
+                t.Binding = new Binding(path[i]);
+                t.Header = header[i];
+                t.IsReadOnly = true;
+                dg.Columns.Add(t);
+            }
+            return dg;
+        }
+
         public static InformeLiquidacion genera_informe(int tienda_id, ReporteDeuda deuda, ReporteDevolucion devolucion, ReporteVenta venta)
         {
             using (var db = new TiendaDbContext())

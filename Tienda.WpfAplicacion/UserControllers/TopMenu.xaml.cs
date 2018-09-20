@@ -89,30 +89,5 @@ namespace WpfAplicacion
             else
                 a.Close();
         }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            //var p = GetDependencyObjectFromVisualTree(this, typeof(Page));
-            //string[] s = p.GetType().ToString().Split('.');
-            //string tittle = s[s.Length - 1];
-            //string result = "";
-            //result += tittle[0];
-            //for (int i = 1; i < tittle.Length; ++i)
-            //{
-            //    if (char.IsUpper(tittle[i]))
-            //        result += " " + tittle[i];
-            //    else
-            //        result += tittle[i];
-            //}
-            //string[] aux = result.Split();
-            //result = "";
-            //for (int i = 0; i < aux.Length; ++i)
-            //{
-            //    if (aux[i] != "Pagina")
-            //        result += " " + aux[i];
-            //}
-            //label_page_name.Content = result;
-
-        }
     }
 }
