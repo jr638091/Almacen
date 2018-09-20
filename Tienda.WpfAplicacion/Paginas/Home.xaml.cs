@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tienda.Modelo;
+using OfficeExcel = Microsoft.Office.Interop.Excel;
+using System.Data;
+using System.Drawing;
 
 namespace WpfAplicacion
 {
@@ -68,6 +71,8 @@ namespace WpfAplicacion
             var page = new MiTiendaPagina();
             this.NavigationService.Navigate(page);
         }
+
+        
     }
 
     

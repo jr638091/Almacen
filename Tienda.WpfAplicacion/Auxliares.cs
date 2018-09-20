@@ -16,7 +16,7 @@ namespace WpfAplicacion
         public string Descripcion { get; set; }
         public int CantidadBuenEstado { get; set; }
         public int CantidadDefectuoso { get; set; }
-        public int CantidadTotal { get { return CantidadDefectuoso + CantidadBuenEstado; } }
+        public int CantidadTotal { get { return this.CantidadDefectuoso + this.CantidadBuenEstado; } }
         public entrada(string Codigo, string Descripcion)
         {
             this.Codigo = Codigo;
@@ -82,13 +82,13 @@ namespace WpfAplicacion
         {
             get
             {
-                return PrecioBuenEstado * CantidadBuenEstado + PrecioDefectuoso * CantidadDefectuoso;
+                return this.PrecioBuenEstado * this.CantidadBuenEstado + this.PrecioDefectuoso * this.CantidadDefectuoso;
             }
         }
 
         public int CantidadExistenteBE { get; set; }
         public int CantidadExistenteDefec { get; set; }
-        public int CantidadTotalExistente { get { return CantidadExistenteBE + CantidadExistenteDefec; } }
+        public int CantidadTotalExistente { get { return this.CantidadExistenteBE + this.CantidadExistenteDefec; } }
 
         public objeto_venta(int ExistenciaId)
         {
@@ -372,7 +372,7 @@ namespace WpfAplicacion
         {
             get
             {
-                return PrecioBuenEstado * CantidadBuenEstado + PrecioDefectuoso * CantidadDefectuoso;
+                return this.PrecioBuenEstado * this.CantidadBuenEstado + this.PrecioDefectuoso * this.CantidadDefectuoso;
             }
         }
 
@@ -393,18 +393,6 @@ namespace WpfAplicacion
     }
 
 
-    public class Width_converter : IValueConverter
-    {
-
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (double)value / 2;
-        }
-
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (double)value * 2;
-        }
-    }
+    
 
 }
