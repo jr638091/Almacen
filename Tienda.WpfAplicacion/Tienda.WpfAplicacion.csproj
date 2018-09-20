@@ -93,6 +93,9 @@
     <Compile Include="Formularios\LiquidacionPagina.xaml.cs">
       <DependentUpon>LiquidacionPagina.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\Estadisticas.xaml.cs">
+      <DependentUpon>Estadisticas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\Information.xaml.cs">
       <DependentUpon>Information.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Formularios\Entrada.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\Estadisticas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
