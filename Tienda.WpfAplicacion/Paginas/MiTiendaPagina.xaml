@@ -18,7 +18,7 @@
     <Grid Loaded="Grid_Loaded">
         <local:TopMenu Title="Mi Tienda"/>
         <local:MenuControl/>
-        <Button x:Name="btn_cambiarPrecio" Background="Aquamarine" Content="Modificar Precio" HorizontalAlignment="Left" Height="48" Margin="635,144,0,0" VerticalAlignment="Top" Width="155" Click="btn_cambiarPrecio_Click"/>
+        <Button x:Name="btn_cambiarPrecio" Background="Aquamarine" Content="Modificar Precio" HorizontalAlignment="Left" Height="48" Margin="635,160,0,0" VerticalAlignment="Top" Width="155" Click="btn_cambiarPrecio_Click"/>
         <GroupBox x:Name="gbox_modificarPrecio" Header="Modifique Precios" HorizontalAlignment="Left" Height="94" Margin="600,144,0,0" VerticalAlignment="Top" Width="190" Visibility="Hidden">
             <Grid>
                 <TextBox x:Name="tbox_precioDefectuoso" Style="{StaticResource placeHolder}" Tag="Nuevo Precio" HorizontalAlignment="Left" Height="25" Margin="63,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="67"/>
@@ -41,6 +41,11 @@
         </DataGrid>
         <TextBlock x:Name="tblock_descripcion" HorizontalAlignment="Left" Height="54" Margin="222,536,0,0" TextWrapping="Wrap" Text="Seleccione un producto para ver su descripcion" VerticalAlignment="Top" Width="389"/>
         <Button x:Name="btn_Vender" Background="Aquamarine" Content="Realizar Venta" HorizontalAlignment="Left" Height="48" Margin="635,69,0,0" VerticalAlignment="Top" Width="155" Click="btn_Vender_Click"/>
-
+        <DataGrid Name="dg_trab" HorizontalAlignment="Left" Height="217" Margin="616,293,0,0" VerticalAlignment="Top" Width="164" AutoGenerateColumns="False" Loaded="DataGrid_Loaded" CellEditEnding="dg_trab_CellEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Nombre}" Header="Nombre" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="delete_empleado" Content="Eliminar trabajador" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="14" Margin="0,0,10.4,35.4" Background="Coral" Click="delete_empleado_Click"/>
     </Grid>
 </Page>

@@ -12,6 +12,7 @@ namespace Tienda.Modelo
         [Key]
         public virtual string Codigo { get; set; }
         public virtual string Descripcion { get; set; }
+        public virtual bool eliminado { get; set; }
     }
     public class Trabajador
     {
@@ -19,6 +20,7 @@ namespace Tienda.Modelo
         public virtual string Nombre { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
+        public virtual bool eliminado { get; set; }
 
     }
     public class Existencia
@@ -40,6 +42,7 @@ namespace Tienda.Modelo
 
         public virtual double PrecioBuenEstado { get; set; }
         public virtual double PrecioDefectuoso { get; set; }
+        public virtual bool eliminado { get; set; }
     }
     public class Shop
     {
@@ -51,9 +54,11 @@ namespace Tienda.Modelo
         public virtual int TrabajadorId { get; set; }
         public virtual ICollection<Trabajador> Trabajadores { get; set; }
         public virtual ICollection<Existencia> Productos { get; set; }
+        public virtual bool eliminado { get; set; }
     }
     public class ReporteVenta
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ReporteVentaId { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
@@ -107,6 +112,7 @@ namespace Tienda.Modelo
     }
     public class ArticuloVenta
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ArticuloVentaId { get; set; }
         public virtual int ReporteVentaId { get; set; }
         public virtual ReporteVenta ReporteVenta { get; set; }
@@ -127,6 +133,7 @@ namespace Tienda.Modelo
     }
     public class ReporteDeuda
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ReporteDeudaId { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
@@ -174,6 +181,7 @@ namespace Tienda.Modelo
     }
     public class ArticuloDeuda
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ArticuloDeudaId { get; set; }
         public virtual int ReporteDeudaId { get; set; }
         public virtual ReporteDeuda ReporteDeuda { get; set; }
@@ -194,6 +202,7 @@ namespace Tienda.Modelo
     }
     public class ReporteDevolucion
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ReporteDevolucionId { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
@@ -227,6 +236,7 @@ namespace Tienda.Modelo
     }
     public class ArticuloDevolucion
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ArticuloDevolucionId { get; set; }
         public virtual int ReporteDevolucionId { get; set; }
         public virtual ReporteDevolucion ReporteDevolucion { get; set; }
@@ -246,6 +256,7 @@ namespace Tienda.Modelo
     }
     public class ReporteEntrada
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ReporteEntradaId { get; set; }
         public virtual ICollection<ArticuloEntrada> Articulos { get; set; }
         public virtual DateTime Fecha { get; set; }
@@ -278,6 +289,7 @@ namespace Tienda.Modelo
     }
     public class ArticuloEntrada
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ArticuloEntradaId { get; set; }
         public virtual int ReporteEntradaId { get; set; }
         public virtual ReporteEntrada ReporteEntrada { get; set; }
@@ -289,6 +301,7 @@ namespace Tienda.Modelo
     }
     public class ReporteTransferencia
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ReporteTransferenciaId { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
@@ -324,6 +337,7 @@ namespace Tienda.Modelo
     }
     public class ArticuloTransferencia
     {
+        public virtual bool eliminado { get; set; }
         public virtual int ArticuloTransferenciaId { get; set; }
         public virtual int ReporteTransferenciaId { get; set; }
         public virtual ReporteTransferencia ReporteTransferencia { get; set; }
@@ -337,6 +351,7 @@ namespace Tienda.Modelo
     public class InformeLiquidacion
     {
 
+        public virtual bool eliminado { get; set; }
         public virtual int InformeLiquidacionId { get; set; }
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }

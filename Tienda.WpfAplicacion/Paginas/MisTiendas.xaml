@@ -15,9 +15,9 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid Loaded="MenuControl_Loaded">
         <local:TopMenu Title="Tiendas Asociadas"/>
-        <local:MenuControl Loaded="MenuControl_Loaded"/>
+        <local:MenuControl/>
 
 
 

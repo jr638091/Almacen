@@ -136,5 +136,20 @@ namespace WpfAplicacion
                 dg_prods.ItemsSource = t;
             }
         }
+
+        private void eliminar_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("Estas Seguro","Eliminar Tienda", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                using(var db = new TiendaDbContext())
+                {
+                    var t = db.Tiendas.Find(tienda);
+                    t.eliminado = true;
+                    t.Encargado.eliminado = true;
+                    db.SaveChanges();
+                }
+                NavigationService.GoBack();
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@
     </UserControl.Resources>
     
     <Grid Name="grid_base">
-        <Grid Background="AntiqueWhite" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <DockPanel Name="dp">
                 <Grid DockPanel.Dock="Left">
                     <Button Name="expand_btn" Margin="5,5" Content="+" VerticalAlignment="Top" HorizontalAlignment="Left" Height="15" Width="15" FontSize="10" Click="expand_btn_Click"/>
@@ -24,7 +24,7 @@
                 </Grid>
                 <Label Style="{StaticResource Label_inf}" Name="fecha_inform" Content="XX-XX-XXXX"/>
                 <Label Style="{StaticResource Label_inf}" Name="nombre_inform" Content="Prueba's Tienda"/>
-                <Label Style="{StaticResource Label_inf}" Name="pago_inform" Content="XXX.XX $ "/>
+                <Label Style="{StaticResource Label_inf}" Name="pago_inform"/>
             </DockPanel>
         </Grid>
     </Grid>

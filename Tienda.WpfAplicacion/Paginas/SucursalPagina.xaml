@@ -42,6 +42,6 @@
         <Button Content="Entrada" Name="btn_entrada" HorizontalAlignment="Left"  Margin="605,415,0,0" VerticalAlignment="Top" Width="100" FontSize="20" Background="Aquamarine" Click="btn_entrada_Click"/>
         <Label Foreground="Red" HorizontalAlignment="Left" Margin="221,564,0,0" VerticalAlignment="Top"/>
         <Button Content="Deudas" HorizontalAlignment="Left" FontSize="20" Margin="605,469,0,0" VerticalAlignment="Top" Background="Aquamarine" Click="Button_Click_1" Width="100" />
-
+        <Button Name="eliminar_btn" Content="Eliminar esta Tienda" Background="Coral" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="eliminar_btn_Click"/>
     </Grid>
 </Page>
