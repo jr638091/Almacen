@@ -43,13 +43,15 @@ namespace WpfAplicacion
             using (var db = new TiendaDbContext())
             {
                 var reportes = new List<string>();
-                var rep = db.ReporteEntradas.ToList();
-                foreach (var reporte in rep)
-                    reportes.Add(reporte.EscribirReporte());
+                var rep_entrada = db.ReporteEntradas.ToList();
+                var rep_venta = db.ReporteVentas.Where(r => r.ShopId == 1).ToList();
+                var informe_liquidacion = db.InformeLiquidaciones.ToList();
+                rep_venta.ForEach(r => reportes.Add(r.EscribirReporte()));
+                rep_entrada.ForEach(r => reportes.Add(r.EscribirReporte()));
+                informe_liquidacion.ForEach(r => reportes.Add(r.EscribirReporte()));
                 reportes.Sort();
                 foreach (var reporte in reportes)
                     tbock_reportes.Text += reporte;
-                
             }
         }
 

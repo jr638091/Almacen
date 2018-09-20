@@ -5,9 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
-      Height="600"
-      Width="800"
       Title="RealizarVentaPagina">
 
     <Page.Resources>
@@ -18,7 +15,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid MouseMove="Grid_MouseMove">
+    <Grid>
         <local:TopMenu Title="Nueva Venta"/>
         <Grid HorizontalAlignment="Left" Height="426" Margin="10,57,0,0" VerticalAlignment="Top" Width="780" Background="LightGray">
             <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="99" Margin="10,64,0,0" VerticalAlignment="Top" Width="270">
@@ -33,24 +30,24 @@
 
             <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="248" Margin="10,168,0,0" VerticalAlignment="Top" Width="352" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Codigo"/>
-                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadExistenteBE}" Width="0.13*" Header="BE"/>
-                    <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.13*" Header="$"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadExistenteDefec}" Width="0.13*" Header="Defec"/>
-                    <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.13*" Header="$"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadTotalExistente}" Width="0.13*" Header="Total"/>
+                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Codigo" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantidadExistenteBE}" Width="0.13*" Header="BE" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.13*" Header="$" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantidadExistenteDefec}" Width="0.13*" Header="Defec" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.13*" Header="$" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantidadTotalExistente}" Width="0.13*" Header="Total" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="248" Margin="428,168,0,0" VerticalAlignment="Top" Width="342" AutoGenerateColumns="False" BeginningEdit="dgrid_venta_BeginningEdit" CellEditEnding="dgrid_venta_CellEditEnding">
+            <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="248" Margin="428,168,0,0" VerticalAlignment="Top" Width="342" AutoGenerateColumns="False" CellEditEnding="dgrid_venta_CellEditEnding">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Cod"/>
-                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion"/>
+                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Cod" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.13*" Header="BE"/>
-                    <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.13*" Header="$"/>
+                    <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.13*" Header="$" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Width="0.13*" Header="Defec"/>
-                    <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.13*" Header="$"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.13*" Header="Total"/>
+                    <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.13*" Header="$" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.13*" Header="Total" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button  Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Height="17" Margin="367,266,0,0" VerticalAlignment="Top" Width="56" Click="btn_Eliminar_Click"/>

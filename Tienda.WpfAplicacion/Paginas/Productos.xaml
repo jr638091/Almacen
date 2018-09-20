@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="Productos" Width="800" Height="600"
+      Title="Productos"
     >
 
     <Page.Resources>
@@ -22,28 +21,29 @@
         <local:MenuControl/>
         <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="99" Margin="247,88,0,0" VerticalAlignment="Top" Width="270">
             <Grid>
-                <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14"  Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
                 <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
-                <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
                 <Label Content="Descrip" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
                 <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
             </Grid>
         </GroupBox>
         <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="371" Margin="247,203,0,0" VerticalAlignment="Top" Width="270" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.3*" Header="Codigo" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.7*" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Entrada" HorizontalAlignment="Left" Height="29" Margin="634,83,0,0" VerticalAlignment="Top" Width="97" Background="Aquamarine" Click="Entrada_Button_Click"/>
         <Label Content="Productos" HorizontalAlignment="Left" Height="38" Margin="247,45,0,0" VerticalAlignment="Top" Width="270" HorizontalContentAlignment="Center"/>
         <Label Content="Precios" HorizontalAlignment="Left" Height="40" Margin="634,117,0,0" VerticalAlignment="Top" Width="73"/>
         <Label Content="Ubicacion" HorizontalAlignment="Left" Height="38" Margin="571,340,0,0" VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center"/>
-        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="162" Margin="571,371,0,0" VerticalAlignment="Top" Width="191" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="162" Margin="555,203,0,0" VerticalAlignment="Top" Width="191" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Nombre}" Width="1*" Header="Nombre de tienda"/>
+                <DataGridTextColumn Binding="{Binding Path=Nombre}" IsReadOnly="True" Header="Nombre de tienda"/>
+                <DataGridTextColumn Binding="{Binding Path=CantBE}" IsReadOnly="True" Header="Cant. BE"/>
+                <DataGridTextColumn Binding="{Binding Path=CantDef}" IsReadOnly="True" Header="Cant. def"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="dgrid_precio" HorizontalAlignment="Left" Height="173" Margin="571,162,0,0" VerticalAlignment="Top" Width="191"/>
     </Grid>
 </Page>

@@ -82,13 +82,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Auxliliares.cs" />
+    <Compile Include="Auxliares.cs" />
+    <Compile Include="Formularios\DeudasLiquidacionPagina.xaml.cs">
+      <DependentUpon>DeudasLiquidacionPagina.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Entrada.xaml.cs">
       <DependentUpon>Entrada.xaml</DependentUpon>
     </Compile>
     <Compile Include="IFormulario.cs" />
     <Compile Include="Formularios\LiquidacionPagina.xaml.cs">
       <DependentUpon>LiquidacionPagina.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Information.xaml.cs">
+      <DependentUpon>Information.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControllers\MenuControl.xaml.cs">
       <DependentUpon>MenuControl.xaml</DependentUpon>
@@ -121,9 +127,16 @@
     <Compile Include="UserControllers\PointShapeLineExample.xaml.cs">
       <DependentUpon>PointShapeLineExample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControllers\ReporteVentaController.xaml.cs">
+      <DependentUpon>ReporteVentaController.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControllers\TopMenu.xaml.cs">
       <DependentUpon>TopMenu.xaml</DependentUpon>
     </Compile>
+    <Page Include="Formularios\DeudasLiquidacionPagina.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Formularios\Entrada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +164,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Paginas\Information.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControllers\MenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControllers\PointShapeLineExample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControllers\ReporteVentaController.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,7 +281,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="iconos\18404.png" />
     <Resource Include="iconos\almacen.png" />
@@ -276,13 +296,7 @@
     <Resource Include="iconos\close.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app_data\Tienda.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="app_data\Tienda_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Tienda.mdf</DependentUpon>
-    </Content>
+    <Folder Include="app_data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

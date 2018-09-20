@@ -1,0 +1,132 @@
+﻿<Page x:Class="WpfAplicacion.Information"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfAplicacion"
+      xmlns:usercontroller="clr-namespace:WpfAplicacion.UserControllers"
+      mc:Ignorable="d" 
+      Title="Information">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <local:MenuControl/>
+        <local:TopMenu Title="Informes"/>
+        <Grid HorizontalAlignment="Left" Height="554" Margin="201,46,0,0" VerticalAlignment="Top" Width="599">
+            <TabControl Name="TC" Loaded="TC_Loaded">
+                <TabItem Name="liquidacion_tab" Width="99" Height="30" Header="Liquidacion">
+                    <Grid Margin="0,0,0,0">
+                        <StackPanel Orientation="Vertical" Background="LightGray" Margin="0,0,200,0">
+                            <usercontroller:ReporteVentaController/>
+                            <usercontroller:ReporteVentaController/>
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="444,429,0,0" VerticalAlignment="Top" Width="75"/>
+                        <TextBox Margin="408,129,136,366"/>
+                        <TextBox Margin="492,129,49,366"/>
+                        <Label Margin="429,81,49,406">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="462,129,106,356">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="venta_tab" Width="99" Height="30" Header="Venta">
+                    <Grid Margin="0,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="155*"/>
+                            <ColumnDefinition Width="438*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Name="venta_sp" Orientation="Vertical" Background="LightGray" Margin="0,0,199.8,0" Grid.ColumnSpan="2">
+
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="289.224,429,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                        <TextBox Margin="253.224,129,135.8,366" Grid.Column="1"/>
+                        <TextBox Margin="337.224,129,48.8,366" Grid.Column="1"/>
+                        <Label Margin="274.224,81,48.8,406" Grid.Column="1">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="307.224,129,105.8,356" Grid.Column="1">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="devoluciones_tab" Width="99" Height="30" Header="Devolucion">
+                    <Grid Margin="0,0,0,0">
+                        <StackPanel Name="devoluciones_sp" Orientation="Vertical" Background="LightGray" Margin="0,0,200,0">
+
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="444,429,0,0" VerticalAlignment="Top" Width="75"/>
+                        <TextBox Margin="408,129,136,366"/>
+                        <TextBox Margin="492,129,49,366"/>
+                        <Label Margin="429,81,49,406">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="462,129,106,356">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="deuda_tab" Width="99" Height="30" Header="Deuda">
+                    <Grid Margin="0,0,0,0">
+                        <StackPanel Name="deuda_sp" Orientation="Vertical" Background="LightGray" Margin="0,0,200,0">
+
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="444,429,0,0" VerticalAlignment="Top" Width="75"/>
+                        <TextBox Margin="408,129,136,366"/>
+                        <TextBox Margin="492,129,49,366"/>
+                        <Label Margin="429,81,49,406">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="462,129,106,356">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="transferencia_tab" Width="99" Height="30" Header="Transferencia">
+                    <Grid Margin="0,0,0,0">
+                        <StackPanel Name="transferencia_sp" Orientation="Vertical" Background="LightGray" Margin="0,0,200,0">
+
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="444,429,0,0" VerticalAlignment="Top" Width="75"/>
+                        <TextBox Margin="408,129,136,366"/>
+                        <TextBox Margin="492,129,49,366"/>
+                        <Label Margin="429,81,49,406">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="462,129,106,356">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="entrada_tab" Width="99" Height="30" Header="Entrada">
+                    <Grid Margin="0,0,0,0">
+                        <StackPanel Orientation="Vertical" Background="LightGray" Margin="0,0,200,0">
+
+                        </StackPanel>
+                        <Button Content="Exportar" HorizontalAlignment="Left" Margin="444,429,0,0" VerticalAlignment="Top" Width="75"/>
+                        <TextBox Margin="408,129,136,366"/>
+                        <TextBox Margin="492,129,49,366"/>
+                        <Label Margin="429,81,49,406">
+                            Filtrar por fecha
+                        </Label>
+                        <Label Margin="462,129,106,356">
+                            to
+                        </Label>
+                    </Grid>
+                </TabItem>
+
+
+
+            </TabControl>
+        </Grid>
+
+    </Grid>
+</Page>

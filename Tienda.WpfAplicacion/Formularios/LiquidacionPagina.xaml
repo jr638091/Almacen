@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
       Title="LiquidacionPagina">
 
     <Page.Resources>
@@ -15,44 +14,54 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
+    
     <Grid Background="LightGray">
         <local:TopMenu Title="Liquidacion"/>
-        <DataGrid HorizontalAlignment="Left" Height="472" Margin="10,88,0,0" VerticalAlignment="Top" Width="228">
+        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="472" Margin="10,88,0,0" VerticalAlignment="Top" Width="228" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo"/>
-                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion"/>
-                <DataGridTextColumn Binding="{Binding Path=Cantidad}" Header="Cantidad"/>
-                <DataGridTextColumn Binding="{Binding Path=Precio}" Header="Precio"/>
+                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="Cant BE" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Cant Def" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Existencia" HorizontalAlignment="Left" Margin="44,17,0,0" VerticalAlignment="Top" Width="111"/>
         <Label Content="Liquidacion" Foreground="DarkRed" FontSize="20" HorizontalAlignment="Left" Margin="325,46,0,0" VerticalAlignment="Top" Width="111"/>
-        <DataGrid HorizontalAlignment="Left" Height="108" Margin="433,125,0,0" VerticalAlignment="Top" Width="334">
+        <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="108" Margin="433,125,0,0" VerticalAlignment="Top" Width="334" AutoGenerateColumns="False" CellEditEnding="dgrid_venta_CellEditEnding">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo"/>
-                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion"/>
-                <DataGridTextColumn Binding="{Binding Cantidad}" Header="Cantidad"/>
-                <DataGridTextColumn Binding="{Binding Precio}" Header="Precio"/>
+                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadBuenEstado}" Header="BE"/>
+                <DataGridTextColumn Binding="{Binding PrecioBuenEstado}" Header="$" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadDefectuoso}" Header="Def"/>
+                <DataGridTextColumn Binding="{Binding PrecioDefectuoso}" Header="$" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadTotal}" Header="Total" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding PrecioTotal}" Header="$" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid HorizontalAlignment="Left" Height="96" Margin="433,275,0,0" VerticalAlignment="Top" Width="334">
+        <DataGrid x:Name="dgrid_devolucion" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Height="96" Margin="433,275,0,0" VerticalAlignment="Top" Width="334" AutoGenerateColumns="False" CellEditEnding="dgrid_devolucion_CellEditEnding">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo"/>
-                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion"/>
-                <DataGridTextColumn Binding="{Binding Cantidad}" Header="Cantidad"/>
+                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadBuenEstado}" Header="BE"/>
+                <DataGridTextColumn Binding="{Binding CantidadDefectuoso}" Header="Def"/>
+                <DataGridTextColumn Binding="{Binding CantidadTotal}" Header="Total" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid HorizontalAlignment="Left" Height="100" Margin="433,408,0,0" VerticalAlignment="Top" Width="334" >
+        <DataGrid x:Name="dgrid_deuda" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Height="100" Margin="433,408,0,0" VerticalAlignment="Top" Width="334" AutoGenerateColumns="False" CellEditEnding="dgrid_deuda_CellEditEnding" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo"/>
-                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion"/>
-                <DataGridTextColumn Binding="{Binding Cantidad}" Header="Cantidad"/>
-                <DataGridTextColumn Binding="{Binding Precio}" Header="Precio"/>
-                <DataGridTextColumn Binding="{Binding Precio}" Header="Pagado"/>
+                <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadBuenEstado}" Header="BE"/>
+                <DataGridTextColumn Binding="{Binding PrecioBuenEstado}" Header="$" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadDefectuoso}" Header="Def"/>
+                <DataGridTextColumn Binding="{Binding PrecioDefectuoso}" Header="$" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding CantidadTotal}" Header="Total" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding PrecioTotal}" Header="$" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Pagado}" Header="Pagado"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Aceptar" Style="{StaticResource Accept}" Margin="580,574,0,0"/>
+        <Button Content="Aceptar" Style="{StaticResource Accept}" Margin="580,574,0,0" Click="Button_Click_1"/>
         <Button Content="Cancelar" Style="{StaticResource Cancel}" Margin="692,571,0,0" Click="Button_Click"/>
 
 
@@ -60,14 +69,14 @@
         <Label Content="Devolucion" HorizontalAlignment="Left" Margin="574,245,0,0" VerticalAlignment="Top"/>
         <Label Content="Deuda" HorizontalAlignment="Left" Margin="580,376,0,0" VerticalAlignment="Top"/>
         <Label Content="Venta" HorizontalAlignment="Left" Margin="580,87,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="670,543,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="39"/>
+        <TextBox x:Name="tbox_importe_total" HorizontalAlignment="Left" Height="23" Margin="670,543,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="39"/>
         <Label Content="Importe total" HorizontalAlignment="Left" Margin="570,543,0,0" VerticalAlignment="Top"/>
-        <Button Content="Agregar" HorizontalAlignment="Left" Margin="361,305,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button Content="Agregar" HorizontalAlignment="Left" Margin="365,437,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button Content="Agregar" HorizontalAlignment="Left" Margin="367,159,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button Content="Retirar" HorizontalAlignment="Left" Margin="368,187,0,0" VerticalAlignment="Top" Width="60" RenderTransformOrigin="0.458,8.075"/>
-        <Button Content="Retirar" HorizontalAlignment="Left" Margin="362,331,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button Content="Retirar" HorizontalAlignment="Left" Margin="365,463,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="btn_agragar_devolucion" Content="Agregar" HorizontalAlignment="Left" Margin="361,305,0,0" VerticalAlignment="Top" Width="60" Click="btn_agragar_devolucion_Click"/>
+        <Button x:Name="btn_agragar_deuda" Content="Agregar" HorizontalAlignment="Left" Margin="365,437,0,0" VerticalAlignment="Top" Width="60" Click="btn_agragar_deuda_Click"/>
+        <Button x:Name="btn_agragar_venta" Content="Agregar" HorizontalAlignment="Left" Margin="367,159,0,0" VerticalAlignment="Top" Width="60" Click="btn_agragar_venta_Click"/>
+        <Button x:Name="btn_retirar_venta" Content="Retirar" HorizontalAlignment="Left" Margin="368,187,0,0" VerticalAlignment="Top" Width="60" RenderTransformOrigin="0.5,0.5" Click="btn_retirar_venta_Click"/>
+        <Button x:Name="btn_retirar_devolucion" Content="Retirar" HorizontalAlignment="Left" Margin="362,331,0,0" VerticalAlignment="Top" Width="60" Click="btn_retirar_devolucion_Click"/>
+        <Button x:Name="btn_retirar_deuda" Content="Retirar" HorizontalAlignment="Left" Margin="365,463,0,0" VerticalAlignment="Top" Width="60" Click="btn_retirar_deuda_Click"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,567,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" IsEnabled="False" BorderBrush="#FFF9FAFD">
             *Seleccione un producto, la cantidad a tratar y elija su destino
         </TextBox>

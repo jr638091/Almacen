@@ -79,6 +79,11 @@ namespace WpfAplicacion
         }
         private void Informes_click_btn(object sender, MouseButtonEventArgs e)
         {
+            Page pg = GetDependencyObjectFromVisualTree(this, typeof(Page)) as Page;
+
+            var p = new Information();
+
+            pg.NavigationService.Navigate(p);
         }
 
 

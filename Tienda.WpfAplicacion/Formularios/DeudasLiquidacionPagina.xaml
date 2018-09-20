@@ -1,0 +1,45 @@
+﻿<Page x:Class="WpfAplicacion.Formularios.DeudasLiquidacionPagina"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfAplicacion"
+      mc:Ignorable="d" 
+
+      Title="DeudasLiquidacionPagina">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <local:TopMenu Title="Deudas Pendientes"/>
+        <DataGrid x:Name="dgrid_deudas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,50,0,0" Height="500" Width="374" SelectionChanged="dgrid_deudas_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Fecha}" IsReadOnly="True" Header="Fecha" Width="0.16*"/>
+                <DataGridTextColumn Binding="{Binding Path=CostoTotal}" IsReadOnly="True" Header="Valor" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=Pagado}" IsReadOnly="True" Header="Pagado" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" IsReadOnly="True" Header="Prods" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=APagar}" Header="a Pagar" Width="0.1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Style="{StaticResource Accept}" Margin="598,571,0,0"/>
+        <Button Style="{StaticResource Cancel}" Margin="699,571,0,0" Click="Button_Click"/>
+        <DataGrid x:Name="dgrid_informacion" HorizontalAlignment="Left" Height="500" Margin="384,50,0,0" VerticalAlignment="Top" Width="406" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Codigo}" IsReadOnly="True" Header="Codigo" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=Descripcion}" IsReadOnly="True" Header="Descripcion" Width="0.14*"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" IsReadOnly="True" Header="Cant. BE" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" IsReadOnly="True" Header="Precio BE" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" IsReadOnly="True" Header="Cant. Def" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" IsReadOnly="True" Header="Precio. Def" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" IsReadOnly="True" Header="Cant. Total"/>
+                <DataGridTextColumn Binding="{Binding Path=PrecioTotal}" IsReadOnly="True" Header="Costo Total"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -4,9 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="MisTiendas" Width="800" Height="600">
+      mc:Ignorable="d"
+      Title="MisTiendas">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -18,26 +17,33 @@
 
     <Grid>
         <local:TopMenu Title="Tiendas Asociadas"/>
-        <local:MenuControl/>
-        <Button Height="90" Width="20" Margin="722,110,58,400" Background="Aquamarine" Click="Button_Click_1">+</Button>
-        <DockPanel Width="450" Margin="272,110,78,383" LastChildFill="False">
-            <ScrollViewer IsTabStop="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <DockPanel Name="DPTiendas" LastChildFill="False">
-                    <Button Style="{StaticResource Tienda_btn}" Click="Button_Click"></Button>
-                </DockPanel>
-            </ScrollViewer>
-        </DockPanel>
+        <local:MenuControl Loaded="MenuControl_Loaded"/>
 
-        <Label Width="100" Height="50" Margin="408,329,292,221">Nombre</Label>
-        <Label Width="100" Height="50" Margin="408,384,292,166">Telefono</Label>
-        <Label Width="100" Height="50" Margin="408,439,292,111">Representante</Label>
-        <Label Width="100" Height="50" Margin="408,494,292,56">Direccion</Label>
-        <Label Name="TiendaNombre" Width="100" Height="50" Margin="508,329,192,221">default</Label>
-        <Label Name="TiendaTelfono" Width="100" Height="50" Margin="508,384,192,166">default</Label>
-        <Label Name="TiendaRepresentante" Width="100" Height="50" Margin="508,439,192,111">default</Label>
-        <Label Name="TiendaDireccion" Width="100" Height="50" Margin="508,494,192,56">default</Label>
-        <GroupBox Header="Informacion" HorizontalAlignment="Left" Height="297" Margin="357,279,0,0" VerticalAlignment="Top" Width="292"/>
-        <GroupBox Header="Tiendas" HorizontalAlignment="Left" Height="171" Margin="220,71,0,0" VerticalAlignment="Top" Width="570"/>
+
+
+        <GroupBox Header="Informacion" HorizontalAlignment="Left" Height="297" Margin="357,279,0,0" VerticalAlignment="Top" Width="292">
+            <Grid>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="35,28,0,0">Nombre</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="35,83,0,0">Telefono</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="35,138,0,0">Representante</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="35,193,0,0">Direccion</Label>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Name="TiendaNombre" Height="50" Margin="135,28,0,0"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Name="TiendaTelfono" Height="50" Margin="135,83,0,0"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Name="TiendaRepresentante" Height="50" Margin="135,138,0,0"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Name="TiendaDireccion" Height="50" Margin="135,193,0,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Tiendas" HorizontalAlignment="Left" Height="171" Margin="220,71,0,0" VerticalAlignment="Top" Width="570">
+            <Grid Width="470" Height="110">
+                <Button Height="90" Width="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="451,0,-1,0" Background="Aquamarine" Click="Button_Click_1">+</Button>
+                <DockPanel Width="450" Margin="0,0,0,0" LastChildFill="False" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ScrollViewer IsTabStop="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <DockPanel Name="DPTiendas" LastChildFill="False">
+                        </DockPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Grid>
+        </GroupBox>
 
     </Grid>
 </Page>

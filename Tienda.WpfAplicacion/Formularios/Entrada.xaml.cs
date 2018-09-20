@@ -29,15 +29,12 @@ namespace WpfAplicacion
         private List<entrada> source_entrada;
         private string codigo_src;
         private string descrip_src;
-        private bool need_refresh;
-        private bool editando;
         public Entrada()
         {
             InitializeComponent();
             codigo_src = "";
             descrip_src = "";
-            need_refresh = false;
-            editando = true;
+
         }
 
         private void CancelEntry_Click(object sender, RoutedEventArgs e)
@@ -65,7 +62,13 @@ namespace WpfAplicacion
                 db.Productos.Add(nuevo_producto);
                 db.SaveChanges();
                 source_productos.Add(nuevo_producto);
-                dgrid_productos.Items.Refresh();
+
+                int index = dgrid_productos.SelectedIndex;
+
+                dgrid_productos.ItemsSource = null;
+                dgrid_productos.ItemsSource = source_productos.Where(s=> s.Codigo.ToLower().Contains(codigo_src) && s.Descripcion.ToLower().Contains(descrip_src)).ToList();
+                dgrid_productos.SelectedIndex = index;
+
                 var tiendas = db.Tiendas.ToList();
                 foreach (var tienda in tiendas)
                 {
@@ -84,6 +87,10 @@ namespace WpfAplicacion
                 }
                 db.SaveChanges();
             }
+            tbox_codigo.Text = "";
+            tbox_descripcion.Text = "";
+            tbox_precioBuenEstado.Text = "";
+            tbox_precioDefectuoso.Text = "";
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -126,7 +133,7 @@ namespace WpfAplicacion
 
                 dgrid_entrada.ItemsSource = null;
                 dgrid_entrada.ItemsSource = source_entrada;
-                dgrid_productos.ItemsSource = source_productos.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
+                dgrid_productos.ItemsSource = source_productos.Where(s => s.Codigo.ToLower().Contains(codigo_src) && s.Descripcion.ToLower().Contains(descrip_src)).ToList();
 
 
             }
@@ -138,8 +145,7 @@ namespace WpfAplicacion
 
         private void btn_cancelar_Click(object sender, RoutedEventArgs e)
         {
-            var page = new Productos();
-            this.NavigationService.Navigate(page);
+            this.NavigationService.GoBack();
         }
 
         private void btn_aceptar_Click(object sender, RoutedEventArgs e)
@@ -170,9 +176,7 @@ namespace WpfAplicacion
                     db.SaveChanges();
                 }
             }
-
-            var page = new Productos();
-            this.NavigationService.Navigate(page);
+            this.NavigationService.GoBack();
         }
 
         private void dgrid_entrada_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -181,18 +185,18 @@ namespace WpfAplicacion
             if (!int.TryParse((e.EditingElement as TextBox).Text, out valor))
             {
                 e.Cancel = true;
-
                 return;
             }
-            var column = e.Column as DataGridBoundColumn;
-            if (column != null)
-            {
-                int index = dgrid_entrada.SelectedIndex;
-                var bindingPath = (column.Binding as Binding).Path.Path;
-
-            }
-            editando = false;
-
+            if (valor < 0)
+                valor = 0;
+            var objeto = e.Row.Item as entrada;
+            var column = ((e.Column as DataGridBoundColumn).Binding as Binding).Path.Path;
+            var obj = source_entrada.Find(r => r.Codigo == objeto.Codigo);
+            if (column == "CantidadBuenEstado")
+                obj.CantidadBuenEstado = valor;
+            else
+                obj.CantidadDefectuoso = valor;
+            Metodos_Auxiliares.refresh(dgrid_entrada, source_entrada);
         }
 
         private void dgrid_entrada_Loaded(object sender, RoutedEventArgs e)
@@ -201,27 +205,11 @@ namespace WpfAplicacion
             dgrid_entrada.ItemsSource = source_entrada;
         }
 
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!editando && need_refresh)
-            {
-                dgrid_entrada.Items.Refresh();
-                editando = false;
-                need_refresh = false;
-            }
-        }
-
-        private void dgrid_entrada_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            need_refresh = true;
-            editando = true;
-        }
-
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
         {
-            codigo_src = tbox_codigo_src.Text;
-            descrip_src = tbox_descripcion_src.Text;
-            dgrid_productos.ItemsSource = source_productos.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
+            codigo_src = tbox_codigo_src.Text.ToLower();
+            descrip_src = tbox_descripcion_src.Text.ToLower();
+            dgrid_productos.ItemsSource = source_productos.Where(s => s.Codigo.ToLower().Contains(codigo_src) && s.Descripcion.ToLower().Contains(descrip_src)).ToList();
         }
     }
 }

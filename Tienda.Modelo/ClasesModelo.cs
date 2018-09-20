@@ -17,6 +17,8 @@ namespace Tienda.Modelo
     {
         public virtual int TrabajadorId { get; set; }
         public virtual string Nombre { get; set; }
+        public virtual int ShopId { get; set; }
+        public virtual Shop Tienda { get; set; }
 
     }
     public class Existencia
@@ -87,8 +89,8 @@ namespace Tienda.Modelo
 
         public string EscribirReporte()
         {
-            string reporte = "";
-
+            string reporte = this.Fecha.ToShortDateString() + " ";
+            
             reporte += "Productos vendidos: \n";
 
             foreach (var item in Articulos)
@@ -101,7 +103,6 @@ namespace Tienda.Modelo
 
         public ReporteVenta()
         {
-            this.Articulos = new List<ArticuloVenta>();
         }
     }
     public class ArticuloVenta
@@ -156,7 +157,6 @@ namespace Tienda.Modelo
         }
         public virtual double Pagado { get; set; }
         public virtual DateTime Fecha { get; set; }
-        public virtual Trabajador Trabajador { get; set; }
 
         public string EscribirReporte()
         {
@@ -195,7 +195,7 @@ namespace Tienda.Modelo
     public class ReporteDevolucion
     {
         public virtual int ReporteDevolucionId { get; set; }
-        public virtual int TiendaId { get; set; }
+        public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
         public virtual ICollection<ArticuloDevolucion> Articulos { get; set; }
         public virtual DateTime Fecha { get; set; }
@@ -307,6 +307,20 @@ namespace Tienda.Modelo
             }
         }
 
+        public string EscribirReporte()
+        {
+            string reporte = "";
+
+            reporte += this.Fecha.ToShortDateString() + " Se transfieren productos a la tienda " + this.Tienda.Nombre +" \n";
+
+            foreach (var item in Articulos)
+            {
+                reporte += "    " + item.Codigo + ": Buen Estado: " + item.CantidadBuenEstado.ToString() + " Defectuosos: " + item.CantidadDefectuoso.ToString() + " Total: " + item.CantidadTotal.ToString() + "\n";
+            }
+
+            return reporte;
+        }
+
     }
     public class ArticuloTransferencia
     {
@@ -333,6 +347,29 @@ namespace Tienda.Modelo
         public virtual int ReporteDevolucionId { get; set; }
         public virtual ReporteDevolucion ReporteDevolucion { get; set; }
         public virtual DateTime Fecha { get; set; }
+
+        public string EscribirReporte()
+        {
+            string reporte = this.Fecha.ToShortDateString() + " " + "Informe de Liquidacion (Id" + this.InformeLiquidacionId.ToString()+"):\n";
+            reporte += "    " + "Articulos Vendidos:\n";
+            foreach(var item in this.ReporteVenta.Articulos)
+            {
+                reporte += "        " + item.Codigo + ": Buen Estado: " + item.CantidadBuenEstado.ToString() + " Defectuosos: " + item.CantidadDefectuoso.ToString() + " Total: " + item.CantidadTotal.ToString() + "\n";
+                
+            }
+            reporte += "    Articulos Devueltos:\n";
+            foreach (var item in this.ReporteDevolucion.Articulos)
+            {
+                reporte += "        " + item.Codigo + ": Buen Estado: " + item.CantidadBuenEstado.ToString() + " Defectuosos: " + item.CantidadDefectuoso.ToString() + " Total: " + item.CantidadTotal.ToString() + "\n";
+            }
+            reporte += "    Articulos vendidos pero con deuda: \n";
+            foreach (var item in this.ReporteDeuda.Articulos)
+            {
+                reporte += "        " + item.Codigo + ": Buen Estado: " + item.CantidadBuenEstado.ToString() + " Defectuosos: " + item.CantidadDefectuoso.ToString() + " Total: " + item.CantidadTotal.ToString() + "\n";
+
+            }
+            return reporte;
+        }
     }
 
 }

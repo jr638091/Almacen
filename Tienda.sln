@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.Modelo", "Tienda.Modelo\Tienda.Modelo.csproj", "{AF0D6B0F-6532-4F28-8A41-D348E228A05A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.Test", "Tienda.Test\Tienda.Test.csproj", "{103F5D68-0141-48C7-8593-8E177DB03E6C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.WpfAplicacion", "Tienda.WpfAplicacion\Tienda.WpfAplicacion.csproj", "{9FD25252-E889-4782-881F-95A4003C16F8}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{AF0D6B0F-6532-4F28-8A41-D348E228A05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF0D6B0F-6532-4F28-8A41-D348E228A05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF0D6B0F-6532-4F28-8A41-D348E228A05A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{103F5D68-0141-48C7-8593-8E177DB03E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{103F5D68-0141-48C7-8593-8E177DB03E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{103F5D68-0141-48C7-8593-8E177DB03E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{103F5D68-0141-48C7-8593-8E177DB03E6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FD25252-E889-4782-881F-95A4003C16F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FD25252-E889-4782-881F-95A4003C16F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD25252-E889-4782-881F-95A4003C16F8}.Release|Any CPU.ActiveCfg = Release|Any CPU

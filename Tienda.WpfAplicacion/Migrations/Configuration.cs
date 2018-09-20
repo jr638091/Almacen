@@ -68,20 +68,73 @@ namespace WpfAplicacion.Migrations
                 Nombre = "Tienda de Liuda",
                 Telefono = 12345678,
                 Encargado = liuda,
-                Trabajadores = new List<Trabajador> { betty },
+                Trabajadores = new List<Trabajador> { betty, liuda },
                 Productos = existencias,
             };
 
+            var exist5 = new Existencia
+            {
+                Producto = pullover1,
+                CantidadBuenEstado = 2,
+                CantidadDefectuoso = 3,
+                PrecioBuenEstado = 20,
+                PrecioDefectuoso = 5
+            };
+
+            var exist6 = new Existencia
+            {
+                Producto = abrigo1,
+                CantidadBuenEstado = 2,
+                CantidadDefectuoso = 3,
+                PrecioBuenEstado = 14,
+                PrecioDefectuoso = 6
+            };
+
+            var exist7 = new Existencia
+            {
+                Producto = abrigo2,
+                CantidadBuenEstado = 2,
+                CantidadDefectuoso = 3,
+                PrecioBuenEstado = 12,
+                PrecioDefectuoso = 10
+            };
+
+            var exist8 = new Existencia
+            {
+                Producto = pullover2,
+                CantidadBuenEstado = 2,
+                CantidadDefectuoso = 3,
+                PrecioBuenEstado = 10,
+                PrecioDefectuoso = 4
+            };
+            var pepe = new Trabajador { Nombre = "PePe" };
+
+            var tienda_pepe = new Shop
+            {
+                Direccion = "Guantanamo",
+                Nombre = "Tienda de Pepe",
+                Telefono = 11223344,
+                Encargado = pepe,
+                Trabajadores = new List<Trabajador> { },
+                Productos = new List<Existencia> { exist5, exist6, exist7, exist8 },
+            };
+            
+            
             if (context.Tiendas.Count() == 0)
             {
-                context.Productos.AddOrUpdate(abrigo1);
-                context.Productos.AddOrUpdate(abrigo2);
-                context.Productos.AddOrUpdate(pullover1);
-                context.Productos.AddOrUpdate(pullover2);
-                context.Trabajadores.AddOrUpdate(liuda);
-                context.Trabajadores.AddOrUpdate(betty);
-                existencias.ForEach(p => context.Existencias.AddOrUpdate(p));
-                context.Tiendas.AddOrUpdate(tienda_principal);
+                context.Productos.Add(abrigo1);
+                context.Productos.Add(abrigo2);
+                context.Productos.Add(pullover1);
+                context.Productos.Add(pullover2);
+                context.Trabajadores.Add(liuda);
+                context.Trabajadores.Add(betty);
+                context.SaveChanges();
+                existencias.ForEach(p => context.Existencias.Add(p));
+                context.Tiendas.Add(tienda_principal);
+                context.SaveChanges();
+                context.Tiendas.Add(tienda_pepe);
+                context.SaveChanges();
+
             }
         }
     }

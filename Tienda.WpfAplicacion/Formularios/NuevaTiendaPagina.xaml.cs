@@ -34,7 +34,8 @@ namespace WpfAplicacion
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             bool fallo = true;
-            if(Tienda_Nombre.Text == "") {
+            if (Tienda_Nombre.Text == "")
+            {
                 Tienda_Nombre.Background = Brushes.Pink;
                 fallo = false;
             }
@@ -42,7 +43,8 @@ namespace WpfAplicacion
             {
                 Tienda_Nombre.Background = Brushes.White;
             }
-            if (Tienda_telefono.Text == ""){
+            if (Tienda_telefono.Text == "")
+            {
                 Tienda_telefono.Background = Brushes.Pink;
                 fallo = false;
             }
@@ -72,16 +74,26 @@ namespace WpfAplicacion
                 Alert.Content = "**Faltan datos**";
             else
             {
-                //var s = new Shop
-                //{
-                //    Direccion = Tienda_Direccion.Text,
-                //    Encargado = Tienda_Encargado.Text,
+                var em = new Trabajador
+                {
+                    Nombre = Tienda_Encargado.Text
+                };
+                var s = new Shop
+                {
+                    Direccion = Tienda_Direccion.Text,
+                    Encargado = em,
+                    Telefono = int.Parse(Tienda_telefono.Text),
+                    Nombre = Tienda_Nombre.Text
+                };
 
-                //};
-                //using (var db = new TiendaDbContext())
-                //{
-
-                //}
+                using (var db = new TiendaDbContext())
+                {
+                    db.Tiendas.Add(s);
+                    db.SaveChanges();
+                    em.ShopId = s.ShopId;
+                    db.SaveChanges();
+                }
+                NavigationService.GoBack();
             }
         }
     }
