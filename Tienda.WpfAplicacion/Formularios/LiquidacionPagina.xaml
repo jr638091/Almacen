@@ -26,7 +26,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Existencia" HorizontalAlignment="Left" Margin="44,17,0,0" VerticalAlignment="Top" Width="111"/>
-        <Label Content="Liquidacion" Foreground="DarkRed" FontSize="20" HorizontalAlignment="Left" Margin="325,46,0,0" VerticalAlignment="Top" Width="111"/>
         <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="108" Margin="433,125,0,0" VerticalAlignment="Top" Width="334" AutoGenerateColumns="False" CellEditEnding="dgrid_venta_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Codigo}" Header="Codigo" IsReadOnly="True"/>

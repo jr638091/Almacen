@@ -304,6 +304,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app_data\" />
+    <Folder Include="data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

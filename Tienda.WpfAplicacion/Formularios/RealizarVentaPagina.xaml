@@ -52,7 +52,6 @@
             </DataGrid>
             <Button  Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Height="17" Margin="367,266,0,0" VerticalAlignment="Top" Width="56" Click="btn_Eliminar_Click"/>
             <Button  Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Left" Height="17" Margin="367,223,0,0" VerticalAlignment="Top" Width="56" Click="btn_Agregar_Click"/>
-            <Label Content="Nueva Venta" Foreground="DarkRed" FontSize="20"  HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top"/>
             <Label Content="Tienda" HorizontalAlignment="Left" Margin="62,33,0,0" VerticalAlignment="Top"/>
             <Label Content="Productos" HorizontalAlignment="Left" Margin="537,86,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.391,0.531" Width="205" HorizontalContentAlignment="Center"/>
         </Grid>

@@ -24,14 +24,14 @@ namespace WpfAplicacion
         public Information()
         {
             InitializeComponent();
-            
         }
 
-        void fillVentas()
+        void fillVentas(Func<ReporteVenta,bool> pred)
         {
+            venta_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                var vs = db.ReporteVentas.Where(x => x.ShopId == 1).ToList();
+                var vs = db.ReporteVentas.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
                 List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                 foreach (var item in vs)
@@ -47,10 +47,11 @@ namespace WpfAplicacion
             }
         }
 
-        void fillDevoluciones() {
+        void fillDevoluciones(Func<ReporteDevolucion, bool> pred) {
+            devoluciones_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                var vs = db.ReporteDevoluciones.ToList();
+                var vs = db.ReporteDevoluciones.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME" };
                 List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso" };
                 foreach (var item in vs)
@@ -66,10 +67,11 @@ namespace WpfAplicacion
             }
         }
 
-        void fillDeuda() {
+        void fillDeuda(Func<ReporteDeuda, bool> pred) {
+            deuda_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                var vs = db.ReporteDeudas.ToList();
+                var vs = db.ReporteDeudas.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
                 List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                 foreach (var item in vs)
@@ -89,11 +91,12 @@ namespace WpfAplicacion
             }
         }
 
-        void fillTranferencia()
+        void fillTranferencia(Func<ReporteTransferencia, bool> pred)
         {
+            transferencia_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                var vs = db.ReporteTransferencias.ToList();
+                var vs = db.ReporteTransferencias.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
                 List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                 foreach (var item in vs)
@@ -109,11 +112,12 @@ namespace WpfAplicacion
             }
         }
 
-        void fillEntrada()
+        void fillEntrada(Func<ReporteEntrada, bool> pred)
         {
+            entrada_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
-                var vs = db.ReporteEntradas.ToList();
+                var vs = db.ReporteEntradas.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "Cant. Total" };
                 List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "CantidadTotal" };
                 foreach (var item in vs)
@@ -129,12 +133,13 @@ namespace WpfAplicacion
             }
         }
 
-        void fillLiquidacion()
+        void fillLiquidacion(Func<InformeLiquidacion, bool> pred)
         {
+            liquidacion_sp.Children.Clear();
             List<UIElement> t;
             using(var db = new TiendaDbContext())
             {
-                var vs = db.InformeLiquidaciones.ToList();
+                var vs = db.InformeLiquidaciones.Where(pred).ToList();
                 foreach (var item in vs)
                 {
                     t = new List<UIElement>();
@@ -190,29 +195,106 @@ namespace WpfAplicacion
 
         private void TC_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            venta_sp.Children.Clear(); devoluciones_sp.Children.Clear(); deuda_sp.Children.Clear(); transferencia_sp.Children.Clear(); entrada_sp.Children.Clear();
             int a = TC.SelectedIndex;
             switch (TC.SelectedIndex)
             {
                 case 0:
-                    fillLiquidacion();
+                    fillLiquidacion(x=>true);
                     break;
                 case 1:
-                    fillVentas();
+                    fillVentas(x => true);
                     break;
                 case 2:
-                    fillDevoluciones();
+                    fillDevoluciones(x => true);
                     break;
                 case 3:
-                    fillDeuda();
+                    fillDeuda(x => true);
                     break;
                 case 4:
-                    fillTranferencia();
+                    fillTranferencia(x => true);
                     break;
                 case 5:
-                    fillEntrada();
+                    fillEntrada(x => true);
                     break;
             }
+        }
+
+        private void liquidacion_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (liquidacion_dp_1.SelectedDate != null && liquidacion_dp_2.SelectedDate != null)
+            {
+                if (liquidacion_dp_1.SelectedDate > liquidacion_dp_2.SelectedDate)
+                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_2.SelectedDate));
+                else
+                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_1.SelectedDate));
+            }
+            else
+                fillLiquidacion(x => true);
+        }
+
+        private void Entrada_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (entrada_dp_1.SelectedDate != null && entrada_dp_2.SelectedDate != null)
+            {
+                if (entrada_dp_1.SelectedDate > entrada_dp_2.SelectedDate)
+                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_2.SelectedDate));
+                else
+                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_1.SelectedDate));
+            }
+            else
+                fillEntrada(x => true);
+        }
+
+        private void venta_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (venta_dp_1.SelectedDate != null && venta_dp_2.SelectedDate != null)
+            {
+                if (venta_dp_1.SelectedDate > venta_dp_2.SelectedDate)
+                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_2.SelectedDate));
+                else
+                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_1.SelectedDate));
+            }
+            else
+                fillVentas(x => true);
+        }
+
+        private void devoluciones_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (devoluciones_dp_1.SelectedDate != null && devoluciones_dp_2.SelectedDate != null)
+            {
+                if (devoluciones_dp_1.SelectedDate > devoluciones_dp_2.SelectedDate)
+                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_2.SelectedDate));
+                else
+                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_1.SelectedDate));
+            }
+            else
+                fillDevoluciones(x => true);
+        }
+
+        private void deuda_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (deuda_dp_1.SelectedDate != null && deuda_dp_2.SelectedDate != null)
+            {
+                if (deuda_dp_1.SelectedDate > deuda_dp_2.SelectedDate)
+                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_2.SelectedDate));
+                else
+                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_1.SelectedDate));
+            }
+            else
+                fillDeuda(x => true);
+        }
+
+        private void transferencia_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            if (transferencia_dp_1.SelectedDate != null && transferencia_dp_2.SelectedDate != null)
+            {
+                if (transferencia_dp_1.SelectedDate > transferencia_dp_2.SelectedDate)
+                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_2.SelectedDate));
+                else
+                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_1.SelectedDate));
+            }
+            else
+                fillTranferencia(x => true);
         }
     }
 }

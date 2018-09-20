@@ -40,7 +40,6 @@
             </DataGrid>
             <Button Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Left" Margin="315,224,0,0" VerticalAlignment="Top" Width="90" Click="btn_Agregar_Click" RenderTransformOrigin="0.757,0.65"/>
             <Button Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Margin="315,270,0,0" VerticalAlignment="Top" Width="90" Click="btn_Eliminar_Click_1" />
-            <Label Content="Nueva transferencia" Foreground="DarkRed" FontSize="20" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top"/>
             <Label Content="Existencia" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.255,0.359" Width="300"/>
             <Label Content="Entrada" HorizontalAlignment="Left" Margin="410,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.768,0.203" Width="300"/>
             <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="96" Margin="10,424,0,0" VerticalAlignment="Top" Width="255">
