@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid MouseMove="Grid_MouseMove">
+    <Grid>
         <local:TopMenu Title="Entrada al Almacen" />
         <Grid HorizontalAlignment="Left" Height="533" Margin="252,57,0,0" VerticalAlignment="Top" Width="538" Background="LightGray" Loaded="Grid_Loaded">
             <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="293" Margin="10,195,0,0" VerticalAlignment="Top" Width="194" AutoGenerateColumns="False">
@@ -34,7 +34,7 @@
                     <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
                 </Grid>
             </GroupBox>
-            <DataGrid x:Name="dgrid_entrada"  HorizontalAlignment="Left" Height="379" Margin="270,109,0,0" VerticalAlignment="Top" Width="258" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding" BeginningEdit="dgrid_entrada_BeginningEdit" Loaded="dgrid_entrada_Loaded" >
+            <DataGrid x:Name="dgrid_entrada"  HorizontalAlignment="Left" Height="379" Margin="270,109,0,0" VerticalAlignment="Top" Width="258" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding" Loaded="dgrid_entrada_Loaded" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Codigo}"  Width="0.2*" Header="Cod"/>
                     <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion"/>

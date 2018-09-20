@@ -21,6 +21,19 @@ namespace WpfAplicacion
     /// </summary>
     public partial class Productos : Page
     {
+        public class infoProd
+        {
+            public string Nombre { get; set; }
+            public string CantBE { get; set; }
+            public string CantDef { get; set; }
+            public infoProd(string Nombre, string CantBE, string CantDef)
+            {
+                this.Nombre = Nombre;
+                this.CantBE = CantBE;
+                this.CantDef = CantDef;
+            }
+        }
+
         private string codigo_src;
         private string descrip_src;
         private List<Producto> source_productos;
@@ -69,11 +82,16 @@ namespace WpfAplicacion
                 using (var db = new TiendaDbContext())
                 {
                     var tiendas = db.Tiendas.Where(t => t.Productos.Where(p => p.Codigo == producto.Codigo && (p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0)).Count() > 0).ToList();
-                    dgrid_existencia.ItemsSource = tiendas;
+                    List<infoProd> infos = new List<infoProd>();
+                    foreach (var item in tiendas)
+                    {
+                        infos.Add(new infoProd(item.Nombre, item.Productos.First(x => x.Codigo == producto.Codigo).CantidadBuenEstado.ToString(), item.Productos.First(x => x.Codigo == producto.Codigo).CantidadDefectuoso.ToString()));
+                    }
+                    dgrid_existencia.ItemsSource = infos;
 
                 }
             }
-                    
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

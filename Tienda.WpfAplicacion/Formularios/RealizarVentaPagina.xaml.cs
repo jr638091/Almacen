@@ -26,18 +26,12 @@ namespace WpfAplicacion
         private List<objeto_venta> venta_source;
         private List<Trabajador> vendedores;
 
-       
-
         private string codigo_src;
         private string descrip_src;
 
-        private bool is_editing;
-        private bool need_refresh;
 
         public RealizarVentaPagina()
         {
-            is_editing = false;
-            need_refresh = false;
             codigo_src = "";
             descrip_src = "";
 
@@ -47,7 +41,7 @@ namespace WpfAplicacion
 
             using (var db = new TiendaDbContext())
             {
-                vendedores = db.Trabajadores.ToList();
+                vendedores = db.Trabajadores.OrderBy(i => i.Nombre).ToList();
                 var temp = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0);
                 foreach (var item in temp)
                 {
@@ -57,7 +51,9 @@ namespace WpfAplicacion
 
             InitializeComponent();
             cb_trabajadores.ItemsSource = vendedores;
+            cb_trabajadores.SelectedIndex = 0;
             cb_trabajadores.DisplayMemberPath = "Nombre";
+            
             dgrid_productos.ItemsSource = productos_source;
             dgrid_venta.ItemsSource = venta_source;
         }
@@ -99,9 +95,8 @@ namespace WpfAplicacion
             productos_source.Add(obj_venta);
 
             venta_source.RemoveAt(venta_source.FindIndex(p => p.Codigo == obj_venta.Codigo));
-            dgrid_venta.ItemsSource = null;
-            dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
-            dgrid_venta.ItemsSource = venta_source;
+            Metodos_Auxiliares.refresh(dgrid_productos, productos_source.Where(exis => exis.Codigo.ToLower().Contains(codigo_src) && exis.Descripcion.ToLower().Contains(descrip_src)).ToList());
+            Metodos_Auxiliares.refresh(dgrid_venta, venta_source);
             double costo_total = 0;
             venta_source.ForEach(p => costo_total += p.PrecioTotal);
             tbox_pagado.Text = costo_total.ToString();
@@ -109,43 +104,47 @@ namespace WpfAplicacion
 
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
         {
-            codigo_src = tbox_codigo.Text;
-            descrip_src = tbox_descripcion.Text;
-            dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
+            codigo_src = tbox_codigo.Text.ToLower();
+            descrip_src = tbox_descripcion.Text.ToLower();
+            Metodos_Auxiliares.refresh(dgrid_productos, productos_source.Where(exis => exis.Codigo.ToLower().Contains(codigo_src) && exis.Descripcion.ToLower().Contains(descrip_src)).ToList());
         }
-
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!is_editing && need_refresh)
-            {
-                dgrid_venta.Items.Refresh();
-                need_refresh = false;
-            }
-        }
-
-        private void dgrid_venta_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            need_refresh = true;
-            is_editing = true;
-        }
-
+        
         private void dgrid_venta_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            int valor;
-            if (!int.TryParse((e.EditingElement as TextBox).Text, out valor))
+            int value;
+            if (!int.TryParse((e.EditingElement as TextBox).Text, out value))
             {
                 e.Cancel = true;
 
-                return;
+                return; 
             }
             var column = e.Column as DataGridBoundColumn;
             if (column != null)
             {
-                int index = dgrid_venta.SelectedIndex;
-                var bindingPath = (column.Binding as Binding).Path.Path;
+                int id = (dgrid_venta.SelectedItem as objeto_venta).ExistenciaId;
+                var art = venta_source.Find(p => p.ExistenciaId == id);
+                if (value < 0)
+                    value = 0;
 
+
+                var bindingPath = (column.Binding as Binding).Path.Path;
+                if(bindingPath == "CantidadBuenEstado")
+                {
+                    if (art.CantidadExistenteBE < value)
+                        value = art.CantidadExistenteBE;
+                    venta_source.Find(s => s.ExistenciaId == id).CantidadBuenEstado = value;
+                }
+                else
+                {
+                    if (art.CantidadExistenteDefec < value)
+                        value = art.CantidadExistenteDefec;
+                    venta_source.Find(s => s.ExistenciaId == id).CantidadDefectuoso = value;
+                }
             }
-            is_editing = false;
+            Metodos_Auxiliares.refresh(dgrid_venta, venta_source);
+            double costo_total = 0;
+            venta_source.ForEach(p => costo_total += p.PrecioTotal);
+            tbox_pagado.Text = costo_total.ToString();
         }
 
         private void btn_aceptar_Click(object sender, RoutedEventArgs e)
@@ -155,8 +154,10 @@ namespace WpfAplicacion
                 MessageBox.Show("No puede realizar una venta de 0 articulos");
                 return;
             }
-            int trabajador_id = 1;
-            var reporte = venta_source[0].generar_reporte(1, trabajador_id, venta_source);
+            int trabajador_id = (cb_trabajadores.SelectedItem as Trabajador).TrabajadorId;
+
+
+            var reporte = objeto_venta.generar_reporte(1, trabajador_id, venta_source);
             double pagado;
             if(double.TryParse(tbox_pagado.Text, out pagado))
             {
@@ -164,6 +165,17 @@ namespace WpfAplicacion
                 using (var db = new TiendaDbContext())
                 {
                     db.Entry(reporte).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    // refeljando la venta en las existencias
+
+                    foreach(var item in venta_source)
+                    {
+                        var existencia = db.Existencias.Find(item.ExistenciaId);
+                        existencia.CantidadBuenEstado -= item.CantidadBuenEstado;
+                        existencia.CantidadDefectuoso -= item.CantidadDefectuoso;
+                        db.Entry(existencia).State = EntityState.Modified;
+                    }
                     db.SaveChanges();
                 }
             }

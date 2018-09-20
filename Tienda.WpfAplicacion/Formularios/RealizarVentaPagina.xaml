@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid MouseMove="Grid_MouseMove">
+    <Grid>
         <local:TopMenu Title="Nueva Venta"/>
         <Grid HorizontalAlignment="Left" Height="426" Margin="10,57,0,0" VerticalAlignment="Top" Width="780" Background="LightGray">
             <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="99" Margin="10,64,0,0" VerticalAlignment="Top" Width="270">
@@ -42,7 +42,7 @@
                     <DataGridTextColumn Binding="{Binding Path=CantidadTotalExistente}" Width="0.13*" Header="Total"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="248" Margin="428,168,0,0" VerticalAlignment="Top" Width="342" AutoGenerateColumns="False" BeginningEdit="dgrid_venta_BeginningEdit" CellEditEnding="dgrid_venta_CellEditEnding">
+            <DataGrid x:Name="dgrid_venta" HorizontalAlignment="Left" Height="248" Margin="428,168,0,0" VerticalAlignment="Top" Width="342" AutoGenerateColumns="False" CellEditEnding="dgrid_venta_CellEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Cod"/>
                     <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion"/>
