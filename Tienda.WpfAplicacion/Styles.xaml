@@ -52,4 +52,10 @@
         <Setter Property="Height" Value="90"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
+    <Style TargetType="Label" x:Key="Label_inf">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
 </ResourceDictionary>

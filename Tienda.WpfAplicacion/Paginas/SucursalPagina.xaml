@@ -5,22 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Height="600"
-      Width="800"
+
       Title="SucursalPagina">
 
     <Grid>
         <local:TopMenu x:Name="top" Title="Pagina de Sucursal"/>
         <local:MenuControl/>
-        <DataGrid HorizontalAlignment="Left" Height="488" Margin="205,63,0,0" VerticalAlignment="Top" Width="325">
+        <DataGrid Name="dg_prods" HorizontalAlignment="Left" Height="488" Margin="205,63,0,0" VerticalAlignment="Top" Width="325" Loaded="DataGrid_Loaded" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.1*" Header="Cod" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.2*" Header="Cant BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Width="0.2*" Header="Cant Def" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.2*" Header="Cant Total" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.15*" Header="$ BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.15*" Header="$ Def" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Decripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="Cant BE" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Cant Def" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Header="Cant Total" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Header="$ BE" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Header="$ Def" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         <GroupBox Name="GP_Informacion" Header="Informacion" HorizontalAlignment="Left" Height="269" Margin="535,63,0,0" VerticalAlignment="Top" Width="255">

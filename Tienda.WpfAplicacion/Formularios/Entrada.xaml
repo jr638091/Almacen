@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+
       Title="Entrada">
 
     <Page.Resources>
@@ -36,11 +36,11 @@
             </GroupBox>
             <DataGrid x:Name="dgrid_entrada"  HorizontalAlignment="Left" Height="379" Margin="270,109,0,0" VerticalAlignment="Top" Width="258" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding" Loaded="dgrid_entrada_Loaded" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Codigo}"  Width="0.2*" Header="Cod"/>
-                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion"/>
+                    <DataGridTextColumn Binding="{Binding Path=Codigo}"  Width="0.2*" Header="Cod" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado, UpdateSourceTrigger=PropertyChanged}" Width="0.16*" Header="BE"/>
                     <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso, UpdateSourceTrigger=PropertyChanged}" Width="0.16*" Header="Defec"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="0.18*" Header="Total"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="0.18*" Header="Total" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button  Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Height="17" Margin="209,263,0,0" VerticalAlignment="Top" Width="56" Click="btn_Eliminar_Click"/>

@@ -20,14 +20,47 @@ namespace WpfAplicacion.UserControllers
     /// </summary>
     public partial class ReporteVentaController : UserControl
     {
+
+        DataGrid dg = new DataGrid();
         public ReporteVentaController()
         {
             InitializeComponent();
+            dg.HorizontalAlignment = HorizontalAlignment.Stretch;
+            dg.VerticalAlignment = VerticalAlignment.Top;
+            dg.Margin = new Thickness(0, 30, 0, 0);
         }
 
-        private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public ReporteVentaController(object obj, List<string> header, List<string> path)
         {
+            InitializeComponent();
+            dg.Name = "dg_inform";
+            dg.HorizontalAlignment = HorizontalAlignment.Stretch;
+            dg.VerticalAlignment = VerticalAlignment.Top;
+            dg.Margin = new Thickness(0, 30, 0, 0);
+            dg.AutoGenerateColumns = false;
+            dg.ItemsSource = (obj as IEnumerable<object>);
+            for(int i = 0;i < path.Count;++i)
+            {
+                DataGridTextColumn t = new DataGridTextColumn();
+                t.Binding = new Binding(path[i]);
+                t.Header = header[i];
+                t.IsReadOnly = true;
+                dg.Columns.Add(t);
+            }
+        }
 
+        private void expand_btn_Click(object sender, RoutedEventArgs e)
+        {
+            expand_btn.Visibility = Visibility.Hidden;
+            colapse_btn.Visibility = Visibility.Visible;
+            grid_base.Children.Add(dg);
+        }
+
+        private void colapse_btn_Click(object sender, RoutedEventArgs e)
+        {
+            expand_btn.Visibility = Visibility.Visible;
+            colapse_btn.Visibility = Visibility.Hidden;
+            grid_base.Children.Remove(dg);
         }
     }
 }

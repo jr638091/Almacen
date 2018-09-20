@@ -6,5 +6,4 @@
         xmlns:local="clr-namespace:WpfAplicacion"
         mc:Ignorable="d"
         Title="MainWindow"
-        Source="Paginas/Home.xaml" WindowStyle="None" ShowsNavigationUI="False" Width="810" MinWidth="810" MaxWidth="810" Height="613" MinHeight="613" MaxHeight="613"       
-        />
+        Source="Paginas/Home.xaml" WindowStyle="SingleBorderWindow" ShowsNavigationUI="False" Width="850" Height="650"/>

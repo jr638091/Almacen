@@ -7,15 +7,9 @@
       xmlns:UserControllers="clr-namespace:WpfAplicacion.UserControllers" x:Class="WpfAplicacion.Home"
         xmlns:Contols ="clr-namespace:WpfAplicacion.UserControllers"
       mc:Ignorable="d" 
-      Title="Home" Width="800" Height="600">
-    <Page.Resources>
-       
-    </Page.Resources>
-    
-    <Grid DataContext="{Binding RelativeSource={RelativeSource Self}}">
-        <Grid.Resources>
-            
-        </Grid.Resources>
+      Title="Home">
+
+    <Grid>
         <local:MenuControl/>
         <local:TopMenu Title="Home"/>
         <TextBlock x:Name="tbock_reportes" Text="{Binding Prueba}" Margin="206,48,10,363" Background="White"  ScrollViewer.HorizontalScrollBarVisibility="Visible"/>

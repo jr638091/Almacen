@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
       Title="LiquidacionPagina">
 
     <Page.Resources>
@@ -20,10 +19,10 @@
         <local:TopMenu Title="Liquidacion"/>
         <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="472" Margin="10,88,0,0" VerticalAlignment="Top" Width="228" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo"/>
-                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion"/>
-                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="Cant BE"/>
-                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Cant Def"/>
+                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="Cant BE" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Cant Def" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Existencia" HorizontalAlignment="Left" Margin="44,17,0,0" VerticalAlignment="Top" Width="111"/>
