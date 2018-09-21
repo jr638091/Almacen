@@ -219,82 +219,83 @@ namespace WpfAplicacion
             }
         }
 
-        private void liquidacion_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void liquidacion_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (liquidacion_dp_1.SelectedDate != null && liquidacion_dp_2.SelectedDate != null)
             {
                 if (liquidacion_dp_1.SelectedDate > liquidacion_dp_2.SelectedDate)
-                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_2.SelectedDate));
+                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= liquidacion_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= liquidacion_dp_2.SelectedDate));
                 else
-                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_1.SelectedDate));
+                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= liquidacion_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= liquidacion_dp_1.SelectedDate));
             }
             else
                 fillLiquidacion(x => true);
         }
 
-        private void Entrada_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void Entrada_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (entrada_dp_1.SelectedDate != null && entrada_dp_2.SelectedDate != null)
             {
                 if (entrada_dp_1.SelectedDate > entrada_dp_2.SelectedDate)
-                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_2.SelectedDate));
+                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= entrada_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= entrada_dp_2.SelectedDate));
                 else
-                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_1.SelectedDate));
+                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= entrada_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= entrada_dp_1.SelectedDate));
             }
             else
                 fillEntrada(x => true);
         }
 
-        private void venta_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void venta_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (venta_dp_1.SelectedDate != null && venta_dp_2.SelectedDate != null)
             {
                 if (venta_dp_1.SelectedDate > venta_dp_2.SelectedDate)
-                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_2.SelectedDate));
+                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= venta_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= venta_dp_2.SelectedDate));
                 else
-                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_1.SelectedDate));
+                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= venta_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= venta_dp_1.SelectedDate));
             }
             else
                 fillVentas(x => true);
         }
 
-        private void devoluciones_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void devoluciones_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (devoluciones_dp_1.SelectedDate != null && devoluciones_dp_2.SelectedDate != null)
             {
                 if (devoluciones_dp_1.SelectedDate > devoluciones_dp_2.SelectedDate)
-                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_2.SelectedDate));
+                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= devoluciones_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= devoluciones_dp_2.SelectedDate));
                 else
-                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_1.SelectedDate));
+                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= devoluciones_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= devoluciones_dp_1.SelectedDate));
             }
             else
                 fillDevoluciones(x => true);
         }
 
-        private void deuda_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void deuda_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (deuda_dp_1.SelectedDate != null && deuda_dp_2.SelectedDate != null)
             {
                 if (deuda_dp_1.SelectedDate > deuda_dp_2.SelectedDate)
-                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_2.SelectedDate));
+                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= deuda_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= deuda_dp_2.SelectedDate));
                 else
-                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_1.SelectedDate));
+                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= deuda_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= deuda_dp_1.SelectedDate));
             }
             else
                 fillDeuda(x => true);
         }
 
-        private void transferencia_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void transferencia_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
             if (transferencia_dp_1.SelectedDate != null && transferencia_dp_2.SelectedDate != null)
             {
                 if (transferencia_dp_1.SelectedDate > transferencia_dp_2.SelectedDate)
-                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_2.SelectedDate));
+                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= transferencia_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= transferencia_dp_2.SelectedDate));
                 else
-                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_1.SelectedDate));
+                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) <= transferencia_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) >= transferencia_dp_1.SelectedDate));
             }
             else
                 fillTranferencia(x => true);
         }
+
     }
 }
