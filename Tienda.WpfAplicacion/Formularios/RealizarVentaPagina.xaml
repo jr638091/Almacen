@@ -28,7 +28,7 @@
                 </Grid>
             </GroupBox>
 
-            <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="248" Margin="10,168,0,0" VerticalAlignment="Top" Width="352" AutoGenerateColumns="False">
+            <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="248" Margin="10,168,0,0" VerticalAlignment="Top" Width="352" CanUserAddRows="False" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.2*" Header="Codigo" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>

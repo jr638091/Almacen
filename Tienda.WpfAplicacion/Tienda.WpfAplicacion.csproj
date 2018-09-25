@@ -138,9 +138,6 @@
       <DependentUpon>TiendaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TiendaDbContext.cs" />
-    <Compile Include="UserControllers\PointShapeLineExample.xaml.cs">
-      <DependentUpon>PointShapeLineExample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControllers\ReporteVentaController.xaml.cs">
       <DependentUpon>ReporteVentaController.xaml</DependentUpon>
     </Compile>
@@ -223,10 +220,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\SucursalPagina.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControllers\PointShapeLineExample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,7 +13,6 @@
     <Grid >
         <local:MenuControl/>
         <local:TopMenu Title="Home"/>
-        <Contols:PointShapeLineExample HorizontalAlignment="Left" Height="203" Margin="236,238,0,0" VerticalAlignment="Top" Width="385"/>
         <Button Content="View Statics" HorizontalAlignment="Left" Margin="354,158,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
         
     </Grid>

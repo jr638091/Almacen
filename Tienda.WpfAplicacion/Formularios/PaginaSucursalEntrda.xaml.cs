@@ -74,7 +74,13 @@ namespace WpfAplicacion
             }
             var exist = objeto_select as objeto_existencia;
 
-            source_producto.RemoveAt(source_producto.FindIndex(p => p.ExistenciaId == exist.ExistenciaId));
+            if(source_entrada.Exists(p => p.Codigo == exist.Codigo))
+            {
+                var objeto = source_entrada.Find(p => p.Codigo == exist.Codigo);
+                dgrid_entrada.SelectedIndex = dgrid_entrada.Items.IndexOf(objeto);
+                return;
+            }
+
             source_entrada.Add(new entrada(exist.Codigo, exist.Descripcion));
 
             Metodos_Auxiliares.refresh(dgrid_entrada, source_entrada);
