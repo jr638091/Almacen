@@ -17,7 +17,7 @@
     
     <Grid Background="LightGray">
         <local:TopMenu Title="Liquidacion"/>
-        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="472" Margin="10,88,0,0" VerticalAlignment="Top" Width="228" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="472" Margin="10,88,0,0" VerticalAlignment="Top" Width="339" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>

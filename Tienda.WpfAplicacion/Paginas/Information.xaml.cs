@@ -19,6 +19,16 @@ namespace WpfAplicacion
     /// <summary>
     /// Lógica de interacción para Information.xaml
     /// </summary>
+    /// 
+
+    static class extensores
+    {
+        static string Descripcion(this object source) {
+            return "Descripcion";
+        }
+        
+    }
+
     public partial class Information : Page
     {
         public Information()
@@ -26,14 +36,20 @@ namespace WpfAplicacion
             InitializeComponent();
         }
 
+        class t
+        {
+            private string d { get { return "hola"; } }
+        }
+        
+
         void fillVentas(Func<ReporteVenta,bool> pred)
         {
             venta_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteVentas.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                 foreach (var item in vs)
                 {
                     var source = item.Articulos;
@@ -219,82 +235,68 @@ namespace WpfAplicacion
             }
         }
 
-        private void liquidacion_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
-        {
-            if (liquidacion_dp_1.SelectedDate != null && liquidacion_dp_2.SelectedDate != null)
+        private Tuple<DateTime,DateTime> calendar_change(DatePicker fecha_menor, DatePicker fecha_mayor) {
+            DateTime? mayor =fecha_mayor.SelectedDate;
+            DateTime? menor =fecha_menor.SelectedDate;
+            if (menor > mayor)
             {
-                if (liquidacion_dp_1.SelectedDate > liquidacion_dp_2.SelectedDate)
-                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_2.SelectedDate));
-                else
-                    fillLiquidacion(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < liquidacion_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > liquidacion_dp_1.SelectedDate));
+                DateTime? t = mayor;
+                mayor = menor;
+                menor = t;
             }
-            else
-                fillLiquidacion(x => true);
+            if (mayor != null) mayor = mayor.Value.AddDays(1);
+            else mayor = DateTime.MaxValue;
+            if (menor == null) menor = DateTime.MaxValue;
+            return new Tuple<DateTime, DateTime>((DateTime)menor, (DateTime)mayor);
         }
 
-        private void Entrada_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void liquidacion_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            if (entrada_dp_1.SelectedDate != null && entrada_dp_2.SelectedDate != null)
-            {
-                if (entrada_dp_1.SelectedDate > entrada_dp_2.SelectedDate)
-                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_2.SelectedDate));
-                else
-                    fillEntrada(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < entrada_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > entrada_dp_1.SelectedDate));
-            }
-            else
-                fillEntrada(x => true);
+            Tuple<DateTime,DateTime> t = calendar_change(liquidacion_dp_1, liquidacion_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillLiquidacion(x => x.Fecha >= a && x.Fecha <= b);
         }
 
-        private void venta_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void Entrada_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            if (venta_dp_1.SelectedDate != null && venta_dp_2.SelectedDate != null)
-            {
-                if (venta_dp_1.SelectedDate > venta_dp_2.SelectedDate)
-                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_2.SelectedDate));
-                else
-                    fillVentas(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < venta_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > venta_dp_1.SelectedDate));
-            }
-            else
-                fillVentas(x => true);
+            Tuple<DateTime, DateTime> t = calendar_change(entrada_dp_1, entrada_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillEntrada(x => x.Fecha >= a && x.Fecha <= b);
         }
 
-        private void devoluciones_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void venta_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            if (devoluciones_dp_1.SelectedDate != null && devoluciones_dp_2.SelectedDate != null)
-            {
-                if (devoluciones_dp_1.SelectedDate > devoluciones_dp_2.SelectedDate)
-                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_2.SelectedDate));
-                else
-                    fillDevoluciones(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < devoluciones_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > devoluciones_dp_1.SelectedDate));
-            }
-            else
-                fillDevoluciones(x => true);
+            Tuple<DateTime, DateTime> t = calendar_change(venta_dp_1, venta_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillVentas(x => x.Fecha >= a && x.Fecha <= b);
         }
 
-        private void deuda_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void devoluciones_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            if (deuda_dp_1.SelectedDate != null && deuda_dp_2.SelectedDate != null)
-            {
-                if (deuda_dp_1.SelectedDate > deuda_dp_2.SelectedDate)
-                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_2.SelectedDate));
-                else
-                    fillDeuda(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < deuda_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > deuda_dp_1.SelectedDate));
-            }
-            else
-                fillDeuda(x => true);
+            Tuple<DateTime, DateTime> t = calendar_change(devoluciones_dp_1, devoluciones_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillDevoluciones(x => x.Fecha >= a && x.Fecha <= b);
         }
 
-        private void transferencia_dp_1_CalendarClosed(object sender, RoutedEventArgs e)
+        private void deuda_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            if (transferencia_dp_1.SelectedDate != null && transferencia_dp_2.SelectedDate != null)
-            {
-                if (transferencia_dp_1.SelectedDate > transferencia_dp_2.SelectedDate)
-                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_1.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_2.SelectedDate));
-                else
-                    fillTranferencia(x => (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) < transferencia_dp_2.SelectedDate) && (new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day) > transferencia_dp_1.SelectedDate));
-            }
-            else
-                fillTranferencia(x => true);
+            Tuple<DateTime, DateTime> t = calendar_change(deuda_dp_1, deuda_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillDeuda(x => x.Fecha >= a && x.Fecha <= b);
         }
+
+        private void transferencia_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
+        {
+            Tuple<DateTime, DateTime> t = calendar_change(transferencia_dp_1, transferencia_dp_2);
+            DateTime a = t.Item1;
+            DateTime b = t.Item2;
+            fillTranferencia(x => x.Fecha >= a && x.Fecha <= b);
+        }
+
     }
 }

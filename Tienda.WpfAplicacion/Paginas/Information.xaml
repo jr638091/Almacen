@@ -27,8 +27,8 @@
                             <StackPanel Name="liquidacion_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="liquidacion_dp_1" Margin="421,111,25.6,384" CalendarClosed="liquidacion_dp_1_CalendarClosed"/>
-                        <DatePicker Name="liquidacion_dp_2" Margin="421,168,25.6,327"/>
+                        <DatePicker Name="liquidacion_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
+                        <DatePicker Name="liquidacion_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
@@ -41,8 +41,8 @@
                             <StackPanel Name="venta_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="venta_dp_1" Margin="421,111,25.6,384" CalendarClosed="venta_dp_1_CalendarClosed"/>
-                        <DatePicker Name="venta_dp_2" Margin="421,168,25.6,327" CalendarClosed="venta_dp_1_CalendarClosed"/>
+                        <DatePicker Name="venta_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
+                        <DatePicker Name="venta_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
@@ -55,8 +55,8 @@
                             <StackPanel Name="devoluciones_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="devoluciones_dp_1" Margin="421,111,25.6,384" CalendarClosed="devoluciones_dp_1_CalendarClosed"/>
-                        <DatePicker Name="devoluciones_dp_2" Margin="421,168,25.6,327" CalendarClosed="devoluciones_dp_1_CalendarClosed"/>
+                        <DatePicker Name="devoluciones_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
+                        <DatePicker Name="devoluciones_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
@@ -69,8 +69,8 @@
                             <StackPanel Name="deuda_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="deuda_dp_1" Margin="421,111,25.6,384" CalendarClosed="deuda_dp_1_CalendarClosed"/>
-                        <DatePicker Name="deuda_dp_2" Margin="421,168,25.6,327" CalendarClosed="deuda_dp_1_CalendarClosed"/>
+                        <DatePicker Name="deuda_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
+                        <DatePicker Name="deuda_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
@@ -83,8 +83,8 @@
                             <StackPanel Name="transferencia_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="transferencia_dp_1" Margin="421,111,25.6,384" CalendarClosed="transferencia_dp_1_CalendarClosed"/>
-                        <DatePicker Name="transferencia_dp_2" Margin="421,168,25.6,327" CalendarClosed="transferencia_dp_1_CalendarClosed"/>
+                        <DatePicker Name="transferencia_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
+                        <DatePicker Name="transferencia_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
@@ -97,8 +97,8 @@
                             <StackPanel Name="entrada_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             </StackPanel>
                         </ScrollViewer>
-                        <DatePicker Name="entrada_dp_1" Margin="421,111,25.6,384" CalendarClosed="Entrada_dp_1_CalendarClosed"/>
-                        <DatePicker Name="entrada_dp_2" Margin="421,168,25.6,327" CalendarClosed="Entrada_dp_1_CalendarClosed"/>
+                        <DatePicker Name="entrada_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
+                        <DatePicker Name="entrada_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
                         <Label Margin="439,81,38.8,406">
                             Filtrar por fecha
                         </Label>
