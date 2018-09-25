@@ -28,7 +28,7 @@
                 <Label Name ="Informes" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Informes" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Height="45" Background="Transparent" BorderBrush="Transparent" FontSize="18"/>
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/informe.png"/>
             </Grid>
-            <Label Content="Shop" HorizontalAlignment="Left" Margin="45,44,0,0" VerticalAlignment="Top" Height="63" Width="113" FontSize="36" FontFamily="Viner Hand ITC"/>
+            <Label Content="Shopi" HorizontalAlignment="Left" Margin="45,44,0,0" VerticalAlignment="Top" Height="63" Width="113" FontSize="36" FontFamily="Viner Hand ITC"/>
 
         </Grid>
     </Grid>

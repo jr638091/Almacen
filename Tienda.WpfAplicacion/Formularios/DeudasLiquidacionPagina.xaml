@@ -18,7 +18,7 @@
 
     <Grid>
         <local:TopMenu Title="Deudas Pendientes"/>
-        <DataGrid x:Name="dgrid_deudas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,50,0,0" Height="500" Width="374" SelectionChanged="dgrid_deudas_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgrid_deudas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,50,0,0" Height="500" Width="374" SelectionChanged="dgrid_deudas_SelectionChanged" Loaded="dgrid_deudas_Loaded" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Fecha}" IsReadOnly="True" Header="Fecha" Width="0.16*"/>
                 <DataGridTextColumn Binding="{Binding Path=CostoTotal}" IsReadOnly="True" Header="Valor" Width="0.1*"/>

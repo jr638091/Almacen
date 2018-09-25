@@ -28,7 +28,7 @@
                 <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
             </Grid>
         </GroupBox>
-        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="371" Margin="247,203,0,0" VerticalAlignment="Top" Width="270" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" CellEditEnding="dgrid_productos_CellEditEnding">
+        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="371" Margin="247,203,0,0" VerticalAlignment="Top" Width="270" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" CellEditEnding="dgrid_productos_CellEditEnding" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="False"/>
                 <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="False"/>
