@@ -165,7 +165,7 @@ namespace WpfAplicacion
                         var source1 = item.ReporteVenta.Articulos;
                         var ventas = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source1, header1, path1));
                         ventas.fecha_inform.Content = item.ReporteVenta.Fecha.ToString();
-                        ventas.nombre_inform.Content = item.ReporteVenta.Trabajador.Nombre;
+                        ventas.nombre_inform.Content = item.ReporteVenta.Tienda.Nombre;
                         ventas.pago_inform.Content = "Pago: " + item.ReporteVenta.CostoTotal.ToString() + " $";
                         ventas.Background = Brushes.White;
                         t.Add(ventas);
