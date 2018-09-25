@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -149,7 +150,8 @@ namespace WpfAplicacion
                 return;
             }
             string path = dialogo.SelectedPath;
-            
+
+            string columna_final = "F";
 
             DataSet ds = new DataSet();
             DataTable table = new DataTable();
@@ -160,7 +162,9 @@ namespace WpfAplicacion
                 table.TableName = "Precios";
                 table.Columns.Add("Codigo");
                 table.Columns.Add("Descripcion");
+                table.Columns.Add("Cantidad Buen Estado");
                 table.Columns.Add("Precio Buen Estado");
+                table.Columns.Add("Cantidad Defectuoso");
                 table.Columns.Add("Precio Defectuoso");
 
                 var existencias = db.Tiendas.Find(tienda).Productos.Where(p => p.CantidadTotal > 0);
@@ -168,12 +172,11 @@ namespace WpfAplicacion
 
                 foreach(var item in existencias)
                 {
-                    table.Rows.Add(item.Codigo, item.Producto.Descripcion, item.PrecioBuenEstado, item.PrecioDefectuoso);
+                    table.Rows.Add(item.Codigo, item.Producto.Descripcion,item.CantidadBuenEstado, item.PrecioBuenEstado,item.CantidadDefectuoso, item.PrecioDefectuoso);
                 }
                 tienda_nombre = existencias.First().Tienda.Nombre;
                 
-                path += "\\precios(" + tienda_nombre +").xlsx";
-                MessageBox.Show(path);
+                path += "\\" + tienda_nombre + " " + DateTime.Today.ToShortDateString().Replace('/', '-') + ".xlsx";
             }
             System.Reflection.Missing d = System.Reflection.Missing.Value;
             int inHeaderLength = 3, inColumn = 0, inRow = 0;
@@ -197,13 +200,15 @@ namespace WpfAplicacion
                     inRow = inHeaderLength + 2 + m;
                     excel_sheet.Cells[inRow, inColumn] = table.Rows[m].ItemArray[n].ToString();
                     if (m % 2 == 0)
-                        excel_sheet.Range["A" + inRow.ToString(), "D" + inRow.ToString()].Interior.Color = ColorTranslator.FromHtml("#FCE4D6");
+                        excel_sheet.Range["A" + inRow.ToString(), columna_final + inRow.ToString()].Interior.Color = ColorTranslator.FromHtml("#FCE4D6");
                 }
 
             }
-            excel_sheet.Range["C" + (inHeaderLength + 1).ToString(), "D1" + (inHeaderLength + 1).ToString()].EntireColumn.NumberFormat = "0.00";
+            excel_sheet.Range["D" + (inHeaderLength + 1).ToString()].EntireColumn.NumberFormat = "0.00";
+            excel_sheet.Range["F" + (inHeaderLength + 1).ToString()].EntireColumn.NumberFormat = "0.00";
 
-            var cell_header = excel_sheet.Range["A1", "D" + inHeaderLength.ToString()];
+
+            var cell_header = excel_sheet.Range["A1", columna_final + inHeaderLength.ToString()];
             cell_header.Merge(false);
             cell_header.Interior.Color = System.Drawing.Color.White;
             cell_header.Font.Color = System.Drawing.Color.Gray;
@@ -212,7 +217,7 @@ namespace WpfAplicacion
             cell_header.Font.Size = 26;
             excel_sheet.Cells[1, 1] = tienda_nombre;
 
-            cell_header = excel_sheet.Range["A" + (inHeaderLength + 1).ToString(), "D" + (inHeaderLength + 1).ToString()];
+            cell_header = excel_sheet.Range["A" + (inHeaderLength + 1).ToString(), columna_final + (inHeaderLength + 1).ToString()];
             cell_header.Font.Bold = true;
             cell_header.Font.Color = System.Drawing.Color.White;
             cell_header.Interior.Color = System.Drawing.ColorTranslator.FromHtml("#ED7D31");
@@ -251,6 +256,23 @@ namespace WpfAplicacion
                 }
                 NavigationService.GoBack();
             }
+        }
+
+        private void btn_Actualizar_Click(object sender, RoutedEventArgs e)
+        {
+            using(var db = new TiendaDbContext())
+            {
+                var lista = db.Existencias.Where(t => t.ShopId == tienda && (t.CantidadBuenEstado > 0 || t.CantidadDefectuoso>0)).ToList();
+                foreach (var item in lista)
+                {
+                    var exis = db.Existencias.Where(t => t.ShopId == 1 && t.Codigo == item.Codigo).First();
+                    item.PrecioBuenEstado = exis.PrecioBuenEstado;
+                    item.PrecioDefectuoso = exis.PrecioDefectuoso;
+                    db.Entry(item).State = EntityState.Modified;
+                }
+                db.SaveChanges();
+            }
+            DataGrid_Loaded(sender, e);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace WpfAplicacion.Formularios
     public partial class DeudasLiquidacionPagina : Page, IFormulario
     {
         private List<liquidacion_deuda> source_deuda;
-        private int shopId;
+        private List<articulo_info> source_info;
         public DeudasLiquidacionPagina()
         {
             InitializeComponent();
@@ -32,8 +32,15 @@ namespace WpfAplicacion.Formularios
             InitializeComponent();
 
             source_deuda = new List<liquidacion_deuda>();
-            this.shopId = shopId;
-
+            using (var db = new TiendaDbContext())
+            {
+                var reportes = db.ReporteDeudas.Where(r => r.ShopId == shopId && !r.Saldada).ToList();
+                foreach(var item in reportes)
+                {
+                    source_deuda.Add(new liquidacion_deuda(item.ReporteDeudaId));
+                }
+            }
+            dgrid_deudas.ItemsSource = source_deuda;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,21 +57,42 @@ namespace WpfAplicacion.Formularios
 
             using (var db = new TiendaDbContext())
             {
-                dgrid_informacion.ItemsSource = db.ReporteDeudas.Find(objeto.ReporteDeudaId).Articulos.ToList();
+                source_info = new List<articulo_info>();
+                foreach(var item in db.ReporteDeudas.Find(objeto.ReporteDeudaId).Articulos)
+                {
+                    source_info.Add(new articulo_info(item.ArticuloDeudaId));
+                }
+                dgrid_informacion.ItemsSource = null;
+                dgrid_informacion.ItemsSource = source_info;
             }
         }
 
-        private void dgrid_deudas_Loaded(object sender, RoutedEventArgs e)
+        private void dgrid_deudas_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            using (var db = new TiendaDbContext())
+            double valor;
+            var objeto = e.Row.Item as liquidacion_deuda;
+            if (!double.TryParse((e.EditingElement as TextBox).Text, out valor))
             {
-                var reportes = db.ReporteDeudas.Where(r => r.ShopId == shopId && r.Pagado<r.CostoTotal).ToList();
-                foreach (var item in reportes)
-                {
-                    source_deuda.Add(new liquidacion_deuda(item.ReporteDeudaId));
-                }
+                Metodos_Auxiliares.refresh(dgrid_deudas, source_deuda);
             }
-            dgrid_deudas.ItemsSource = source_deuda;
+            else
+            {
+                valor = Math.Min(valor, objeto.CostoTotal - objeto.Pagado);
+
+                valor = Math.Max(0, valor);
+
+                source_deuda.Find(p => p.ReporteDeudaId == objeto.ReporteDeudaId).APagar = valor;
+                Metodos_Auxiliares.refresh(dgrid_deudas, source_deuda);
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            foreach(var item in source_deuda)
+            {
+                item.GuardaCambios();
+            }
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -11,7 +11,7 @@
     <Grid>
         <local:TopMenu x:Name="top" Title="Pagina de Sucursal"/>
         <local:MenuControl/>
-        <DataGrid Name="dg_prods" HorizontalAlignment="Left" Height="488" Margin="205,63,0,0" VerticalAlignment="Top" Width="325" Loaded="DataGrid_Loaded" AutoGenerateColumns="False">
+        <DataGrid Name="dg_prods" HorizontalAlignment="Left" Height="488" Margin="205,63,0,0" VerticalAlignment="Top" Width="325" CanUserAddRows="False" Loaded="DataGrid_Loaded" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=Decripcion}" Header="Descripcion" IsReadOnly="True"/>
@@ -42,7 +42,7 @@
         <Button Content="Transferir" Name="btn_entrada" HorizontalAlignment="Left"  Margin="605,378,0,0" VerticalAlignment="Top" Width="100" FontSize="20" Background="Aquamarine" Click="btn_entrada_Click"/>
         <Label Foreground="Red" HorizontalAlignment="Left" Margin="221,564,0,0" VerticalAlignment="Top"/>
         <Button Content="Deudas" HorizontalAlignment="Left" FontSize="20" Margin="605,414,0,0" VerticalAlignment="Top" Background="Aquamarine" Click="Button_Click_1" Width="100" />
-        <Button x:Name="btn_Actualizar" Content="Act Precios" HorizontalAlignment="Left" FontSize="20" Margin="605,450,0,0" VerticalAlignment="Top" Background="Aquamarine" Width="100" />
+        <Button x:Name="btn_Actualizar" Content="Act Precios" HorizontalAlignment="Left" FontSize="20" Margin="605,450,0,0" VerticalAlignment="Top" Background="Aquamarine" Width="100" Click="btn_Actualizar_Click" />
         <Button x:Name="btn_GenExcel" Content="Gen Excel" HorizontalAlignment="Left" FontSize="20" Margin="605,486,0,0" VerticalAlignment="Top" Background="Aquamarine" Width="100" Click="btn_GenExcel_Click" />
         <Button Name="eliminar_btn" Content="Eliminar tienda" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Coral" Margin=" 1,1" Click="eliminar_btn_Click"/>
     </Grid>

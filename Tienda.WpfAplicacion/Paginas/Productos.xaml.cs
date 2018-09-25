@@ -102,6 +102,7 @@ namespace WpfAplicacion
 
         private void dgrid_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            
             var column = e.Column as DataGridBoundColumn;
             if (column != null)
             {
@@ -203,6 +204,12 @@ namespace WpfAplicacion
             {
                 e.Cancel = true;
             }
+        }
+
+        private void dgrid_productos_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if (dgrid_productos.SelectedItem == null || (dgrid_productos.SelectedItem as Producto).Codigo == "")
+                e.Cancel = true;
         }
     }
 }

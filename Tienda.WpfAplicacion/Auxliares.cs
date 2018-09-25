@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace WpfAplicacion
             CantidadDefectuoso = 0;
         }
 
-        public ArticuloEntrada genera_articulo_entrada()
+        public ArticuloEntrada genera_articulo_entrada(DateTime Fecha)
         {
             var articulo = new ArticuloEntrada
             {
@@ -122,9 +123,9 @@ namespace WpfAplicacion
             return art;
         }
 
-        public static ReporteVenta generar_reporte(int tienda_id, int trabajador_id, ICollection<objeto_venta> Articulos)
+        public static ReporteVenta generar_reporte(int tienda_id, int trabajador_id, ICollection<objeto_venta> Articulos, DateTime Fecha)
         {
-            var reporte = new ReporteVenta { ShopId = tienda_id, TrabajadorId = trabajador_id, Fecha = DateTime.Now, Articulos = new List<ArticuloVenta>() };
+            var reporte = new ReporteVenta { ShopId = tienda_id, TrabajadorId = trabajador_id, Fecha = Fecha, Articulos = new List<ArticuloVenta>() };
 
             using (var db = new TiendaDbContext())
             {
@@ -219,13 +220,13 @@ namespace WpfAplicacion
             return articulo;
         }
 
-        public static ReporteDeuda generar_reporte(int tienda_id, ICollection<objeto_deuda> articulos)
+        public static ReporteDeuda generar_reporte(int tienda_id, ICollection<objeto_deuda> articulos, DateTime Fecha)
         {
             using (var db = new TiendaDbContext()) {
                 var tienda = db.Tiendas.Find(tienda_id);
                 var reporte = new ReporteDeuda
                 {
-                    Fecha = DateTime.Now,
+                    Fecha = Fecha,
                     ShopId = tienda_id,
                     Articulos = new List<ArticuloDeuda>(),
                 };
@@ -282,13 +283,13 @@ namespace WpfAplicacion
             return articulo;
         }
 
-        public static ReporteDevolucion generar_reporte(int tienda_id ,ICollection<objeto_devolucion> articulos)
+        public static ReporteDevolucion generar_reporte(int tienda_id ,ICollection<objeto_devolucion> articulos, DateTime Fecha)
         {
             using (var db = new TiendaDbContext())
             {
                 var reporte = new ReporteDevolucion
                 {
-                    Fecha = DateTime.Now,
+                    Fecha = Fecha,
                     Articulos = new List<ArticuloDevolucion>(),
                     ShopId = tienda_id,
                 };
@@ -323,13 +324,13 @@ namespace WpfAplicacion
             return dg;
         }
 
-        public static InformeLiquidacion genera_informe(int tienda_id, ReporteDeuda deuda, ReporteDevolucion devolucion, ReporteVenta venta)
+        public static InformeLiquidacion genera_informe(int tienda_id, ReporteDeuda deuda, ReporteDevolucion devolucion, ReporteVenta venta, DateTime Fecha)
         {
             using (var db = new TiendaDbContext())
             {
                 var informe = new InformeLiquidacion
                 {
-                    Fecha = DateTime.Now,
+                    Fecha = Fecha,
                     ShopId = tienda_id,
                     ReporteDeudaId = deuda.ReporteDeudaId,
                     ReporteDevolucionId = devolucion.ReporteDevolucionId,
@@ -352,6 +353,7 @@ namespace WpfAplicacion
     public class liquidacion_deuda
     {
         public int ReporteDeudaId { get; set; }
+        public string Fecha { get; set; }
         public int CantidadTotal { get; set; }
         public double CostoTotal { get; set; }
         public double Pagado { get; set; }
@@ -368,7 +370,30 @@ namespace WpfAplicacion
                 this.CostoTotal = reporte.CostoTotal;
                 this.CantidadTotal = reporte.CantidadTotal;
                 this.Pagado = reporte.Pagado;
-                this.Fecha = reporte.Fecha;
+                this.Fecha = reporte.Fecha.ToShortDateString();
+            }
+        }
+
+        public void GuardaCambios()
+        {
+            DateTime Date = DateTime.Today;
+            if (APagar <= 0)
+                return;
+            using(var db = new TiendaDbContext())
+            {
+                var Informe = new InformePagoDeuda
+                {
+                    ReporteDeudaId = this.ReporteDeudaId,
+                    Fecha = Date,
+                    Pagado = this.APagar,
+                };
+                var reporte = db.ReporteDeudas.Find(this.ReporteDeudaId);
+                reporte.Pagado += this.APagar;
+                if (reporte.Pagado == reporte.CostoTotal)
+                    reporte.Saldada = true;
+                db.Entry(reporte).State = EntityState.Modified;
+                db.InformePagoDeudas.Add(Informe);
+                db.SaveChanges();
             }
         }
     }
@@ -413,6 +438,31 @@ namespace WpfAplicacion
     }
 
 
-    
+    public class articulo_info
+    {
+        public int ArticuloDeudaId { get; set; }
+        public string Codigo { get; set; }
+        public string Descripcion { get; set; }
+        public int CantidadBuenEstado { get; set; }
+        public int CantidadDefectuoso { get; set; }
+        public int CantidadTotal { get { return this.CantidadBuenEstado + this.CantidadDefectuoso; } }
+        public double PrecioBuenEstado { get; set; }
+        public double PrecioDefectuoso { get; set; }
+
+        public articulo_info(int ArticuloId)
+        {
+            this.ArticuloDeudaId = ArticuloId;
+            using (var db = new TiendaDbContext())
+            {
+                var articulo = db.ArticuloDeudas.Find(ArticuloId);
+                this.Codigo = articulo.Codigo;
+                this.Descripcion = articulo.Producto.Descripcion;
+                this.CantidadBuenEstado = articulo.CantidadBuenEstado;
+                this.CantidadDefectuoso = articulo.CantidadDefectuoso;
+                this.PrecioBuenEstado = articulo.Precio;
+                this.PrecioDefectuoso = articulo.PrecioDefectuoso;
+            }
+        }
+    }
 
 }
