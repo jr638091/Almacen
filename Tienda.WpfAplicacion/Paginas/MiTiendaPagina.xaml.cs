@@ -24,26 +24,19 @@ namespace WpfAplicacion
     {
         private int indice_seleccion;
         private List<Existencia> data_source;
+        private List<Trabajador> data_trabajador;
         public MiTiendaPagina()
         {
             InitializeComponent();
         }
-        private void Mis_Tiendas_Click(object sender, RoutedEventArgs e)
-        {
-            var p = new MisTiendas();
-            this.NavigationService.Navigate(p);
-        }
-
-        private void Producto_Button_Click(object sender, RoutedEventArgs e)
-        {
-            var pagina = new Productos();
-            this.NavigationService.Navigate(pagina);
-        }
+        
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             using (var db = new TiendaDbContext())
             {
+                data_trabajador = db.Tiendas.First().Trabajadores.OrderBy(o => o.Nombre).Where(x => !x.eliminado).ToList();
+                dg_trab.ItemsSource = data_trabajador;
                 data_source = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0).ToList();
                 
                 dgrid_productos.ItemsSource = data_source;
@@ -114,27 +107,29 @@ namespace WpfAplicacion
             gbox_modificarPrecio.Visibility = Visibility.Hidden;
             btn_cambiarPrecio.Visibility = Visibility.Visible;
         }
-
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            using(var db = new TiendaDbContext())
-            {
-                dg_trab.ItemsSource = db.Trabajadores.Where(x=>x.eliminado != true).ToList();
-            }
-        }
+        
 
         private void dg_trab_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if(dg_trab.SelectedIndex >= (new TiendaDbContext()).Trabajadores.Where(x => !x.eliminado).Count())
+            var row = e.Row.Item as Trabajador;
+            if (row.TrabajadorId == 0)
             {
                 using( var db = new TiendaDbContext())
                 {
-                    db.Trabajadores.Add(new Trabajador { Nombre = (e.EditingElement as TextBox).Text });
+                    var tienda = db.Tiendas.First();
+                    var trabajador = new Trabajador {
+                        Nombre = (e.EditingElement as TextBox).Text,
+                        ShopId = tienda.ShopId
+                    };
+                    if (trabajador.Nombre == "")
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                    db.Trabajadores.Add(trabajador);
                     db.SaveChanges();
-                    dgrid_productos.ItemsSource = null;
-                    dg_trab.ItemsSource = db.Trabajadores.Where(x => !x.eliminado).ToList();
-                    dgrid_productos.ItemsSource = null;
-                    dgrid_productos.ItemsSource = data_source;
+                    data_trabajador.Add(trabajador);
+                    Metodos_Auxiliares.refresh(dg_trab, data_trabajador);
                 }
             }
             else
@@ -158,10 +153,13 @@ namespace WpfAplicacion
                     {
                         db.Trabajadores.Find((dg_trab.SelectedItem as Trabajador).TrabajadorId).eliminado = true;
                         db.SaveChanges();
-                        dg_trab.ItemsSource = null;
-                        dg_trab.ItemsSource = db.Trabajadores.Where(x => !x.eliminado).ToList();
+                        data_trabajador.Remove(dg_trab.SelectedItem as Trabajador);
+                        Metodos_Auxiliares.refresh(dg_trab, data_trabajador);
                     }
+
             }
         }
+
+        
     }
 }

@@ -31,6 +31,9 @@ namespace WpfAplicacion
 
         private double CostoVenta;
         private double CostoDeuda;
+
+        public DateTime Fecha { get; set; }
+
         private double CostoTotal
         {
             get { return CostoVenta + CostoDeuda; }
@@ -60,11 +63,12 @@ namespace WpfAplicacion
                     }
                 }
             }
-
+            this.DataContext = this;
             dgrid_existencia.ItemsSource = source_existencia;
             dgrid_deuda.ItemsSource = source_deuda;
             dgrid_devolucion.ItemsSource = source_devolucion;
             dgrid_venta.ItemsSource = source_venta;
+            Fecha = DateTime.Today;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -90,12 +94,6 @@ namespace WpfAplicacion
                 return;
             var venta_new = new objeto_venta(existencia.ExistenciaId);
             source_venta.Add(venta_new);
-
-            if (existe_devolucion && existe_deuda)
-            {
-                source_existencia.RemoveAt(source_existencia.FindIndex(p => p.ExistenciaId == existencia.ExistenciaId));
-                Metodos_Auxiliares.refresh(dgrid_existencia, source_existencia);
-            }
             Metodos_Auxiliares.refresh(dgrid_venta, source_venta);
         }
 
@@ -118,12 +116,6 @@ namespace WpfAplicacion
             var devolucion_new = new objeto_devolucion(existencia.ExistenciaId);
             source_devolucion.Add(devolucion_new);
 
-            if (existe_venta && existe_deuda)
-            {
-                source_existencia.RemoveAt(source_existencia.FindIndex(p => p.ExistenciaId == existencia.ExistenciaId));
-
-                Metodos_Auxiliares.refresh(dgrid_existencia, source_existencia);
-            }
             Metodos_Auxiliares.refresh(dgrid_devolucion, source_devolucion);
         }
 
@@ -146,12 +138,6 @@ namespace WpfAplicacion
             var deuda_new = new objeto_deuda(existencia.ExistenciaId);
             source_deuda.Add(deuda_new);
 
-            if (existe_devolucion && existe_venta)
-            {
-                source_existencia.RemoveAt(source_existencia.FindIndex(p => p.ExistenciaId == existencia.ExistenciaId));
-
-                Metodos_Auxiliares.refresh(dgrid_existencia, source_existencia);
-            }
             Metodos_Auxiliares.refresh(dgrid_deuda, source_deuda);
         }
 
@@ -170,19 +156,8 @@ namespace WpfAplicacion
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
             bool existe_existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
 
-            if(!existe_existencia)
-            {
-                var existencia = new objeto_existencia(objeto.ExistenciaId);
-                source_existencia.Add(existencia);
-
-                dgrid_existencia.ItemsSource = null;
-                dgrid_existencia.ItemsSource = source_existencia;
-            }
-
             source_venta.RemoveAt(source_venta.FindIndex(p => p.ExistenciaId == objeto.ExistenciaId));
-
-            dgrid_venta.ItemsSource = null;
-            dgrid_venta.ItemsSource = source_venta;
+            Metodos_Auxiliares.refresh(dgrid_venta, source_venta);
         }
 
         private void btn_retirar_devolucion_Click(object sender, RoutedEventArgs e)
@@ -200,19 +175,8 @@ namespace WpfAplicacion
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
             bool existe_existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
 
-            if (!existe_existencia)
-            {
-                var existencia = new objeto_existencia(objeto.ExistenciaId);
-                source_existencia.Add(existencia);
-
-                dgrid_existencia.ItemsSource = null;
-                dgrid_existencia.ItemsSource = source_existencia;
-            }
-
             source_devolucion.RemoveAt(source_devolucion.FindIndex(p => p.ExistenciaId == objeto.ExistenciaId));
-
-            dgrid_devolucion.ItemsSource = null;
-            dgrid_devolucion.ItemsSource = source_devolucion;
+            Metodos_Auxiliares.refresh(dgrid_devolucion, source_devolucion);
         }
 
         private void btn_retirar_deuda_Click(object sender, RoutedEventArgs e)
@@ -230,22 +194,8 @@ namespace WpfAplicacion
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
             bool existe_existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId) != null;
 
-            if (!existe_existencia)
-            {
-                var existencia = new objeto_existencia(objeto.ExistenciaId);
-                source_existencia.Add(existencia);
-
-                dgrid_existencia.ItemsSource = null;
-                dgrid_existencia.ItemsSource = source_existencia;
-            }
-
-            
-            //dgrid_deuda.Items.Remove(source_deuda[0]);
-
             source_deuda.RemoveAt(source_deuda.FindIndex(p => p.ExistenciaId == objeto.ExistenciaId));
-
-            dgrid_deuda.ItemsSource = null;
-            dgrid_deuda.ItemsSource = source_deuda;
+            Metodos_Auxiliares.refresh(dgrid_deuda, source_deuda);
         }
 
         private void dgrid_venta_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -272,23 +222,22 @@ namespace WpfAplicacion
 
             if (existe_deuda)
             {
-                cantidadBuenEstado += source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadDefectuoso;
+                var deuda = source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += deuda.CantidadBuenEstado;
+                cantidadDefectuoso += deuda.CantidadDefectuoso;
 
             }
             if (existe_devolucion)
             {
-                cantidadBuenEstado += source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
+                var devolucion = source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += devolucion.CantidadBuenEstado;
+                cantidadDefectuoso += devolucion.CantidadBuenEstado;
             }
-            int cantidadBEmax;
-            int cantidadDefmax;
-            using (var db = new TiendaDbContext())
-            {
-                var exist = db.Existencias.Find(objeto.ExistenciaId);
-                cantidadBEmax = exist.CantidadBuenEstado - cantidadBuenEstado;
-                cantidadDefmax = exist.CantidadDefectuoso - cantidadDefectuoso;
-            }
+            
+            var existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+            int cantidadBEmax = existencia.CantidadBuenEstado - cantidadBuenEstado;
+            int cantidadDefmax = existencia.CantidadDefectuoso - cantidadDefectuoso;
+            
             cantidadBuenEstado = Math.Max(0, valor);
             cantidadDefectuoso = Math.Max(0, valor);
             cantidadBuenEstado = Math.Min(cantidadBEmax, valor);
@@ -335,29 +284,27 @@ namespace WpfAplicacion
 
             if (existe_deuda)
             {
-                cantidadBuenEstado += source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadDefectuoso;
+                var deuda = source_deuda.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += deuda.CantidadBuenEstado;
+                cantidadDefectuoso += deuda.CantidadDefectuoso;
 
             }
             if (existe_venta)
             {
-                cantidadBuenEstado += source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
+                var venta = source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += venta.CantidadBuenEstado;
+                cantidadDefectuoso += venta.CantidadBuenEstado;
             }
-            int cantidadBEmax;
-            int cantidadDefmax;
-            using (var db = new TiendaDbContext())
-            {
-                var exist = db.Existencias.Find(objeto.ExistenciaId);
-                cantidadBEmax = exist.CantidadBuenEstado - cantidadBuenEstado;
-                cantidadDefmax = exist.CantidadDefectuoso - cantidadDefectuoso;
-            }
+
+            var existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+            int cantidadBEmax = existencia.CantidadBuenEstado - cantidadBuenEstado;
+            int cantidadDefmax = existencia.CantidadDefectuoso - cantidadDefectuoso;
+
             cantidadBuenEstado = Math.Max(0, valor);
             cantidadDefectuoso = Math.Max(0, valor);
             cantidadBuenEstado = Math.Min(cantidadBEmax, valor);
             cantidadDefectuoso = Math.Min(cantidadDefmax, valor);
 
-            
 
             var column = e.Column as DataGridBoundColumn;
             if (column != null)
@@ -423,29 +370,27 @@ namespace WpfAplicacion
 
             if (existe_venta)
             {
-                cantidadBuenEstado += source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadDefectuoso;
+                var venta = source_venta.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += venta.CantidadBuenEstado;
+                cantidadDefectuoso += venta.CantidadDefectuoso;
 
             }
             if (existe_devolucion)
             {
-                cantidadBuenEstado += source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
-                cantidadDefectuoso += source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId).CantidadBuenEstado;
+                var devolucion = source_devolucion.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+                cantidadBuenEstado += devolucion.CantidadBuenEstado;
+                cantidadDefectuoso += devolucion.CantidadBuenEstado;
             }
-            int cantidadBEmax;
-            int cantidadDefmax;
-            using (var db = new TiendaDbContext())
-            {
-                var exist = db.Existencias.Find(objeto.ExistenciaId);
-                cantidadBEmax = exist.CantidadBuenEstado - cantidadBuenEstado;
-                cantidadDefmax = exist.CantidadDefectuoso - cantidadDefectuoso;
-            }
+
+            var existencia = source_existencia.Find(p => p.ExistenciaId == objeto.ExistenciaId);
+            int cantidadBEmax = existencia.CantidadBuenEstado - cantidadBuenEstado;
+            int cantidadDefmax = existencia.CantidadDefectuoso - cantidadDefectuoso;
+
             cantidadBuenEstado = Math.Max(0, valor);
             cantidadDefectuoso = Math.Max(0, valor);
             cantidadBuenEstado = Math.Min(cantidadBEmax, valor);
             cantidadDefectuoso = Math.Min(cantidadDefmax, valor);
 
-            
             var column = e.Column as DataGridBoundColumn;
             if (column != null)
             {
@@ -475,12 +420,12 @@ namespace WpfAplicacion
                     return;
                 }
 
-                var reporte_deuda = objeto_deuda.generar_reporte(tienda_id, art_deuda);
-                var reporte_devolucion = objeto_devolucion.generar_reporte(tienda_id ,art_devolucion);
+                var reporte_deuda = objeto_deuda.generar_reporte(tienda_id, art_deuda, Fecha);
+                var reporte_devolucion = objeto_devolucion.generar_reporte(tienda_id ,art_devolucion, Fecha);
                 var tienda = db.Tiendas.Find(tienda_id);
-                var reporte_venta = objeto_venta.generar_reporte(tienda_id, tienda.Encargado.TrabajadorId, art_venta);
+                var reporte_venta = objeto_venta.generar_reporte(tienda_id, tienda.Encargado.TrabajadorId, art_venta, Fecha);
 
-                var informe = Metodos_Auxiliares.genera_informe(tienda_id, reporte_deuda, reporte_devolucion, reporte_venta);
+                var informe = Metodos_Auxiliares.genera_informe(tienda_id, reporte_deuda, reporte_devolucion, reporte_venta, Fecha);
 
                 foreach(var item in art_deuda)
                 {

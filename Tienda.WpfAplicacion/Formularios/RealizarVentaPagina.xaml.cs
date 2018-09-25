@@ -29,6 +29,7 @@ namespace WpfAplicacion
         private string codigo_src;
         private string descrip_src;
 
+        public DateTime Fecha { get; set; }
 
         public RealizarVentaPagina()
         {
@@ -41,7 +42,7 @@ namespace WpfAplicacion
 
             using (var db = new TiendaDbContext())
             {
-                vendedores = db.Trabajadores.OrderBy(i => i.Nombre).Where(x=>x.eliminado==false).ToList();
+                vendedores = db.Tiendas.First().Trabajadores.OrderBy(x => x.Nombre).ToList();
                 var temp = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0);
                 foreach (var item in temp)
                 {
@@ -56,6 +57,8 @@ namespace WpfAplicacion
             
             dgrid_productos.ItemsSource = productos_source;
             dgrid_venta.ItemsSource = venta_source;
+
+            Fecha = DateTime.Today;
         }
         private void btn_cancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -157,7 +160,7 @@ namespace WpfAplicacion
             int trabajador_id = (cb_trabajadores.SelectedItem as Trabajador).TrabajadorId;
 
 
-            var reporte = objeto_venta.generar_reporte(1, trabajador_id, venta_source);
+            var reporte = objeto_venta.generar_reporte(1, trabajador_id, venta_source, Fecha);
             double pagado;
             if(double.TryParse(tbox_pagado.Text, out pagado))
             {

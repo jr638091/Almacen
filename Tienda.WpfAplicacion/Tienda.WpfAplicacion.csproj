@@ -68,6 +68,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -90,6 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Auxliares.cs" />
+    <Compile Include="BuscarDBVentana.xaml.cs">
+      <DependentUpon>BuscarDBVentana.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\DeudasLiquidacionPagina.xaml.cs">
       <DependentUpon>DeudasLiquidacionPagina.xaml</DependentUpon>
     </Compile>
@@ -143,6 +147,10 @@
     <Compile Include="UserControllers\TopMenu.xaml.cs">
       <DependentUpon>TopMenu.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuscarDBVentana.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Formularios\DeudasLiquidacionPagina.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

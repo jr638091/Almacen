@@ -23,6 +23,7 @@ namespace Tienda.Modelo
         IQueryable<InformeLiquidacion> InformeLiquidaciones { get; }
         IQueryable<Trabajador> Trabajadores { get; }
         IQueryable<Existencia> Existencias { get; }
+        IQueryable<InformePagoDeuda> InformePagoDeuda { get; }
 
 
     }

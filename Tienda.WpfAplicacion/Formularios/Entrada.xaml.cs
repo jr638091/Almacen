@@ -29,12 +29,16 @@ namespace WpfAplicacion
         private List<entrada> source_entrada;
         private string codigo_src;
         private string descrip_src;
+
+        public DateTime Fecha { get; set; }
         public Entrada()
         {
-            InitializeComponent();
+            Fecha = DateTime.Today;
             codigo_src = "";
             descrip_src = "";
-
+            InitializeComponent();
+            this.DataContext = this;
+            
         }
 
         private void CancelEntry_Click(object sender, RoutedEventArgs e)
@@ -159,7 +163,7 @@ namespace WpfAplicacion
                     var articulo_entrada = new List<ArticuloEntrada>();
                     foreach (var item in dgrid_entrada.ItemsSource)
                     {
-                        articulo_entrada.Add((item as entrada).genera_articulo_entrada());
+                        articulo_entrada.Add((item as entrada).genera_articulo_entrada(Fecha));
                     }
                     foreach (var articulo in articulo_entrada)
                     {
@@ -170,7 +174,7 @@ namespace WpfAplicacion
                     }
                     db.Entry(tienda).State = EntityState.Modified;
                     articulo_entrada.ForEach(p => db.ArticuloEntradas.Add(p));
-                    var reporte = new ReporteEntrada { Fecha = DateTime.Now, Articulos = articulo_entrada };
+                    var reporte = new ReporteEntrada { Fecha = Fecha, Articulos = articulo_entrada };
                     db.ReporteEntradas.Add(reporte);
 
                     db.SaveChanges();

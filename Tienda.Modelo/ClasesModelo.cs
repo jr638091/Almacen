@@ -138,6 +138,7 @@ namespace Tienda.Modelo
         public virtual int ShopId { get; set; }
         public virtual Shop Tienda { get; set; }
         public virtual ICollection<ArticuloDeuda> Articulos { get; set; }
+        public bool Saldada { get; set; }
         public virtual double CostoTotal
         {
             get
@@ -385,6 +386,15 @@ namespace Tienda.Modelo
             }
             return reporte;
         }
+    }
+    public class InformePagoDeuda
+    {
+        public int InformePagoDeudaId { get; set; }
+        public int ReporteDeudaId { get; set; }
+        public ReporteDeuda ReporteDeuda { get; set; }
+        public double Pagado { get; set; }
+        public DateTime Fecha { get; set; }
+
     }
 
 }

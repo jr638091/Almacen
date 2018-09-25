@@ -79,5 +79,6 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,567,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" IsEnabled="False" BorderBrush="#FFF9FAFD">
             *Seleccione un producto, la cantidad a tratar y elija su destino
         </TextBox>
+        <DatePicker SelectedDate="{Binding Fecha, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="270,88,0,0" VerticalAlignment="Top" Width="79"/>
     </Grid>
 </Page>

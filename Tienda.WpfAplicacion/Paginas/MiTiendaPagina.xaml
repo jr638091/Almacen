@@ -29,7 +29,7 @@
                 <Label Content="Def" HorizontalAlignment="Left" Height="25" Margin="10,37,0,0" VerticalAlignment="Top" Width="35"/>
             </Grid>
         </GroupBox>
-        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="459" Margin="211,51,0,0" VerticalAlignment="Top" Width="389" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" >
+        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="459" Margin="211,51,0,0" VerticalAlignment="Top" Width="389" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.1*" Header="Cod" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.2*" Header="Cant BE" IsReadOnly="True" />
@@ -41,7 +41,7 @@
         </DataGrid>
         <TextBlock x:Name="tblock_descripcion" HorizontalAlignment="Left" Height="54" Margin="222,536,0,0" TextWrapping="Wrap" Text="Seleccione un producto para ver su descripcion" VerticalAlignment="Top" Width="389"/>
         <Button x:Name="btn_Vender" Background="Aquamarine" Content="Realizar Venta" HorizontalAlignment="Left" Height="48" Margin="635,69,0,0" VerticalAlignment="Top" Width="155" Click="btn_Vender_Click"/>
-        <DataGrid Name="dg_trab" HorizontalAlignment="Left" Height="217" Margin="616,293,0,0" VerticalAlignment="Top" Width="164" AutoGenerateColumns="False" Loaded="DataGrid_Loaded" CellEditEnding="dg_trab_CellEditEnding">
+        <DataGrid Name="dg_trab" HorizontalAlignment="Left" Height="217" Margin="616,293,0,0" VerticalAlignment="Top" Width="164" AutoGenerateColumns="False" CellEditEnding="dg_trab_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Nombre}" Header="Nombre" Width="1*"/>
             </DataGrid.Columns>
