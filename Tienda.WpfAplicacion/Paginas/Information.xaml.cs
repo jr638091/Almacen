@@ -19,6 +19,16 @@ namespace WpfAplicacion
     /// <summary>
     /// Lógica de interacción para Information.xaml
     /// </summary>
+    /// 
+
+    static class extensores
+    {
+        static string Descripcion(this object source) {
+            return "Descripcion";
+        }
+        
+    }
+
     public partial class Information : Page
     {
         public Information()
@@ -26,14 +36,25 @@ namespace WpfAplicacion
             InitializeComponent();
         }
 
+        class t
+        {
+            private string d { get { return "hola"; } }
+        }
+        class t2 {
+            private t a {get; set;}
+            public t2() { a = new t(); }
+        }
+
+        
+
         void fillVentas(Func<ReporteVenta,bool> pred)
         {
             venta_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteVentas.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                 foreach (var item in vs)
                 {
                     var source = item.Articulos;

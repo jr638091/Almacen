@@ -13,9 +13,6 @@
     <Grid>
         <local:MenuControl/>
         <local:TopMenu Title="Home"/>
-        <TextBlock x:Name="tbock_reportes" Text="{Binding Prueba}" Margin="206,48,10,363" Background="White"  ScrollViewer.HorizontalScrollBarVisibility="Visible"/>
-        <Contols:PointShapeLineExample HorizontalAlignment="Left" Height="203" Margin="236,238,0,0" VerticalAlignment="Top" Width="385"/>
-        <Button Content="View Statics" HorizontalAlignment="Left" Margin="354,158,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
 
     </Grid>

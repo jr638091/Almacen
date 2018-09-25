@@ -48,23 +48,7 @@ namespace WpfAplicacion
             this.NavigationService.Navigate(p);
         }
 
-        private void tbock_reportes_Loaded(object sender, RoutedEventArgs e)
-        {
-            using (var db = new TiendaDbContext())
-            {
-                var reportes = new List<string>();
-                var rep_entrada = db.ReporteEntradas.ToList();
-                var rep_venta = db.ReporteVentas.Where(r => r.ShopId == 1).ToList();
-                var informe_liquidacion = db.InformeLiquidaciones.ToList();
-                rep_venta.ForEach(r => reportes.Add(r.EscribirReporte()));
-                rep_entrada.ForEach(r => reportes.Add(r.EscribirReporte()));
-                informe_liquidacion.ForEach(r => reportes.Add(r.EscribirReporte()));
-                reportes.Sort();
-                foreach (var reporte in reportes)
-                    tbock_reportes.Text += reporte;
-            }
-            
-        }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -72,10 +56,7 @@ namespace WpfAplicacion
             this.NavigationService.Navigate(page);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Paginas.Estadisticas());
-        }
+        
     }
 
     

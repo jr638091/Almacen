@@ -134,9 +134,6 @@
       <DependentUpon>TiendaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TiendaDbContext.cs" />
-    <Compile Include="UserControllers\PointShapeLineExample.xaml.cs">
-      <DependentUpon>PointShapeLineExample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControllers\ReporteVentaController.xaml.cs">
       <DependentUpon>ReporteVentaController.xaml</DependentUpon>
     </Compile>
@@ -215,10 +212,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\SucursalPagina.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControllers\PointShapeLineExample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +305,11 @@
   <ItemGroup>
     <Folder Include="app_data\" />
     <Folder Include="data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="iconos\graphic1.png" />
+    <Resource Include="iconos\graphic2.png" />
+    <Resource Include="iconos\graphic3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

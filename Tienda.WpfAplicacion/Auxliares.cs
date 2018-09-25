@@ -305,12 +305,13 @@ namespace WpfAplicacion
 
     public class Metodos_Auxiliares
     {
-
+        
         public static DataGrid make_dg(IEnumerable<object> source, List<string> header, List<string> path)
         {
             DataGrid dg = new DataGrid();
             dg.AutoGenerateColumns = false;
             dg.ItemsSource = source;
+
             for (int i = 0; i < path.Count; ++i)
             {
                 DataGridTextColumn t = new DataGridTextColumn();
@@ -355,6 +356,7 @@ namespace WpfAplicacion
         public double CostoTotal { get; set; }
         public double Pagado { get; set; }
         public double APagar { get; set; }
+        public DateTime Fecha { get; set; }
 
         public liquidacion_deuda(int ReporteDeudaId)
         {
@@ -366,6 +368,7 @@ namespace WpfAplicacion
                 this.CostoTotal = reporte.CostoTotal;
                 this.CantidadTotal = reporte.CantidadTotal;
                 this.Pagado = reporte.Pagado;
+                this.Fecha = reporte.Fecha;
             }
         }
     }

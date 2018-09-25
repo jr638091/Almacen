@@ -21,6 +21,7 @@ namespace WpfAplicacion.Formularios
     public partial class DeudasLiquidacionPagina : Page, IFormulario
     {
         private List<liquidacion_deuda> source_deuda;
+        private int shopId;
         public DeudasLiquidacionPagina()
         {
             InitializeComponent();
@@ -31,15 +32,8 @@ namespace WpfAplicacion.Formularios
             InitializeComponent();
 
             source_deuda = new List<liquidacion_deuda>();
-            using (var db = new TiendaDbContext())
-            {
-                var reportes = db.ReporteDeudas.Where(r => r.ShopId == shopId).ToList();
-                foreach(var item in reportes)
-                {
-                    source_deuda.Add(new liquidacion_deuda(item.ReporteDeudaId));
-                }
-            }
-            dgrid_deudas.ItemsSource = source_deuda;
+            this.shopId = shopId;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -58,6 +52,19 @@ namespace WpfAplicacion.Formularios
             {
                 dgrid_informacion.ItemsSource = db.ReporteDeudas.Find(objeto.ReporteDeudaId).Articulos.ToList();
             }
+        }
+
+        private void dgrid_deudas_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new TiendaDbContext())
+            {
+                var reportes = db.ReporteDeudas.Where(r => r.ShopId == shopId && r.Pagado<r.CostoTotal).ToList();
+                foreach (var item in reportes)
+                {
+                    source_deuda.Add(new liquidacion_deuda(item.ReporteDeudaId));
+                }
+            }
+            dgrid_deudas.ItemsSource = source_deuda;
         }
     }
 }
