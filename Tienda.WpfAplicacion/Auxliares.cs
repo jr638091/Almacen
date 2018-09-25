@@ -358,6 +358,7 @@ namespace WpfAplicacion
         public double CostoTotal { get; set; }
         public double Pagado { get; set; }
         public double APagar { get; set; }
+        
 
         public liquidacion_deuda(int ReporteDeudaId)
         {
