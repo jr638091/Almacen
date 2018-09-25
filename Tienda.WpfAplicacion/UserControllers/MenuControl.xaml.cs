@@ -102,6 +102,10 @@ namespace WpfAplicacion
             c.Cursor = Cursors.Hand;
         }
 
-        
+        private void Grid_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            Page pg = GetDependencyObjectFromVisualTree(this, typeof(Page)) as Page;
+            pg.NavigationService.Navigate(new Estadisticas());
+        }
     }
 }

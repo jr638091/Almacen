@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 
-namespace WpfAplicacion.Paginas
+namespace WpfAplicacion
 {
     /// <summary>
     /// Interaction logic for Estadisticas.xaml

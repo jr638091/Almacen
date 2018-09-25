@@ -12,6 +12,7 @@ namespace Tienda.Modelo
         [Key]
         public virtual string Codigo { get; set; }
         public virtual string Descripcion { get; set; }
+
         public virtual bool eliminado { get; set; }
     }
     public class Trabajador

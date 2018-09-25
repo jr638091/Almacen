@@ -28,17 +28,12 @@ namespace WpfAplicacion
     
     public partial class Home : Page
     {
+        public string Prueba { get { return "Hola"; } }
+
         public Home()
         {
-            using (var db = new TiendaDbContext())
-            {
-                db.Productos.First();
-            }
-            
-            
             InitializeComponent();
-            this.DataContext = this;
-
+            
         }
 
         private void Producto_Button_Click(object sender, RoutedEventArgs e)
@@ -52,16 +47,16 @@ namespace WpfAplicacion
             var p = new MisTiendas();
             this.NavigationService.Navigate(p);
         }
+
+        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var page = new MiTiendaPagina();
             this.NavigationService.Navigate(page);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Paginas.Estadisticas());
-        }
+        
     }
 
     
