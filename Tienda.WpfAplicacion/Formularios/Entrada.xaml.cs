@@ -56,6 +56,16 @@ namespace WpfAplicacion
                     MessageBox.Show("Ya existe un producto con ese codigo");
                     return;
                 }
+                if(nuevo_producto.Codigo == "")
+                {
+                    MessageBox.Show("El codigo no puede ser vacio");
+                    return;
+                }
+                if(nuevo_producto.Descripcion == "")
+                {
+                    MessageBox.Show("La descripcion no puede estar vacia");
+                    return;
+                }
                 double precioBuenEstado;
                 double precioDefectuoso;
                 if (!double.TryParse(tbox_precioDefectuoso.Text, out precioDefectuoso) || !double.TryParse(tbox_precioBuenEstado.Text, out precioBuenEstado))

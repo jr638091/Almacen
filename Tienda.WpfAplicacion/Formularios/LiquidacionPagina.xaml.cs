@@ -90,8 +90,12 @@ namespace WpfAplicacion
             bool existe_deuda = source_deuda.Find(p => p.ExistenciaId == existencia.ExistenciaId) != null;
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == existencia.ExistenciaId) != null;
 
+            
             if (existe_venta)
+            {
+                dgrid_venta.SelectedIndex = dgrid_venta.Items.IndexOf(source_venta.Find(p => p.ExistenciaId == existencia.ExistenciaId));
                 return;
+            }
             var venta_new = new objeto_venta(existencia.ExistenciaId);
             source_venta.Add(venta_new);
             Metodos_Auxiliares.refresh(dgrid_venta, source_venta);
@@ -112,7 +116,10 @@ namespace WpfAplicacion
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == existencia.ExistenciaId) != null;
 
             if (existe_devolucion)
+            {
+                dgrid_devolucion.SelectedIndex = dgrid_devolucion.Items.IndexOf(source_devolucion.Find(p => p.ExistenciaId == existencia.ExistenciaId));
                 return;
+            }
             var devolucion_new = new objeto_devolucion(existencia.ExistenciaId);
             source_devolucion.Add(devolucion_new);
 
@@ -134,7 +141,10 @@ namespace WpfAplicacion
             bool existe_devolucion = source_devolucion.Find(p => p.ExistenciaId == existencia.ExistenciaId) != null;
 
             if (existe_deuda)
+            {
+                dgrid_deuda.SelectedIndex = dgrid_deuda.Items.IndexOf(source_deuda.Find(p => p.ExistenciaId == existencia.ExistenciaId));
                 return;
+            }
             var deuda_new = new objeto_deuda(existencia.ExistenciaId);
             source_deuda.Add(deuda_new);
 

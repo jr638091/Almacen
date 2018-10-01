@@ -52,12 +52,6 @@ namespace WpfAplicacion
             this.NavigationService.Navigate(p);
         }
 
-        private void Mis_Tiendas_Click(object sender, RoutedEventArgs e)
-        {
-            var p = new MisTiendas();
-            this.NavigationService.Navigate(p);
-        }
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             using (var db = new TiendaDbContext())
@@ -93,11 +87,6 @@ namespace WpfAplicacion
                 }
             }
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new MiTiendaPagina());
         }
 
         private void dgrid_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

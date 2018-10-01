@@ -73,11 +73,14 @@ namespace WpfAplicacion
                 return;
             }
             var exist = dgrid_productos.SelectedItem as objeto_venta;
-            productos_source.RemoveAt(productos_source.FindIndex(p => p.Codigo == exist.Codigo));
+            if (venta_source.Contains(exist))
+            {
+                dgrid_venta.SelectedIndex = dgrid_venta.Items.IndexOf(exist);
+                return;
+            }
             venta_source.Add(exist);
 
             dgrid_venta.ItemsSource = null;
-            dgrid_productos.ItemsSource = productos_source.Where(exis => exis.Codigo.Contains(codigo_src) && exis.Descripcion.Contains(descrip_src)).ToList();
             dgrid_venta.ItemsSource = venta_source;
 
             double costo_total = 0;
@@ -95,10 +98,8 @@ namespace WpfAplicacion
 
             var obj_venta = dgrid_venta.SelectedItem as objeto_venta;
 
-            productos_source.Add(obj_venta);
-
+            
             venta_source.RemoveAt(venta_source.FindIndex(p => p.Codigo == obj_venta.Codigo));
-            Metodos_Auxiliares.refresh(dgrid_productos, productos_source.Where(exis => exis.Codigo.ToLower().Contains(codigo_src) && exis.Descripcion.ToLower().Contains(descrip_src)).ToList());
             Metodos_Auxiliares.refresh(dgrid_venta, venta_source);
             double costo_total = 0;
             venta_source.ForEach(p => costo_total += p.PrecioTotal);
