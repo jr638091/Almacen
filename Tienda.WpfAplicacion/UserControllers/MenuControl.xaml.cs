@@ -108,7 +108,7 @@ namespace WpfAplicacion
             pg.NavigationService.Navigate(new Estadisticas());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, MouseButtonEventArgs e)
         {
             var bd = new BuscarDBVentana();
             bd.ShowDialog();

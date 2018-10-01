@@ -328,5 +328,8 @@
     <Resource Include="iconos\venta3.png" />
     <Resource Include="iconos\venta4.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="iconos\base de datos.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

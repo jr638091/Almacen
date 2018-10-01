@@ -33,7 +33,7 @@
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/graphic3.png"/>
             </Grid>
             <Label Content="Shopi" HorizontalAlignment="Left" Margin="45,44,0,0" VerticalAlignment="Top" Height="63" Width="113" FontSize="36" FontFamily="Viner Hand ITC"/>
-            <Button Content="Base de Datos" HorizontalAlignment="Left" Height="47" Margin="20,505,0,0" VerticalAlignment="Top" Width="101" Click="Button_Click"/>
+            <Image HorizontalAlignment="Right" Height="45" Margin="1,1" VerticalAlignment="Bottom" Width="45" MouseLeftButtonDown="Button_Click" Source="../iconos/base de datos.png" Cursor="Hand"/>
 
         </Grid>
     </Grid>
