@@ -21,14 +21,14 @@
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/tienda.png"/>
             </Grid>
             <Grid HorizontalAlignment="Stretch" Height="45" Margin="0,285,0,0" VerticalAlignment="Top" MouseLeftButtonUp="Mis_Tiendas_click_btn" MouseEnter="Grid_MouseEnter">
-                <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="Mis_Tiendas" Content="Mis tiendas" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Height="45" Background="Transparent" BorderBrush="Transparent" FontSize="18"/>
+                <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="Mis_Tiendas" Content="Tiendas externas" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Height="45" Background="Transparent" BorderBrush="Transparent" FontSize="18"/>
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/tiendas.png"/>
             </Grid>
             <Grid HorizontalAlignment="Stretch" Height="45" Margin="0,340,0,0" VerticalAlignment="Top" MouseLeftButtonUp="Informes_click_btn" MouseEnter="Grid_MouseEnter">
                 <Label Name ="Informes" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Informes" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Height="45" Background="Transparent" BorderBrush="Transparent" FontSize="18"/>
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/informe.png"/>
             </Grid>
-            <Grid HorizontalAlignment="Stretch" Height="45" Margin="0,398,0,0" VerticalAlignment="Top" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
+            <Grid HorizontalAlignment="Stretch" Height="45" Margin="0,398,0,0" VerticalAlignment="Top" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1" MouseEnter="Grid_MouseEnter">
                 <Label Name ="Estadisticas" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Estadisticas" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Height="45" Background="Transparent" BorderBrush="Transparent" FontSize="18"/>
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/graphic3.png"/>
             </Grid>
