@@ -5,47 +5,70 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
       mc:Ignorable="d" 
-      Title="MiTiendaPagina">
+      Title="MiTiendaPagina"
+      >
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ValorMenosConstante x:Key="ValorMenosConstante"/>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Loaded="Grid_Loaded">
         <local:TopMenu Title="Mi Tienda"/>
         <local:MenuControl/>
-        <Button x:Name="btn_cambiarPrecio" Background="Aquamarine" Content="Modificar Precio" HorizontalAlignment="Left" Height="48" Margin="635,160,0,0" VerticalAlignment="Top" Width="155" Click="btn_cambiarPrecio_Click"/>
-        <GroupBox x:Name="gbox_modificarPrecio" Header="Modifique Precios" HorizontalAlignment="Left" Height="94" Margin="600,144,0,0" VerticalAlignment="Top" Width="190" Visibility="Hidden">
-            <Grid>
-                <TextBox x:Name="tbox_precioDefectuoso" Style="{StaticResource placeHolder}" Tag="Nuevo Precio" HorizontalAlignment="Left" Height="25" Margin="63,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="67"/>
-                <TextBox x:Name="tbox_precioBuenEstado" Style="{StaticResource placeHolder}" Tag="Nuevo Precio" HorizontalAlignment="Left" Height="25" Margin="63,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="67"/>
-                <Button x:Name="btn_guardarPrecio" Content="" Background="LimeGreen" HorizontalAlignment="Left" Height="25" Margin="147,37,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.667,2.2" Click="btn_guardarPrecio_Click"/>
-                <Button x:Name="btn_cancelarPrecio" Content="" Background="DarkRed" HorizontalAlignment="Left" Height="25" Margin="147,5,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.667,2.2" Click="btn_cancelarPrecio_Click"/>
-                <Label Content="BE" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="35"/>
-                <Label Content="Def" HorizontalAlignment="Left" Height="25" Margin="10,37,0,0" VerticalAlignment="Top" Width="35"/>
-            </Grid>
-        </GroupBox>
-        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="459" Margin="211,51,0,0" VerticalAlignment="Top" Width="389" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.1*" Header="Cod" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.2*" Header="Cant BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Width="0.2*" Header="Cant Def" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.2*" Header="Cant Total" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.15*" Header="$ BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.15*" Header="$ Def" IsReadOnly="True" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <TextBlock x:Name="tblock_descripcion" HorizontalAlignment="Left" Height="54" Margin="222,536,0,0" TextWrapping="Wrap" Text="Seleccione un producto para ver su descripcion" VerticalAlignment="Top" Width="389"/>
-        <Button x:Name="btn_Vender" Background="Aquamarine" Content="Realizar Venta" HorizontalAlignment="Left" Height="48" Margin="635,69,0,0" VerticalAlignment="Top" Width="155" Click="btn_Vender_Click"/>
-        <DataGrid Name="dg_trab" HorizontalAlignment="Left" Height="217" Margin="616,293,0,0" VerticalAlignment="Top" Width="164" AutoGenerateColumns="False" CellEditEnding="dg_trab_CellEditEnding">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Nombre}" Header="Nombre" Width="1*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Name="delete_empleado" Content="Eliminar trabajador" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="14" Margin="0,0,10.4,35.4" Background="Coral" Click="delete_empleado_Click"/>
+        <Button x:Name="btn_Vender" Background="LightBlue" Content="Realizar Venta" HorizontalAlignment="Right" Height="48" Width="125" VerticalAlignment="Top"  Click="btn_Vender_Click" Margin="675,45,0,0"/>
+        <TabControl Margin="200,120,0,0">
+            <TabItem Header="Productos" Height="50">
+                <Grid x:Name="grid_contenedor">
+                    <!--VerticalAlignment="Center" HorizontalAlignment="Center"-->
+                    <Button x:Name="btn_cambiarPrecio" Background="Aquamarine" Content="Modificar Precio" HorizontalAlignment="Right" Height="40" Margin="444,25,53.5,0" VerticalAlignment="Top" Width="96" Click="btn_cambiarPrecio_Click"/>
+                    <GroupBox x:Name="gbox_modificarPrecio" Header="Modifique Precios" HorizontalAlignment="Right" Height="94" Margin="0,25,10,0" VerticalAlignment="Top" Width="183" Visibility="Hidden">
+                        <Grid>
+                            <TextBox x:Name="tbox_precioDefectuoso" Style="{StaticResource placeHolder}" Tag="Nuevo Precio" HorizontalAlignment="Left" Height="25" Margin="63,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="67"/>
+                            <TextBox x:Name="tbox_precioBuenEstado" Style="{StaticResource placeHolder}" Tag="Nuevo Precio" HorizontalAlignment="Left" Height="25" Margin="63,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="67"/>
+                            <Button x:Name="btn_guardarPrecio" Content="" Background="LimeGreen" HorizontalAlignment="Left" Height="25" Margin="147,37,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.667,2.2" Click="btn_guardarPrecio_Click"/>
+                            <Button x:Name="btn_cancelarPrecio" Content="" Background="DarkRed" HorizontalAlignment="Left" Height="25" Margin="147,5,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.667,2.2" Click="btn_cancelarPrecio_Click"/>
+                            <Label Content="BE" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="35"/>
+                            <Label Content="Def" HorizontalAlignment="Left" Height="25" Margin="10,37,0,0" VerticalAlignment="Top" Width="35"/>
+                        </Grid>
+                    </GroupBox>
+                    <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="{Binding Converter={StaticResource ValorMenosConstante}, Mode=OneWay, ElementName=grid_contenedor, ConverterParameter=50, Path=ActualHeight}" Margin="10,25,203,0" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False"  SelectionMode="Single" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.1*" Header="Cod" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.15*" Header="$ BE" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.15*" Header="$ Def" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.1*" Header="Total" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.1*" Header="BE" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Width="0.1*" Header="Def" IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <GroupBox x:Name="gbox_totales" Header="Totales" HorizontalAlignment="Right" Height="100" Margin="0,144,10,25" VerticalAlignment="Bottom" Width="185" Loaded="gbox_totales_Loaded">
+                        <Grid>
+                            <Label Content="Cantidad Total: " Margin="0, 10, 83, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90" HorizontalContentAlignment="Right"/>
+                            <Label x:Name="label_cantidad_total" Margin="80, 10, 0, 0" Content="1234567890123" HorizontalAlignment="Left"/>
+                            <Label Content="Valor Total: " Margin="0, 36, 83, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90" HorizontalContentAlignment="Right"/>
+                            <Label x:Name="label_valor_total" Margin="80, 36, 0, 0" Content="1234567890123" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </GroupBox>
+
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Trabajadores">
+                <DataGrid Name="dg_trab" HorizontalAlignment="Center"  Margin="0,0,0,0"  Width="164" AutoGenerateColumns="False" CellEditEnding="dg_trab_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Nombre}" Header="Nombre" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--<Button Name="delete_empleado" Content="Eliminar trabajador" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="14" Margin="0,0,10.4,35.4" Background="Coral" Click="delete_empleado_Click"/>-->
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </Page>

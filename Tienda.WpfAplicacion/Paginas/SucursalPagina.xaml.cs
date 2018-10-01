@@ -68,6 +68,7 @@ namespace WpfAplicacion
             Edit_btn.Visibility = Visibility.Hidden;
             Accept_btn.Visibility = Visibility.Visible;
             Canel_btn.Visibility = Visibility.Visible;
+            eliminar_btn.Visibility = Visibility.Visible;
         }
 
         private void Accept_btn_click(object sender, MouseButtonEventArgs e)
@@ -90,6 +91,7 @@ namespace WpfAplicacion
             Edit_btn.Visibility = Visibility.Visible;
             Accept_btn.Visibility = Visibility.Hidden;
             Canel_btn.Visibility = Visibility.Hidden;
+            eliminar_btn.Visibility = Visibility.Hidden;
         }
 
         private void Cancel_btn_click(object sender, MouseButtonEventArgs e)
@@ -101,6 +103,7 @@ namespace WpfAplicacion
             Edit_btn.Visibility = Visibility.Visible;
             Accept_btn.Visibility = Visibility.Hidden;
             Canel_btn.Visibility = Visibility.Hidden;
+            eliminar_btn.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -111,7 +114,7 @@ namespace WpfAplicacion
         class art_temp
         {
             public string Codigo { get; set; }
-            public string Decripcion { get; set; }
+            public string Descripcion { get; set; }
             public int CantidadBuenEstado { get; set; }
             public int CantidadDefectuoso { get; set; }
             public int CantidadTotal { get; set; }
@@ -119,13 +122,13 @@ namespace WpfAplicacion
             public double PrecioDefectuoso { get; set; }
             public art_temp(string cod, string des, int cbe, int cme, int ct, double pbe, double pme)
             {
-                Codigo = cod;
-                Decripcion = des;
-                CantidadBuenEstado = cbe;
-                CantidadDefectuoso = cme;
-                CantidadTotal = ct;
-                PrecioBuenEstado = pbe;
-                PrecioDefectuoso = pme;
+                this.Codigo = cod;
+                this.Descripcion = des;
+                this.CantidadBuenEstado = cbe;
+                this.CantidadDefectuoso = cme;
+                this.CantidadTotal = ct;
+                this.PrecioBuenEstado = pbe;
+                this.PrecioDefectuoso = pme;
             }
         }
 
@@ -273,6 +276,24 @@ namespace WpfAplicacion
                 db.SaveChanges();
             }
             DataGrid_Loaded(sender, e);
+            gbox_totales_Loaded(sender, e);
+        }
+
+        private void gbox_totales_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new TiendaDbContext())
+            {
+                double valor_total = 0;
+                int cantidad_total = 0;
+                foreach (var item in db.Tiendas.Find(tienda).Productos.Where(p => p.CantidadTotal > 0))
+                {
+                    cantidad_total += item.CantidadTotal;
+                    valor_total += item.CantidadBuenEstado * item.PrecioBuenEstado;
+                    valor_total += item.CantidadDefectuoso * item.PrecioDefectuoso;
+                }
+                label_cantidad_total.Content = cantidad_total.ToString();
+                label_valor_total.Content = valor_total.ToString("0.00");
+            }
         }
     }
 }

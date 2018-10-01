@@ -23,7 +23,7 @@ namespace WpfAplicacion
     public partial class MiTiendaPagina : Page
     {
         private int indice_seleccion;
-        private List<Existencia> data_source;
+        private List<objeto_existencia> data_source;
         private List<Trabajador> data_trabajador;
         public MiTiendaPagina()
         {
@@ -37,25 +37,13 @@ namespace WpfAplicacion
             {
                 data_trabajador = db.Tiendas.First().Trabajadores.OrderBy(o => o.Nombre).Where(x => !x.eliminado).ToList();
                 dg_trab.ItemsSource = data_trabajador;
-                data_source = db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0).ToList();
+                data_source = new List<objeto_existencia>();
+                foreach(var item in db.Tiendas.First().Productos.Where(p => p.CantidadBuenEstado > 0 || p.CantidadDefectuoso > 0))
+                {
+                    data_source.Add(new objeto_existencia(item.ExistenciaId));
+                }
                 
                 dgrid_productos.ItemsSource = data_source;
-            }
-        }
-
-        private void dgrid_productos_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(dgrid_productos.SelectedItem is Existencia)
-            {
-                string cod = (dgrid_productos.SelectedItem as Existencia).Codigo;
-                using (var db = new TiendaDbContext())
-                {
-                    tblock_descripcion.Text = db.Productos.Find(cod).Descripcion;
-                }
-            }
-            else
-            {
-                tblock_descripcion.Text = "Seleccione un producto para ver su descripcion";
             }
         }
 
@@ -66,12 +54,12 @@ namespace WpfAplicacion
 
         private void btn_cambiarPrecio_Click(object sender, RoutedEventArgs e)
         {
-            if (dgrid_productos.SelectedItem == null || !(dgrid_productos.SelectedItem is Existencia))
+            if (dgrid_productos.SelectedItem == null || !(dgrid_productos.SelectedItem is objeto_existencia))
             {
                 MessageBox.Show("Tiene que seleccionar un producto");
                 return;
             }
-            var exist = dgrid_productos.SelectedItem as Existencia;
+            var exist = dgrid_productos.SelectedItem as objeto_existencia;
             indice_seleccion = dgrid_productos.SelectedIndex;
 
             tbox_precioBuenEstado.Text = exist.PrecioBuenEstado.ToString();
@@ -90,22 +78,28 @@ namespace WpfAplicacion
         {
             double precioBE;
             double precioDef;
-            if (!double.TryParse(tbox_precioBuenEstado.Text, out precioBE) || precioBE <= 0 || !double.TryParse(tbox_precioDefectuoso.Text, out precioDef) || precioDef <= 0)
+            if (!double.TryParse(tbox_precioBuenEstado.Text, out precioBE) || precioBE < 0 || !double.TryParse(tbox_precioDefectuoso.Text, out precioDef) || precioDef < 0)
             {
                 MessageBox.Show("precio no valido");
                 return;
             }
-            data_source[indice_seleccion].PrecioBuenEstado = precioBE;
-            data_source[indice_seleccion].PrecioDefectuoso = precioDef;
+            var articulo = dgrid_productos.SelectedItem as objeto_existencia;
+            var objeto_data_source = data_source.Find(p => p.ExistenciaId == articulo.ExistenciaId);
+            objeto_data_source.PrecioBuenEstado = precioBE;
+            objeto_data_source.PrecioDefectuoso = precioDef;
 
             using (var db = new TiendaDbContext())
             {
-                db.Entry(data_source[indice_seleccion]).State = EntityState.Modified;
+                var existencia = db.Existencias.Find(articulo.ExistenciaId);
+                existencia.PrecioBuenEstado = precioBE;
+                existencia.PrecioDefectuoso = precioDef;
+                db.Entry(existencia).State = EntityState.Modified;
                 db.SaveChanges();
             }
             dgrid_productos.Items.Refresh();
             gbox_modificarPrecio.Visibility = Visibility.Hidden;
             btn_cambiarPrecio.Visibility = Visibility.Visible;
+            gbox_totales_Loaded(sender, e);
         }
         
 
@@ -160,6 +154,21 @@ namespace WpfAplicacion
             }
         }
 
-        
+        private void gbox_totales_Loaded(object sender, RoutedEventArgs e)
+        {
+            using(var db = new TiendaDbContext())
+            {
+                double valor_total = 0;
+                int cantidad_total = 0;
+                foreach(var item in db.Tiendas.First().Productos.Where(p => p.CantidadTotal>0))
+                {
+                    cantidad_total += item.CantidadTotal;
+                    valor_total += item.CantidadBuenEstado * item.PrecioBuenEstado;
+                    valor_total += item.CantidadDefectuoso * item.PrecioDefectuoso;
+                }
+                label_cantidad_total.Content = cantidad_total.ToString();
+                label_valor_total.Content = valor_total.ToString("0.00");
+            }
+        }
     }
 }

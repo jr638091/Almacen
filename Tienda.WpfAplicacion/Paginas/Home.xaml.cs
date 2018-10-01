@@ -32,29 +32,23 @@ namespace WpfAplicacion
 
         public Home()
         {
+            
+            using (var db = new TiendaDbContext())
+            {
+                if(!db.Database.Exists())
+                {
+                    var find_db = new BuscarDBVentana();
+                    find_db.ShowDialog();
+                }
+                if (db.Tiendas.Count() == 0)
+                    db.SeedPublico(db);
+            }
+            
             InitializeComponent();
             
         }
 
-        private void Producto_Button_Click(object sender, RoutedEventArgs e)
-        {
-            var p = new Productos();
-            this.NavigationService.Navigate(p);
-        }
-
-        private void Mis_Tiendas_Click(object sender, RoutedEventArgs e)
-        {
-            var p = new MisTiendas();
-            this.NavigationService.Navigate(p);
-        }
-
         
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var page = new MiTiendaPagina();
-            this.NavigationService.Navigate(page);
-        }
 
         
     }

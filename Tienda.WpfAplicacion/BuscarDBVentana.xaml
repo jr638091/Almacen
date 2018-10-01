@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAplicacion"
         mc:Ignorable="d"
-        Title="BuscarDBVentana" Height="300" Width="300">
+        Title="BuscarDBVentana" Height="300" Width="300" Closed="Window_Closed">
     <Grid>
-        <Button x:Name="btn_nueva" Content="BD nueva" HorizontalAlignment="Left" Height="32" Margin="23,119,0,0" VerticalAlignment="Top" Width="75" Click="btn_nueva_Click"/>
-        <Button x:Name="btn_existente" Content="BD existente" HorizontalAlignment="Left" Height="32" Margin="178,119,0,0" VerticalAlignment="Top" Width="75" Click="btn_existente_Click"/>
+        <Button x:Name="btn_existente" Content="Seleccione su Base de datos" HorizontalAlignment="Left" Height="32" Margin="60,128,0,0" VerticalAlignment="Top" Width="174" Click="btn_existente_Click"/>
 
     </Grid>
 </Window>

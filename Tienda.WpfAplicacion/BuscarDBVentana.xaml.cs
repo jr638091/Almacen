@@ -32,14 +32,15 @@ namespace WpfAplicacion
             var form = new winForm.FolderBrowserDialog();
             if (form.ShowDialog() == winForm.DialogResult.OK)
             {
-                string first = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=";
-                string second = ";Integrated Security=True;Connect Timeout=30";
-                string middle = form.SelectedPath + "\\Tienda.mdf";
-                var connectionString = ConfigurationManager.ConnectionStrings["TiendaContext"];
-                var field = typeof(ConfigurationElement).GetField("_bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                field.SetValue(connectionString, false);
-                ConfigurationManager.ConnectionStrings["TiendaContext"].ConnectionString = first + middle + second;
-                field.SetValue(connectionString, true);
+                string principio = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=";
+                string final = ";Integrated Security=True;Connect Timeout=30";
+                string medio = form.SelectedPath + "\\TiendaBD.mdf";
+
+                string conexion = principio + medio + final;
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.ConnectionStrings.ConnectionStrings["TiendaContext"].ConnectionString = conexion;
+
+                config.Save();
                 try
                 {
                     var a = new TiendaDbContext();
@@ -62,25 +63,27 @@ namespace WpfAplicacion
             form.DefaultExt = ".mdf";
             if (form.ShowDialog() == winForm.DialogResult.OK)
             {
-                string first = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=";
-                string second = ";Integrated Security=True;Connect Timeout=30";
-                string middle = form.FileName;
-                var connectionString = ConfigurationManager.ConnectionStrings["TiendaContext"];
-                var field = typeof(ConfigurationElement).GetField("_bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                field.SetValue(connectionString, false);
-                ConfigurationManager.ConnectionStrings["TiendaContext"].ConnectionString = first + middle + second;
-                field.SetValue(connectionString, true);
-                try
-                {
-                    var a = new TiendaDbContext();
-                    a.Trabajadores.Where(t => t.eliminado);
-                }
-                catch
-                {
-                    return;
-                }
+                string principio = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=";
+                string final = ";Integrated Security=True;Connect Timeout=30";
+                string medio = form.FileName;
+
+                string conexion = principio + medio + final;
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.ConnectionStrings.ConnectionStrings["TiendaContext"].ConnectionString = conexion;
+                config.Save();
+                MessageBox.Show("Necesita reabrir la aplicacion para que los cambios surtan efecto");
+                Application.Current.Shutdown();
                 this.DialogResult = true;
                 this.Close();
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            using (var db = new TiendaDbContext())
+            {
+                if(!db.Database.Exists())
+                    Application.Current.Shutdown();
             }
         }
     }

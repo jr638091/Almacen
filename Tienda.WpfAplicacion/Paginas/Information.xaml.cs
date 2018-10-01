@@ -54,7 +54,7 @@ namespace WpfAplicacion
                 {
                     var source = item.Articulos;
                     var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = item.Trabajador.Nombre;
                     p.pago_inform.Content = "Pago: " + item.CostoTotal.ToString() + " $";
                     p.Background = Brushes.AntiqueWhite;
@@ -74,7 +74,7 @@ namespace WpfAplicacion
                 {
                     var source = item.Articulos;
                     var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
@@ -94,7 +94,7 @@ namespace WpfAplicacion
                 {
                     var source = item.Articulos;
                     var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Pagado: " + item.Pagado.ToString() + " $";
                     var l = new Label();
@@ -119,7 +119,7 @@ namespace WpfAplicacion
                 {
                     var source = item.Articulos;
                     var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
@@ -140,7 +140,7 @@ namespace WpfAplicacion
                 {
                     var source = item.Articulos;
                     var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = "Almacen";
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
@@ -164,7 +164,7 @@ namespace WpfAplicacion
                         List<string> path1 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                         var source1 = item.ReporteVenta.Articulos;
                         var ventas = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source1, header1, path1));
-                        ventas.fecha_inform.Content = item.ReporteVenta.Fecha.ToString();
+                        ventas.fecha_inform.Content = item.ReporteVenta.Fecha.ToShortDateString();
                         ventas.nombre_inform.Content = item.ReporteVenta.Trabajador.Nombre;
                         ventas.pago_inform.Content = "Pago: " + item.ReporteVenta.CostoTotal.ToString() + " $";
                         ventas.Background = Brushes.White;
@@ -176,7 +176,7 @@ namespace WpfAplicacion
                         var path2 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso" };
                         var source2 = item.ReporteDevolucion.Articulos;
                         var devoluciones = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header2, path2));
-                        devoluciones.fecha_inform.Content = item.ReporteDevolucion.Fecha.ToString();
+                        devoluciones.fecha_inform.Content = item.ReporteDevolucion.Fecha.ToShortDateString();
                         devoluciones.nombre_inform.Content = item.ReporteDevolucion.Tienda.Nombre;
                         devoluciones.pago_inform.Content = "Cant. de Productos: " + item.ReporteDevolucion.CantidadTotal.ToString();
                         devoluciones.Background = Brushes.White;
@@ -188,7 +188,7 @@ namespace WpfAplicacion
                         List<string> path3 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
                         var source3 = item.ReporteDeuda.Articulos;
                         var deudas = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source3, header3, path3));
-                        deudas.fecha_inform.Content = item.ReporteDeuda.Fecha.ToString();
+                        deudas.fecha_inform.Content = item.ReporteDeuda.Fecha.ToShortDateString();
                         deudas.nombre_inform.Content = item.ReporteDeuda.Tienda.Nombre;
                         deudas.pago_inform.Content = "Pagado: " + item.ReporteDeuda.Pagado.ToString() + " $";
                         var l = new Label();
@@ -201,7 +201,7 @@ namespace WpfAplicacion
 
                     var p = new UserControllers.ReporteVentaController(t.ToArray());
                     p.Background = Brushes.AntiqueWhite;
-                    p.fecha_inform.Content = item.Fecha.ToString();
+                    p.fecha_inform.Content = item.Fecha.ToShortDateString();
                     p.nombre_inform.Content = item.Tienda.Nombre.ToString();
                     p.pago_inform.Content = "Cant. Articulos: " + (item.ReporteVenta.CantidadTotal + item.ReporteDevolucion.CantidadTotal + item.ReporteDeuda.CantidadTotal).ToString();
                     liquidacion_sp.Children.Add(p);

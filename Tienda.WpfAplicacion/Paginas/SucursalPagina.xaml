@@ -7,43 +7,58 @@
       mc:Ignorable="d" 
 
       Title="SucursalPagina">
+    <Page.Resources>
+        <local:ValorMenosConstante x:Key="ValorMenosConstante"/>
+    </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="grid_contenedor">
         <local:TopMenu x:Name="top" Title="Pagina de Sucursal"/>
         <local:MenuControl/>
-        <DataGrid Name="dg_prods" HorizontalAlignment="Left" Height="488" Margin="205,63,0,0" VerticalAlignment="Top" Width="325" CanUserAddRows="False" Loaded="DataGrid_Loaded" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Path=Decripcion}" Header="Descripcion" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="Cant BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Cant Def" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Header="Cant Total" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Header="$ BE" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Header="$ Def" IsReadOnly="True" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <GroupBox Name="GP_Informacion" Header="Informacion" HorizontalAlignment="Left" Height="269" Margin="535,63,0,0" VerticalAlignment="Top" Width="255">
-            <Grid>
-                <Image Name="Edit_btn" HorizontalAlignment="Left" Height="26" Margin="226,-18,-9.6,0" VerticalAlignment="Top" Width="26"  MouseLeftButtonDown="Edit_btn_Click" Source="../iconos/editar.png"/>
-                <Image Name="Accept_btn" HorizontalAlignment="Left" Height="26" Margin="226,-18,-9.6,0" VerticalAlignment="Top" Width="26" Visibility="Hidden" MouseLeftButtonDown="Accept_btn_click" Source="../iconos/palomita.png"/>
-                <Image Name="Canel_btn" HorizontalAlignment="Left" Height="26" Margin="195,-18,0,0" VerticalAlignment="Top" Width="26" Visibility="Hidden" MouseLeftButtonDown="Cancel_btn_click" Source="../iconos/cancelar.png"/>
-                <Label Content="Nombre" HorizontalAlignment="Left" Margin="21,33,0,0" VerticalAlignment="Top"/>
-                <Label Content="Encargado" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
-                <Label Content="Telefono" HorizontalAlignment="Left" Margin="21,95,0,0" VerticalAlignment="Top"/>
-                <Label Content="Direccion" HorizontalAlignment="Left" Margin="16,126,0,0" VerticalAlignment="Top"/>
-                <TextBox Name="Tienda_Nombre" HorizontalAlignment="Left" Height="18" Margin="92,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
-                <TextBox Name="Tienda_Encargado" HorizontalAlignment="Left" Height="18" Margin="92,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
-                <TextBox Name="Tienda_Telefono" HorizontalAlignment="Left" Height="18" Margin="92,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
-                <TextBox Name="Tienda_Direccion" HorizontalAlignment="Left" Height="18" Margin="92,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
-
+        <Grid>
+            <DataGrid Name="dg_prods" HorizontalAlignment="Left" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=65, ElementName=grid_contenedor, Path=ActualHeight}" Margin="210,55,270,0" VerticalAlignment="Top" CanUserAddRows="False" Loaded="DataGrid_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.1*" Header="Cod" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PrecioBuenEstado}" Width="0.15*" Header="$ BE" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=PrecioDefectuoso}" Width="0.15*" Header="$ Def" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Width="0.1*" Header="Total" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Width="0.1*" Header="BE" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Width="0.1*" Header="Def" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <GroupBox Name="GP_Informacion" Header="Informacion" HorizontalAlignment="Right" Height="200" Margin="0,50,10,0" VerticalAlignment="Top" Width="250">
+                <Grid>
+                    <Image Name="Edit_btn" HorizontalAlignment="Left" Height="26" Margin="226,-18,-9.6,0" VerticalAlignment="Top" Width="26"  MouseLeftButtonDown="Edit_btn_Click" Source="../iconos/editar.png"/>
+                    <Image Name="Accept_btn" HorizontalAlignment="Left" Height="26" Margin="226,-18,-9.6,0" VerticalAlignment="Top" Width="26" Visibility="Hidden" MouseLeftButtonDown="Accept_btn_click" Source="../iconos/palomita.png"/>
+                    <Image Name="Canel_btn" HorizontalAlignment="Left" Height="26" Margin="195,-18,0,0" VerticalAlignment="Top" Width="26" Visibility="Hidden" MouseLeftButtonDown="Cancel_btn_click" Source="../iconos/cancelar.png"/>
+                    <Label Content="Nombre" HorizontalAlignment="Left" Margin="21,13,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Encargado" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Telefono" HorizontalAlignment="Left" Margin="21,75,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Direccion" HorizontalAlignment="Left" Margin="16,106,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="Tienda_Nombre" HorizontalAlignment="Left" Height="18" Margin="92,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
+                    <TextBox Name="Tienda_Encargado" HorizontalAlignment="Left" Height="18" Margin="92,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
+                    <TextBox Name="Tienda_Telefono" HorizontalAlignment="Left" Height="18" Margin="92,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
+                    <TextBox Name="Tienda_Direccion" HorizontalAlignment="Left" Height="18" Margin="92,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
+                    <Button Name="eliminar_btn" Content="Eliminar tienda" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Coral" Margin="0,0,0,5" Click="eliminar_btn_Click" Visibility="Hidden"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="gbox_totales" Header="Totales" HorizontalAlignment="Right" Height="100" Margin="0,270,42.5,0" VerticalAlignment="Top" Width="185" Loaded="gbox_totales_Loaded">
+                <Grid>
+                    <Label Content="Cantidad Total: " Margin="0, 10, 83, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="label_cantidad_total" Margin="80, 10, 0, 0" Content="1234567890123" HorizontalAlignment="Left"/>
+                    <Label Content="Valor Total: " Margin="0, 36, 83, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="label_valor_total" Margin="80, 36, 0, 0" Content="1234567890123" HorizontalAlignment="Left"/>
+                </Grid>
+            </GroupBox>
+            <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 10, 10" Width="250">
+                <Button Content="Liquidar" Name="btn_Informe" HorizontalAlignment="Center"  Margin="0,0,0,166" VerticalAlignment="Bottom" Width="100" FontSize="20" Background="Aquamarine" Click="btn_Informe_Click"/>
+                <Button Content="Transferir" Name="btn_entrada" HorizontalAlignment="Center"  Margin="0,0,0,126" VerticalAlignment="Bottom" Width="100" FontSize="20" Background="Aquamarine" Click="btn_entrada_Click"/>
+                <Label Foreground="Red" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <Button Content="Deudas" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,86" VerticalAlignment="Bottom" Background="Aquamarine" Click="Button_Click_1" Width="100" />
+                <Button x:Name="btn_Actualizar" Content="Act Precios" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,46" VerticalAlignment="Bottom" Background="Aquamarine" Width="100" Click="btn_Actualizar_Click" />
+                <Button x:Name="btn_GenExcel" Content="Gen Excel" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,10" VerticalAlignment="Bottom" Background="Aquamarine" Width="100" Click="btn_GenExcel_Click" />
+                
             </Grid>
-        </GroupBox>
-        <Button Content="Liquidar" Name="btn_Informe" HorizontalAlignment="Left"  Margin="605,342,0,0" VerticalAlignment="Top" Width="100" FontSize="20" Background="Aquamarine" Click="btn_Informe_Click"/>
-        <Button Content="Transferir" Name="btn_entrada" HorizontalAlignment="Left"  Margin="605,378,0,0" VerticalAlignment="Top" Width="100" FontSize="20" Background="Aquamarine" Click="btn_entrada_Click"/>
-        <Label Foreground="Red" HorizontalAlignment="Left" Margin="221,564,0,0" VerticalAlignment="Top"/>
-        <Button Content="Deudas" HorizontalAlignment="Left" FontSize="20" Margin="605,414,0,0" VerticalAlignment="Top" Background="Aquamarine" Click="Button_Click_1" Width="100" />
-        <Button x:Name="btn_Actualizar" Content="Act Precios" HorizontalAlignment="Left" FontSize="20" Margin="605,450,0,0" VerticalAlignment="Top" Background="Aquamarine" Width="100" Click="btn_Actualizar_Click" />
-        <Button x:Name="btn_GenExcel" Content="Gen Excel" HorizontalAlignment="Left" FontSize="20" Margin="605,486,0,0" VerticalAlignment="Top" Background="Aquamarine" Width="100" Click="btn_GenExcel_Click" />
-        <Button Name="eliminar_btn" Content="Eliminar tienda" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Coral" Margin=" 1,1" Click="eliminar_btn_Click"/>
+        </Grid>
     </Grid>
 </Page>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfAplicacion"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       Title="PaginaSucursalEntrda">
 
@@ -12,46 +13,59 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <x:Array Type="sys:Double" x:Key="array">
+                <sys:Double>
+                    50
+                </sys:Double>
+                <sys:Double>
+                    2
+                </sys:Double>
+            </x:Array>
+            <local:ValorMenosConstante x:Key="ValorMenosConstante"/>
+            <local:DivididoMenosValor x:Key="DivididoMenosValor"/>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="grid_contenedor_global">
         <local:TopMenu Title="Transeferencia a Tienda Externa"/>
-        <Grid HorizontalAlignment="Left" Height="530" Margin="40,60,0,0" VerticalAlignment="Top" Width="720" Background="LightGray">
-            <Button Style="{StaticResource Accept}" Margin="513,455,0,0" Click="Button_Click"/>
-            <Button Style="{StaticResource Cancel}" Margin="607,455,0,0" Click="CancelEntry_Click"/>
-            <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="300" Margin="10,119,0,0" VerticalAlignment="Top" Width="300" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="BE" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Defect" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Header="Total" IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid x:Name="dgrid_entrada" HorizontalAlignment="Left" Height="300" Margin="410,119,0,0" VerticalAlignment="Top" Width="300" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado, UpdateSourceTrigger=PropertyChanged}" Header="BE"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso, UpdateSourceTrigger=PropertyChanged}" Header="Defec"/>
-                    <DataGridTextColumn Binding="{Binding Path=CantidadTotal, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Header="Total" IsReadOnly="True"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Left" Margin="315,224,0,0" VerticalAlignment="Top" Width="90" Click="btn_Agregar_Click" RenderTransformOrigin="0.757,0.65"/>
-            <Button Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Margin="315,270,0,0" VerticalAlignment="Top" Width="90" Click="btn_Eliminar_Click_1" />
-            <Label Content="Existencia" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.255,0.359" Width="300"/>
-            <Label Content="Entrada" HorizontalAlignment="Left" Margin="410,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.768,0.203" Width="300"/>
-            <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="96" Margin="10,424,0,0" VerticalAlignment="Top" Width="255">
-                <Grid>
-                    <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
-                    <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
-                    <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
-                    <Label Content="Descrip" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
-                    <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
-                </Grid>
-            </GroupBox>
+        <Grid x:Name="grid_contenedor">
+            <!--Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=65, ElementName=grid_contenedor, Path=ActualHeight}"-->
+            <!--Width="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=20, ElementName=grid_contenedor, Path=ActualWidth}"-->
+            <Grid HorizontalAlignment="Left" Width="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=20, ElementName=grid_contenedor, Path=ActualWidth}" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=65, ElementName=grid_contenedor, Path=ActualHeight}"  Margin="10,55,10,0" VerticalAlignment="Top" Background="LightGray">
+                <Button Style="{StaticResource Accept}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,95,10" Click="Button_Click"/>
+                <Button Style="{StaticResource Cancel}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="CancelEntry_Click"/>
+                <DataGrid x:Name="dgrid_productos" Width="{Binding Converter={StaticResource DivididoMenosValor}, ConverterParameter={StaticResource ResourceKey=array}, ElementName=grid_contenedor, Path=ActualWidth}" HorizontalAlignment="Left" Height="{Binding Converter={StaticResource ValorMenosConstante}, ElementName=grid_contenedor, Path=ActualHeight, ConverterParameter=207}" Margin="10,36,0,0" VerticalAlignment="Top" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado}" Header="BE" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso}" Header="Defect" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding Path=CantidadTotal}" Header="Total" IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid x:Name="dgrid_entrada" Height="{Binding Converter={StaticResource ValorMenosConstante}, ElementName=grid_contenedor, Path=ActualHeight, ConverterParameter=207}" Width="{Binding Converter={StaticResource DivididoMenosValor}, ConverterParameter={StaticResource ResourceKey=array}, ElementName=grid_contenedor, Path=ActualWidth}" HorizontalAlignment="Right"  Margin="0,36,10,0" VerticalAlignment="Top" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Cod" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=CantidadBuenEstado, UpdateSourceTrigger=PropertyChanged}" Header="BE"/>
+                        <DataGridTextColumn Binding="{Binding Path=CantidadDefectuoso, UpdateSourceTrigger=PropertyChanged}" Header="Defec"/>
+                        <DataGridTextColumn Binding="{Binding Path=CantidadTotal, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Header="Total" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Center" Margin="0,224,0,0" VerticalAlignment="Top" Width="60" Click="btn_Agregar_Click" RenderTransformOrigin="0.757,0.65"/>
+                <Button Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Center" Margin="0,270,0,0" VerticalAlignment="Top" Width="60" Click="btn_Eliminar_Click_1" />
+                <Label Content="Existencia" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.255,0.359" Width="{Binding ElementName=dgrid_productos, Path=ActualWidth}" HorizontalContentAlignment="Center"/>
+                <Label Content="Entrada" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="1.768,0.203" Width="{Binding ElementName=dgrid_entrada, Path=ActualWidth}" HorizontalContentAlignment="Center"/>
+                <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="96" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="255">
+                    <Grid>
+                        <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                        <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
+                        <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                        <Label Content="Descrip" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
+                        <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </Grid>
-
     </Grid>
 </Page>

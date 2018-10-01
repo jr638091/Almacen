@@ -33,7 +33,7 @@ namespace WpfAplicacion
         {
             InitializeComponent();
             this.DataContext = this;
-        }
+        } 
 
         private DependencyObject GetDependencyObjectFromVisualTree(DependencyObject startObject, Type type)
 

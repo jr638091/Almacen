@@ -297,8 +297,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app_data\" />
+    <Folder Include="data\" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="iconos\18404.png" />
     <Resource Include="iconos\almacen.png" />
+    <Resource Include="iconos\close.png" />
+    <Resource Include="iconos\graphic1.png" />
+    <Resource Include="iconos\graphic2.png" />
+    <Resource Include="iconos\graphic3.png" />
     <Resource Include="iconos\Home.jpg" />
     <Resource Include="iconos\home.png" />
     <Resource Include="iconos\informe.png" />
@@ -308,16 +316,17 @@
     <Resource Include="iconos\tiendas.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="iconos\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app_data\" />
-    <Folder Include="data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="iconos\graphic1.png" />
-    <Resource Include="iconos\graphic2.png" />
-    <Resource Include="iconos\graphic3.png" />
+    <Resource Include="iconos\cancelar.png" />
+    <Resource Include="iconos\editar.png" />
+    <Resource Include="iconos\estadisticas2.png" />
+    <Resource Include="iconos\Home baner.jpg" />
+    <Resource Include="iconos\i.bmp" />
+    <Resource Include="iconos\palomita.png" />
+    <Resource Include="iconos\tiendas4.png" />
+    <Resource Include="iconos\venta.png" />
+    <Resource Include="iconos\venta2.png" />
+    <Resource Include="iconos\venta3.png" />
+    <Resource Include="iconos\venta4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

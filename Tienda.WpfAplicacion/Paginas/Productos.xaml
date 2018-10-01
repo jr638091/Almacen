@@ -13,37 +13,39 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ValorMenosConstante x:Key="ValorMenosConstante"/>
+
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Loaded="Grid_Loaded">
         <local:TopMenu Title="Productos en el Almacen"/>
         <local:MenuControl/>
-        <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="99" Margin="247,88,0,0" VerticalAlignment="Top" Width="270">
-            <Grid>
-                <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14"  Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
-                <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
-                <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
-                <Label Content="Descrip" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
-                <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
-            </Grid>
-        </GroupBox>
-        <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="371" Margin="247,203,0,0" VerticalAlignment="Top" Width="270" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" CellEditEnding="dgrid_productos_CellEditEnding" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" IsReadOnly="False"/>
-                <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" IsReadOnly="False"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Entrada" HorizontalAlignment="Left" Height="29" Margin="634,83,0,0" VerticalAlignment="Top" Width="97" Background="Aquamarine" Click="Entrada_Button_Click"/>
-        <Label Content="Productos" HorizontalAlignment="Left" Height="38" Margin="247,45,0,0" VerticalAlignment="Top" Width="270" HorizontalContentAlignment="Center"/>
-        <Label Content="Precios" HorizontalAlignment="Left" Height="40" Margin="634,117,0,0" VerticalAlignment="Top" Width="73"/>
-        <Label Content="Ubicacion" HorizontalAlignment="Left" Height="38" Margin="571,340,0,0" VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center"/>
-        <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="162" Margin="555,203,0,0" VerticalAlignment="Top" Width="191" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Nombre}" IsReadOnly="True" Header="Nombre de tienda"/>
-                <DataGridTextColumn Binding="{Binding Path=CantBE}" IsReadOnly="True" Header="Cant. BE"/>
-                <DataGridTextColumn Binding="{Binding Path=CantDef}" IsReadOnly="True" Header="Cant. def"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid x:Name="grid_contenedor">
+            <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="100" Margin="210,55,0,0" VerticalAlignment="Top" Width="270">
+                <Grid>
+                    <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14"  Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                    <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
+                    <TextBox x:Name="tbox_descripcion_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" FontSize="14" Margin="54,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
+                    <Label Content="Descrip" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
+                    <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
+                </Grid>
+            </GroupBox>
+            <DataGrid x:Name="dgrid_productos" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=175, ElementName=grid_contenedor, Path=ActualHeight}" HorizontalAlignment="Left" Margin="210,165,240,0" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserResizeRows="False" SelectionChanged="dgrid_productos_SelectionChanged" SelectionMode="Single" CellEditEnding="dgrid_productos_CellEditEnding" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Codigo}" Header="Codigo" Width="0.4*" IsReadOnly="False"/>
+                    <DataGridTextColumn Binding="{Binding Path=Descripcion}" Header="Descripcion" Width="0.6*" IsReadOnly="False"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Nueva Entrada" HorizontalAlignment="Right" Height="29" Margin="0,55,70,0" VerticalAlignment="Top" Width="100" Background="Aquamarine" Click="Entrada_Button_Click"/>
+            <Label Content="Existencia de Productos" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Right"  Margin="0,315,10,220" Width="220"/>
+            <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Right" Height="200" Margin="507,216,10,10" VerticalAlignment="Bottom" Width="220" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Nombre}" IsReadOnly="True" Header="Nombre de tienda"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantBE}" IsReadOnly="True" Header="Cant. BE"/>
+                    <DataGridTextColumn Binding="{Binding Path=CantDef}" IsReadOnly="True" Header="Cant. def"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>

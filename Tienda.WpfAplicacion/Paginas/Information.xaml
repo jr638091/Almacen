@@ -19,97 +19,98 @@
     <Grid>
         <local:MenuControl/>
         <local:TopMenu Title="Informes"/>
-        <Grid HorizontalAlignment="Left" Height="554" Margin="201,46,0,0" VerticalAlignment="Top" Width="599">
-            <TabControl Name="TC" SelectionChanged="TC_SelectionChanged">
-                <TabItem Name="liquidacion_tab" Width="99" Height="30" Header="Liquidacion">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="liquidacion_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="liquidacion_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
-                        <DatePicker Name="liquidacion_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Name="venta_tab" Width="99" Height="30" Header="Venta">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="venta_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="venta_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
-                        <DatePicker Name="venta_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Name="devoluciones_tab" Width="99" Height="30" Header="Devolucion">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="devoluciones_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="devoluciones_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
-                        <DatePicker Name="devoluciones_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Name="deuda_tab" Width="99" Height="30" Header="Deuda">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="deuda_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="deuda_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
-                        <DatePicker Name="deuda_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Name="transferencia_tab" Width="99" Height="30" Header="Transferencia">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="transferencia_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="transferencia_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
-                        <DatePicker Name="transferencia_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Name="entrada_tab" Width="99" Height="30" Header="Entrada">
-                    <Grid Margin="0,0,0,0">
-                        <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
-                            <StackPanel Name="entrada_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            </StackPanel>
-                        </ScrollViewer>
-                        <DatePicker Name="entrada_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
-                        <DatePicker Name="entrada_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
-                        <Label Margin="439,81,38.8,406">
-                            Filtrar por fecha
-                        </Label>
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
-                    </Grid>
-                </TabItem>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid HorizontalAlignment="Left" Height="554" Margin="201,46,0,0" VerticalAlignment="Top" Width="599">
+                <TabControl Name="TC" SelectionChanged="TC_SelectionChanged">
+                    <TabItem Name="liquidacion_tab" Width="99" Height="30" Header="Liquidacion">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="liquidacion_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="liquidacion_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
+                            <DatePicker Name="liquidacion_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="liquidacion_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="venta_tab" Width="99" Height="30" Header="Venta">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="venta_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="venta_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
+                            <DatePicker Name="venta_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="venta_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="devoluciones_tab" Width="99" Height="30" Header="Devolucion">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="devoluciones_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="devoluciones_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
+                            <DatePicker Name="devoluciones_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="devoluciones_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="deuda_tab" Width="99" Height="30" Header="Deuda">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="deuda_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="deuda_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
+                            <DatePicker Name="deuda_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="deuda_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="transferencia_tab" Width="99" Height="30" Header="Transferencia">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="transferencia_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="transferencia_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
+                            <DatePicker Name="transferencia_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="transferencia_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="entrada_tab" Width="99" Height="30" Header="Entrada">
+                        <Grid Margin="0,0,0,0">
+                            <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Margin="0,0,200,0">
+                                <StackPanel Name="entrada_sp" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                </StackPanel>
+                            </ScrollViewer>
+                            <DatePicker Name="entrada_dp_1" Margin="421,111,25.6,384" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
+                            <DatePicker Name="entrada_dp_2" Margin="421,168,25.6,327" SelectedDateChanged="Entrada_dp_1_CalendarClosed"/>
+                            <Label Margin="439,81,38.8,406">
+                                Filtrar por fecha
+                            </Label>
+                            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,137,75.8,0" Content="hasta" Width="42"/>
+                        </Grid>
+                    </TabItem>
 
 
 
-            </TabControl>
+                </TabControl>
+            </Grid>
         </Grid>
-
     </Grid>
 </Page>

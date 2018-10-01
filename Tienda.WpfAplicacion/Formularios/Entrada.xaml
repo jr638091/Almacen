@@ -13,19 +13,22 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ValorMenosConstante x:Key="ValorMenosConstante"/>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
         <local:TopMenu Title="Entrada al Almacen" />
-        <Grid HorizontalAlignment="Left" Height="533" Margin="252,57,0,0" VerticalAlignment="Top" Width="538" Background="LightGray" Loaded="Grid_Loaded">
-            <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="293" Margin="10,195,0,0" VerticalAlignment="Top" Width="194" AutoGenerateColumns="False" CanUserAddRows="False">
+        <Grid x:Name="grid_contenedor">
+            <!---->
+            <Grid x:Name="grid_contenedor_form" HorizontalAlignment="Left" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=65, ElementName=grid_contenedor, Path=ActualHeight}" Margin="205,55,10,10" VerticalAlignment="Top" Background="LightGray" Loaded="Grid_Loaded">
+            <DataGrid x:Name="dgrid_productos" HorizontalAlignment="Left" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=190, ElementName=grid_contenedor_form, Path=ActualHeight}" Margin="10,150,0,0" VerticalAlignment="Top" Width="255" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Codigo}" Width="0.3*" Header="Codigo" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.7*" Header="Descripcion" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="99" Margin="10,64,0,0" VerticalAlignment="Top" Width="255">
+            <GroupBox x:Name="gbox_buscar" Header="Buscar" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="255">
                 <Grid>
                     <TextBox x:Name="tbox_codigo_src" Style="{StaticResource placeHolder}" Tag="Escriba aqui" HorizontalAlignment="Left" Height="25" Margin="54,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103"/>
                     <Label Content="Codigo;" Height="25" Width="49" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.264,0.56"/>
@@ -34,7 +37,7 @@
                     <Button x:Name="btn_buscar" Content="Buscar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" Margin="163,12,0,0" Click="btn_buscar_Click"/>
                 </Grid>
             </GroupBox>
-            <DataGrid x:Name="dgrid_entrada"  HorizontalAlignment="Left" Height="379" Margin="270,109,0,0" VerticalAlignment="Top" Width="258" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding" Loaded="dgrid_entrada_Loaded" CanUserAddRows="False" >
+            <DataGrid x:Name="dgrid_entrada" HorizontalAlignment="Right" Height="{Binding Converter={StaticResource ValorMenosConstante}, ConverterParameter=150, ElementName=grid_contenedor_form, Path=ActualHeight}" Margin="320,110,10,40" VerticalAlignment="Top" AutoGenerateColumns="False" CellEditEnding="dgrid_entrada_CellEditEnding" Loaded="dgrid_entrada_Loaded" CanUserAddRows="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Codigo}"  Width="0.2*" Header="Cod" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Descripcion}" Width="0.3*" Header="Descripcion" IsReadOnly="True"/>
@@ -43,23 +46,23 @@
                     <DataGridTextColumn Binding="{Binding Path=CantidadTotal, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="0.18*" Header="Total" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button  Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Height="17" Margin="209,263,0,0" VerticalAlignment="Top" Width="56" Click="btn_Eliminar_Click"/>
-            <Button  Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Left" Height="17" Margin="209,241,0,0" VerticalAlignment="Top" Width="56" Click="btn_Agregar_Click"/>
-            <Label Content="Productos Codificados" HorizontalAlignment="Left" Margin="41,168,0,0" VerticalAlignment="Top"/>
-            <Label Content="Entrada" HorizontalAlignment="Left" Margin="306,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.391,0.531" Width="205" HorizontalContentAlignment="Center"/>
+            <Button  Name="btn_Eliminar" Content="Retirar" HorizontalAlignment="Left" Height="17" Margin="265,250,0,0" VerticalAlignment="Top" Width="50" Click="btn_Eliminar_Click"/>
+            <Button  Name="btn_Agregar" Content="Agregar" HorizontalAlignment="Left" Height="17" Margin="265,228,0,0" VerticalAlignment="Top" Width="50" Click="btn_Agregar_Click"/>
+            <Label Content="Productos Codificados" HorizontalContentAlignment="Center" Width="{Binding ElementName=dgrid_productos, Path=ActualWidth}" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
+            <Label Content="Entrada" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="{Binding ElementName=dgrid_entrada, Path=ActualWidth}" Margin="306,78,10,0" VerticalAlignment="Top"/>
 
-            <Button x:Name="btn_aceptar" Style="{StaticResource Accept}" Margin="347,503,0,0" Click="btn_aceptar_Click"/>
-            <Button x:Name="btn_cancelar" Style="{StaticResource Cancel}" Margin="436,503,0,0" Click="btn_cancelar_Click"/>
-            <DatePicker SelectedDate="{Binding Fecha, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="10,493,0,0" VerticalAlignment="Top" Width="93"/>
+            <Button x:Name="btn_aceptar" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource Accept}" Margin="0,0,95,10" Click="btn_aceptar_Click"/>
+            <Button x:Name="btn_cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource Cancel}" Margin="0,0,10,10" Click="btn_cancelar_Click"/>
+            <DatePicker SelectedDate="{Binding Fecha, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="306,25,0,0" VerticalAlignment="Top" Width="93"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="206" Margin="10,57,0,0" VerticalAlignment="Top" Width="184" Background="LightGray">
-            <Label Content="Codifique un nuevo producto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbox_codigo" Style="{StaticResource placeHolder}" Tag="Codigo" HorizontalAlignment="Left" Height="23" Margin="2,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
-            <TextBox x:Name="tbox_descripcion" Style="{StaticResource placeHolder}" Tag="Descripcion" HorizontalAlignment="Left" Height="23" Margin="2,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
-            <TextBox x:Name="tbox_precioBuenEstado" Style="{StaticResource placeHolder}" Tag="Buen Estado $" HorizontalAlignment="Left" Height="23" Margin="2,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
-            <TextBox x:Name="tbox_precioDefectuoso" Style="{StaticResource placeHolder}" Tag="Mal Estado $" HorizontalAlignment="Left" Height="23" Margin="86,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="88"/>
-            <Button x:Name="btn_adicionar" Content="Adicionar" HorizontalAlignment="Left" Margin="53,176,0,0" VerticalAlignment="Top" Width="75" Click="btn_adicionar_Click" RenderTransformOrigin="0.76,1"/>
-
+            <Grid HorizontalAlignment="Left" Height="210" Margin="10,55,0,0" VerticalAlignment="Top" Width="185" Background="LightGray">
+                <Label Content="Codifique un nuevo producto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbox_codigo" Style="{StaticResource placeHolder}" Tag="Codigo" HorizontalAlignment="Left" Height="23" Margin="2,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
+                <TextBox x:Name="tbox_descripcion" Style="{StaticResource placeHolder}" Tag="Descripcion" HorizontalAlignment="Left" Height="23" Margin="2,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+                <TextBox x:Name="tbox_precioBuenEstado" Style="{StaticResource placeHolder}" Tag="Buen Estado $" HorizontalAlignment="Left" Height="23" Margin="2,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
+                <TextBox x:Name="tbox_precioDefectuoso" Style="{StaticResource placeHolder}" Tag="Mal Estado $" HorizontalAlignment="Left" Height="23" Margin="86,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="88"/>
+                <Button x:Name="btn_adicionar" Content="Adicionar" HorizontalAlignment="Left" Margin="53,176,0,0" VerticalAlignment="Top" Width="75" Click="btn_adicionar_Click" RenderTransformOrigin="0.76,1"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

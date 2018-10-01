@@ -40,6 +40,7 @@ namespace WpfAplicacion.Formularios
                     source_deuda.Add(new liquidacion_deuda(item.ReporteDeudaId));
                 }
             }
+            dgrid_deudas.ItemsSource = null;
             dgrid_deudas.ItemsSource = source_deuda;
         }
 

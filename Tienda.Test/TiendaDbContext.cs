@@ -30,6 +30,7 @@ namespace Tienda.Test
         public DbSet<InformeLiquidacion> InformeLiquidaciones { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
         public DbSet<Existencia> Existencias { get; set; }
+        public DbSet<InformePagoDeuda> PagoDeuda { get; set; }
 
         IQueryable<Producto> Tienda_DataSource.Productos => Productos;
 
@@ -60,5 +61,7 @@ namespace Tienda.Test
         IQueryable<Existencia> Tienda_DataSource.Existencias => Existencias;
 
         IQueryable<ArticuloTransferencia> Tienda_DataSource.ArticuloTransferencias => ArticuloTransferencias;
+
+        IQueryable<InformePagoDeuda> Tienda_DataSource.InformePagoDeuda => PagoDeuda;
     }
 }

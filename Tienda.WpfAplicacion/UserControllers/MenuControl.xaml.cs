@@ -107,5 +107,11 @@ namespace WpfAplicacion
             Page pg = GetDependencyObjectFromVisualTree(this, typeof(Page)) as Page;
             pg.NavigationService.Navigate(new Estadisticas());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var bd = new BuscarDBVentana();
+            bd.ShowDialog();
+        }
     }
 }

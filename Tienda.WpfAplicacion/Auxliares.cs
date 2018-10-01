@@ -131,11 +131,15 @@ namespace WpfAplicacion
             {
                 db.ReporteVentas.Add(reporte);
                 db.SaveChanges();
+                double pagado = 0;
                 foreach (var art in Articulos)
                 {
                     var art_venta = art.genera_articulo(art);
                     reporte.Articulos.Add(art_venta);
+                    pagado += art_venta.Costo;
                 }
+                reporte.Pagado = pagado;
+                db.Entry(reporte).State = EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -150,6 +154,8 @@ namespace WpfAplicacion
         public string Descripcion { get; set; }
         public int CantidadBuenEstado { get; set; }
         public int CantidadDefectuoso { get; set; }
+        public double PrecioBuenEstado { get; set; }
+        public double PrecioDefectuoso { get; set; }
         public int CantidadTotal
         {
             get
@@ -168,6 +174,8 @@ namespace WpfAplicacion
                 this.Descripcion = existencia.Producto.Descripcion;
                 this.CantidadBuenEstado = existencia.CantidadBuenEstado;
                 this.CantidadDefectuoso = existencia.CantidadDefectuoso;
+                this.PrecioBuenEstado = existencia.PrecioBuenEstado;
+                this.PrecioDefectuoso = existencia.PrecioDefectuoso;
             }
             
         }
@@ -464,4 +472,35 @@ namespace WpfAplicacion
         }
     }
 
+
+    public class ValorMenosConstante : IValueConverter
+    {
+        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string aux = (string)parameter;
+            double valor = double.Parse(aux);
+            return (double)value - valor;
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DivididoMenosValor : IValueConverter
+    {
+        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var aux = (Double[])parameter;
+            double valor = aux[0];
+            double divisor = aux[1];
+            return (double)value/ divisor - valor;
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

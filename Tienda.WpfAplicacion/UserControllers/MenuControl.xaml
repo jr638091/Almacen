@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAplicacion"
-             mc:Ignorable="d" Height="600">
+             mc:Ignorable="d">
     <Grid>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="200" Background="LightBlue">
             <Grid HorizontalAlignment="Stretch" Height="45" Margin="0,120,0,0" VerticalAlignment="Top" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseEnter="Grid_MouseEnter">
@@ -33,6 +33,7 @@
                 <Image HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="45" Source="../iconos/graphic3.png"/>
             </Grid>
             <Label Content="Shopi" HorizontalAlignment="Left" Margin="45,44,0,0" VerticalAlignment="Top" Height="63" Width="113" FontSize="36" FontFamily="Viner Hand ITC"/>
+            <Button Content="Base de Datos" HorizontalAlignment="Left" Height="47" Margin="20,505,0,0" VerticalAlignment="Top" Width="101" Click="Button_Click"/>
 
         </Grid>
     </Grid>

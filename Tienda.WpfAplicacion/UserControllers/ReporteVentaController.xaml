@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfAplicacion.UserControllers"
              mc:Ignorable="d"
              >
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,12 +14,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid Name="grid_base">
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <DockPanel Name="dp">
                 <Grid DockPanel.Dock="Left">
-                    <Button Name="expand_btn" Margin="5,5" Content="+" VerticalAlignment="Top" HorizontalAlignment="Left" Height="15" Width="15" FontSize="10" Click="expand_btn_Click"/>
+                    <Button Name="expand_btn" Margin="5,0,0,0" Content="+" VerticalAlignment="Center" Height="15" Width="15" FontSize="16" Click="expand_btn_Click" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" TextOptions.TextHintingMode="Animated" BorderThickness="0"/>
                     <Button Name="colapse_btn" Margin="5,5" Content="-" VerticalAlignment="Top" HorizontalAlignment="Left" Height="15" Width="15" FontSize="10" Visibility="Hidden" Click="colapse_btn_Click"/>
                 </Grid>
                 <Label Style="{StaticResource Label_inf}" Name="fecha_inform" Content="XX-XX-XXXX"/>

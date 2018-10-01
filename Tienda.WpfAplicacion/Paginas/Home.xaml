@@ -8,12 +8,47 @@
         xmlns:Contols ="clr-namespace:WpfAplicacion.UserControllers"
       xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" x:Class="WpfAplicacion.Home"
       mc:Ignorable="d" 
-      Title="Home">
+      Title="Home"
+>
 
     <Grid >
         <local:MenuControl/>
         <local:TopMenu Title="Home"/>
+        <Grid Margin="200,45,0,0">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FF104B4B" >
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Image Source="../iconos/i.bmp" Margin="300,0,0,0" Width="302" Height="178" HorizontalAlignment="Right"/>
+                    <Label Content="Shop" FontSize="76" FontFamily="Viner Hand ITC" Margin="30,15" />
+                    <Label Content="Gestione su negocio de una" FontSize="23" FontFamily="Britannic Bold"  Margin="0,123,0,0" Background="Transparent"/>
+                    <Label Content="forma inteligente" FontSize="23" FontFamily="Britannic Bold"  Margin="44,160,0,0" Background="Transparent"/>
+                </Grid>
+            </Grid>
+            <Grid Margin="0,195, 0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
 
-
+                <Grid Grid.Column="0" Background="#FF0A4033">
+                    <Image  Margin="0,6,0,89" Width="100" Height="100" Source="../iconos/venta4.png"/>
+                    <TextBlock  Height="62" TextAlignment="Center" FontSize="14" Margin="24,193,10,57" Foreground="White">
+                    Realize ventas de manera <LineBreak/> rapida
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Column="1" Background="#FF0A4033">
+                    <Image Source="../iconos/tiendas4.png" Width="100" Height="100" Margin="50,10,50,98"/>
+                    <TextBlock  Height="62" Width="152" TextAlignment="Center" Margin="22,136,26,0" FontSize="14" Foreground="White">
+                    Manege el contenido<LineBreak/>de sus locales
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Column="2" Background="#FF0A4033">
+                    <Image Source="../iconos/estadisticas2.png" Width="100" Height="100" Margin="50,8,50,100"/>
+                    <TextBlock  Height="62" Width="200" TextAlignment="Center" Margin="0,132,0,0" FontSize="14" Foreground="white">
+                    Vea la evolucion de su negocio <LineBreak/> a traves de estadisticas
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
