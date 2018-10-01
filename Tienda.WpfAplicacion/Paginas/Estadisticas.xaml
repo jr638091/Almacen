@@ -12,8 +12,8 @@
     <Grid>
         <local:MenuControl/>
         <local:TopMenu/>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TabControl HorizontalAlignment="Left" Height="553" Margin="200,47,0,0" VerticalAlignment="Top" Width="600">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="200,45,0,0">
+            <TabControl>
                 <TabItem Header="Ventas x meses" Height="30">
                     <Grid Background="#FFE5E5E5">
                         <Wpf:CartesianChart Series="{Binding Data}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
