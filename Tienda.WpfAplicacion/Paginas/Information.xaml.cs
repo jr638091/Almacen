@@ -21,14 +21,6 @@ namespace WpfAplicacion
     /// </summary>
     /// 
 
-    static class extensores
-    {
-        static string Descripcion(this object source) {
-            return "Descripcion";
-        }
-        
-    }
-
     public partial class Information : Page
     {
         public Information()
@@ -40,60 +32,89 @@ namespace WpfAplicacion
         {
             private string d { get { return "hola"; } }
         }
-        
 
-        void fillVentas(Func<ReporteVenta,bool> pred)
+
+        void fillVentas(Func<ReporteVenta, bool> pred)
         {
+            int prods = 0;
+            double total = 0;
             venta_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteVentas.Where(pred).ToList();
                 List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "PrecioBuenEstado", "PrecioDefectuoso" };
                 foreach (var item in vs)
                 {
-                    var source = item.Articulos;
-                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
+                    List<objeto_venta> source2 = new List<objeto_venta>();
+                    foreach (var i in item.Articulos)
+                    {
+                        source2.Add(new objeto_venta(i.ArticuloVentaId));
+                        source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                        source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                    }
+                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header, path));
                     p.fecha_inform.Content = item.Fecha.ToString();
                     p.nombre_inform.Content = item.Trabajador.Nombre;
                     p.pago_inform.Content = "Pago: " + item.CostoTotal.ToString() + " $";
                     p.Background = Brushes.AntiqueWhite;
                     venta_sp.Children.Add(p);
+                    prods += item.CantidadTotal;
+                    total += item.CostoTotal;
                 }
             }
+            venta_prod_total.Content = prods.ToString();
+            venta_ganancia_total.Content = total.ToString();
         }
 
         void fillDevoluciones(Func<ReporteDevolucion, bool> pred) {
+            int total = 0;
             devoluciones_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteDevoluciones.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso" };
                 foreach (var item in vs)
                 {
-                    var source = item.Articulos;
-                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
+                    List<objeto_devolucion> source2 = new List<objeto_devolucion>();
+                    foreach (var i in item.Articulos)
+                    {
+                        source2.Add(new objeto_devolucion(i.ArticuloDevolucionId));
+                        source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                        source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                    }
+                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header, path));
                     p.fecha_inform.Content = item.Fecha.ToString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
                     devoluciones_sp.Children.Add(p);
+                    total += item.CantidadTotal;
                 }
             }
+            devolucion_total.Content = total.ToString();
         }
 
         void fillDeuda(Func<ReporteDeuda, bool> pred) {
+            double total = 0;
+            double pagada = 0;
             deuda_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteDeudas.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "PrecioBuenEstado", "PrecioDefectuoso" };
                 foreach (var item in vs)
                 {
-                    var source = item.Articulos;
-                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
+                    List<objeto_deuda> source2 = new List<objeto_deuda>();
+                    foreach (var i in item.Articulos)
+                    {
+                        source2.Add(new objeto_deuda(i.ArticuloDeudaId));
+                        source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                        source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                    }
+                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header, path));
                     p.fecha_inform.Content = item.Fecha.ToString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Pagado: " + item.Pagado.ToString() + " $";
@@ -103,54 +124,99 @@ namespace WpfAplicacion
                     p.dp.Children.Add(l);
                     p.Background = Brushes.AntiqueWhite;
                     deuda_sp.Children.Add(p);
+                    total += item.CostoTotal;
+                    pagada += item.Pagado;
                 }
+            }
+            deuda_total.Content = total.ToString();
+            deuda_pagado_total.Content = pagada.ToString();
+        }
+
+        class objeto_transferencia
+        {
+            public string Codigo { get; set; }
+            public string Descripcion { get; set; }
+            public int CantidadBuenEstado { get; set; }
+            public int CantidadDefectuoso { get; set; }
+            public int CantidadTotal { get { return this.CantidadDefectuoso + this.CantidadBuenEstado; } }
+
+            public objeto_transferencia(int obj_id) {
+                using (var db = new TiendaDbContext())
+                {
+                    var existencia = db.Existencias.Find(obj_id);
+                    this.Codigo = existencia.Codigo;
+                    this.Descripcion = existencia.Producto.Descripcion;
+                }
+                this.CantidadBuenEstado = 0;
+                this.CantidadDefectuoso = 0;
             }
         }
 
         void fillTranferencia(Func<ReporteTransferencia, bool> pred)
         {
+            int total = 0;
             transferencia_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteTransferencias.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME"};
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso" };
                 foreach (var item in vs)
                 {
-                    var source = item.Articulos;
-                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
+                    List<objeto_transferencia> source2 = new List<objeto_transferencia>();
+                    foreach (var i in item.Articulos)
+                    {
+                        source2.Add(new objeto_transferencia(i.ArticuloTransferenciaId));
+                        source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                        source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                    }
+                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header, path));
                     p.fecha_inform.Content = item.Fecha.ToString();
                     p.nombre_inform.Content = item.Tienda.Nombre;
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
                     transferencia_sp.Children.Add(p);
+                    total += item.CantidadTotal;
                 }
             }
+            transferencia_total.Content = total.ToString();
         }
 
         void fillEntrada(Func<ReporteEntrada, bool> pred)
         {
+            int total = 0;
             entrada_sp.Children.Clear();
             using (var db = new TiendaDbContext())
             {
                 var vs = db.ReporteEntradas.Where(pred).ToList();
-                List<string> header = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "Cant. Total" };
-                List<string> path = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "CantidadTotal" };
+                List<string> header = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME" };
+                List<string> path = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso" };
                 foreach (var item in vs)
                 {
-                    var source = item.Articulos;
-                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source, header, path));
+                    List<objeto_transferencia> source2 = new List<objeto_transferencia>();
+                    foreach (var i in item.Articulos)
+                    {
+                        source2.Add(new objeto_transferencia(i.ArticuloEntradaId));
+                        source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                        source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                    }
+                    var p = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header, path));
                     p.fecha_inform.Content = item.Fecha.ToString();
                     p.nombre_inform.Content = "Almacen";
                     p.pago_inform.Content = "Cant. de Productos: " + item.CantidadTotal.ToString();
                     p.Background = Brushes.AntiqueWhite;
                     entrada_sp.Children.Add(p);
+                    total += item.CantidadTotal;
                 }
             }
+            entrada_total.Content = total.ToString();
         }
 
         void fillLiquidacion(Func<InformeLiquidacion, bool> pred)
         {
+            int art = 0;
+            double deuda=0;
+            double ganancia=0;
             liquidacion_sp.Children.Clear();
             List<UIElement> t;
             using(var db = new TiendaDbContext())
@@ -160,33 +226,54 @@ namespace WpfAplicacion
                 {
                     t = new List<UIElement>();
                     if (item.ReporteVenta.CantidadTotal > 0) {
-                        List<string> header1 = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                        List<string> path1 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
-                        var source1 = item.ReporteVenta.Articulos;
+                        List<string> header1 = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
+                        List<string> path1 = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "PrecioBuenEstado", "PrecioDefectuoso" };
+                        List<objeto_venta> source1 = new List<objeto_venta>();
+                        foreach (var i in item.ReporteVenta.Articulos)
+                        {
+                            source1.Add(new objeto_venta(i.ArticuloVentaId));
+                            source1.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                            source1.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                        }
                         var ventas = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source1, header1, path1));
                         ventas.fecha_inform.Content = item.ReporteVenta.Fecha.ToString();
                         ventas.nombre_inform.Content = item.ReporteVenta.Tienda.Nombre;
                         ventas.pago_inform.Content = "Pago: " + item.ReporteVenta.CostoTotal.ToString() + " $";
                         ventas.Background = Brushes.White;
                         t.Add(ventas);
+                        art += item.ReporteVenta.CantidadTotal;
+                        ganancia += item.ReporteVenta.CostoTotal;
                     }
                     if (item.ReporteDevolucion.CantidadTotal > 0)
                     {
-                        var header2 = new List<string> { "Codigo", "Cant. BE", "Cant. ME" };
-                        var path2 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso" };
-                        var source2 = item.ReporteDevolucion.Articulos;
+                        List<string> header2 = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME"};
+                        List<string> path2 = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso"};
+                        List<objeto_devolucion> source2 = new List<objeto_devolucion>();
+                        foreach (var i in item.ReporteDevolucion.Articulos)
+                        {
+                            source2.Add(new objeto_devolucion(i.ArticuloDevolucionId));
+                            source2.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                            source2.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                        }
                         var devoluciones = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source2, header2, path2));
                         devoluciones.fecha_inform.Content = item.ReporteDevolucion.Fecha.ToString();
                         devoluciones.nombre_inform.Content = item.ReporteDevolucion.Tienda.Nombre;
                         devoluciones.pago_inform.Content = "Cant. de Productos: " + item.ReporteDevolucion.CantidadTotal.ToString();
                         devoluciones.Background = Brushes.White;
                         t.Add(devoluciones);
+                        art += item.ReporteDevolucion.CantidadTotal;
                     }
                     if (item.ReporteDeuda.CantidadTotal > 0)
                     {
-                        List<string> header3 = new List<string> { "Codigo", "Cant. BE", "Cant. ME", "BE $", "ME $" };
-                        List<string> path3 = new List<string> { "Codigo", "CantidadBuenEstado", "CantidadDefectuoso", "Precio", "PrecioDefectuoso" };
-                        var source3 = item.ReporteDeuda.Articulos;
+                        List<string> header3 = new List<string> { "Codigo", "Descripcion", "Cant. BE", "Cant. ME", "BE $", "ME $" };
+                        List<string> path3 = new List<string> { "Codigo", "Descripcion", "CantidadBuenEstado", "CantidadDefectuoso", "PrecioBuenEstado", "PrecioDefectuoso" };
+                        List<objeto_deuda> source3 = new List<objeto_deuda>();
+                        foreach (var i in item.ReporteDeuda.Articulos)
+                        {
+                            source3.Add(new objeto_deuda(i.ReporteDeudaId));
+                            source3.Last().CantidadBuenEstado = i.CantidadBuenEstado;
+                            source3.Last().CantidadDefectuoso = i.CantidadDefectuoso;
+                        }
                         var deudas = new UserControllers.ReporteVentaController(Metodos_Auxiliares.make_dg(source3, header3, path3));
                         deudas.fecha_inform.Content = item.ReporteDeuda.Fecha.ToString();
                         deudas.nombre_inform.Content = item.ReporteDeuda.Tienda.Nombre;
@@ -197,6 +284,8 @@ namespace WpfAplicacion
                         deudas.dp.Children.Add(l);
                         deudas.Background = Brushes.White;
                         t.Add(deudas);
+                        art += item.ReporteDeuda.CantidadTotal;
+                        deuda += item.ReporteDeuda.CostoTotal;
                     }
 
                     var p = new UserControllers.ReporteVentaController(t.ToArray());
@@ -205,6 +294,9 @@ namespace WpfAplicacion
                     p.nombre_inform.Content = item.Tienda.Nombre.ToString();
                     p.pago_inform.Content = "Cant. Articulos: " + (item.ReporteVenta.CantidadTotal + item.ReporteDevolucion.CantidadTotal + item.ReporteDeuda.CantidadTotal).ToString();
                     liquidacion_sp.Children.Add(p);
+                    liquidacion_art.Content = art.ToString();
+                    liquidacion_deuda.Content = deuda.ToString();
+                    liquidacion_ganancia.Content = ganancia.ToString();
                 }
             }
         }
@@ -246,13 +338,13 @@ namespace WpfAplicacion
             }
             if (mayor != null) mayor = mayor.Value.AddDays(1);
             else mayor = DateTime.MaxValue;
-            if (menor == null) menor = DateTime.MaxValue;
+            if (menor == null) menor = DateTime.MinValue;
             return new Tuple<DateTime, DateTime>((DateTime)menor, (DateTime)mayor);
         }
 
         private void liquidacion_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime,DateTime> t = calendar_change(liquidacion_dp_1, liquidacion_dp_2);
+            Tuple<DateTime,DateTime> t = calendar_change(liquidacion_dp_2, liquidacion_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillLiquidacion(x => x.Fecha >= a && x.Fecha <= b);
@@ -260,7 +352,7 @@ namespace WpfAplicacion
 
         private void Entrada_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime, DateTime> t = calendar_change(entrada_dp_1, entrada_dp_2);
+            Tuple<DateTime, DateTime> t = calendar_change(entrada_dp_2, entrada_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillEntrada(x => x.Fecha >= a && x.Fecha <= b);
@@ -268,7 +360,7 @@ namespace WpfAplicacion
 
         private void venta_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime, DateTime> t = calendar_change(venta_dp_1, venta_dp_2);
+            Tuple<DateTime, DateTime> t = calendar_change(venta_dp_2, venta_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillVentas(x => x.Fecha >= a && x.Fecha <= b);
@@ -276,7 +368,7 @@ namespace WpfAplicacion
 
         private void devoluciones_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime, DateTime> t = calendar_change(devoluciones_dp_1, devoluciones_dp_2);
+            Tuple<DateTime, DateTime> t = calendar_change(devoluciones_dp_2, devoluciones_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillDevoluciones(x => x.Fecha >= a && x.Fecha <= b);
@@ -284,7 +376,7 @@ namespace WpfAplicacion
 
         private void deuda_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime, DateTime> t = calendar_change(deuda_dp_1, deuda_dp_2);
+            Tuple<DateTime, DateTime> t = calendar_change(deuda_dp_2, deuda_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillDeuda(x => x.Fecha >= a && x.Fecha <= b);
@@ -292,11 +384,20 @@ namespace WpfAplicacion
 
         private void transferencia_dp_1_CalendarClosed(object sender, SelectionChangedEventArgs e)
         {
-            Tuple<DateTime, DateTime> t = calendar_change(transferencia_dp_1, transferencia_dp_2);
+            Tuple<DateTime, DateTime> t = calendar_change(transferencia_dp_2, transferencia_dp_1);
             DateTime a = t.Item1;
             DateTime b = t.Item2;
             fillTranferencia(x => x.Fecha >= a && x.Fecha <= b);
         }
 
+        private void TC_Loaded(object sender, RoutedEventArgs e)
+        {
+            fillLiquidacion(x => true);
+            fillVentas(x => true);
+            fillDevoluciones(x => true);
+            fillDeuda(x => true);
+            fillTranferencia(x => true);
+            fillEntrada(x => true);
+        }
     }
 }

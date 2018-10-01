@@ -35,9 +35,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Entrada" HorizontalAlignment="Left" Height="29" Margin="634,83,0,0" VerticalAlignment="Top" Width="97" Background="Aquamarine" Click="Entrada_Button_Click"/>
-        <Label Content="Productos" HorizontalAlignment="Left" Height="38" Margin="247,45,0,0" VerticalAlignment="Top" Width="270" HorizontalContentAlignment="Center"/>
-        <Label Content="Precios" HorizontalAlignment="Left" Height="40" Margin="634,117,0,0" VerticalAlignment="Top" Width="73"/>
-        <Label Content="Ubicacion" HorizontalAlignment="Left" Height="38" Margin="571,340,0,0" VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center"/>
+        <Label Content="Ubicacion" HorizontalAlignment="Left" Height="38" Margin="555,149,0,0" VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center"/>
         <DataGrid x:Name="dgrid_existencia" HorizontalAlignment="Left" Height="162" Margin="555,203,0,0" VerticalAlignment="Top" Width="191" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Nombre}" IsReadOnly="True" Header="Nombre de tienda"/>

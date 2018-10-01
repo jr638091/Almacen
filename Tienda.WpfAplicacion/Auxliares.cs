@@ -312,7 +312,7 @@ namespace WpfAplicacion
             DataGrid dg = new DataGrid();
             dg.AutoGenerateColumns = false;
             dg.ItemsSource = source;
-
+            dg.CanUserAddRows = false;
             for (int i = 0; i < path.Count; ++i)
             {
                 DataGridTextColumn t = new DataGridTextColumn();
